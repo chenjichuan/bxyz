@@ -1,0 +1,191 @@
+{
+  "code": 0,
+  "data": {
+    "name": {
+      "value": "",
+      "type": "input",
+      "label": "用户名",
+      "placeholder": "请输入用户名",
+      "maxlength": 7,
+      "rules": [{ "required": true, "message": "请填写用户名" }]
+    },
+    "password": {
+      "value": "",
+      "type": "password",
+      "label": "密码",
+      "maxlength": 10,
+      "placeholder": "请输入密码",
+      "rules": [{ "required": true, "message": "请填写密码" }]
+    },
+    "phone": {
+      "value": "",
+      "type": "input",
+      "label": "手机号",
+      "maxlength": 11,
+      "placeholder": "请输入手机号",
+      "rules": [{ "regExp": "/^1\\d{10}$/", "message": "请输入正确的手机号" }]
+    },
+    "swtichId": {
+      "value": false,
+      "type": "swtich",
+      "label": "开关"
+    },
+    "checkboxId": {
+      "value": true,
+      "label": "复选框",
+      "type": "checkbox"
+    },
+    "checkboxGrpId": {
+      "value": [
+        2
+      ],
+      "label": "一堆复选框",
+      "type": "checkboxGroup",
+      "options": [
+        {
+          "id": 1,
+          "text": "复选框 1"
+        },
+        {
+          "id": 2,
+          "text": "复选框 2"
+        }
+      ]
+    },
+    "radioGrpId": {
+      "value": "",
+      "label": "单选框",
+      "type": "radio",
+      "options": [
+        {
+          "id": 1,
+          "text": "单选框 1"
+        },
+        {
+          "id": 2,
+          "text": "单选框 2"
+        }
+      ]
+    },
+    "imgs": {
+      "value": [
+        {
+          "url": "https://img.yzcdn.cn/vant/leaf.jpg"
+        }
+      ],
+      "label": "图片上传",
+      "type": "upload"
+    },
+    "city": {
+      "value": 3,
+      "valueText": "温州",
+      "defaultIndex": 2,
+      "label": "单列选择",
+      "show": false,
+      "type": "picker",
+      "placeholder": "请选择城市",
+      "options": [
+        {
+          "id": 1,
+          "text": "杭州"
+        },
+        {
+          "id": 2,
+          "text": "宁波"
+        },
+        {
+          "id": 3,
+          "text": "温州"
+        },
+        {
+          "id": 4,
+          "text": "嘉兴"
+        },
+        {
+          "id": 5,
+          "text": "湖州"
+        }
+      ]
+    },
+    "dateTime": {
+      "valueText": "2020-8-25",
+      "value": 1598351110542,
+      "minDate": 1577808000000,
+      "maxDate": 1761926400000,
+      "show": false,
+      "label": "时间选择",
+      "type": "datetime",
+      "placeholder": "请选择时间"
+    },
+    "date": {
+      "value": "2020-8-16",
+      "format": "YYYY-MM-DD",
+      "show": false,
+      "label": "日期",
+      "type": "calendar",
+      "placeholder": "请选择日期"
+    },
+    "address": {
+      "value": "120101",
+      "valueText": "天津市/和平区",
+      "show": false,
+      "label": "住址",
+      "type": "area",
+      "placeholder": "请选择地址",
+      "options": {
+        "province_list": {
+          "110000": "北京市",
+          "120000": "天津市",
+          "310000": "上海市",
+          "440000": "广东省"
+        },
+        "city_list": {
+          "110100": "北京市",
+          "120100": "天津市",
+          "310100": "上海市",
+          "440100": "广州市",
+          "440200": "韶关市",
+          "440300": "深圳市",
+          "440400": "珠海市",
+          "440500": "汕头市",
+          "440600": "佛山市",
+          "440700": "江门市",
+          "440800": "湛江市",
+          "440900": "茂名市"
+        },
+        "county_list": {
+          "110101": "东城区",
+          "110102": "西城区",
+          "110105": "朝阳区",
+          "110106": "丰台区",
+          "120101": "和平区",
+          "120102": "河东区",
+          "120103": "河西区",
+          "120104": "南开区",
+          "120105": "河北区",
+          "310101": "黄浦区",
+          "310104": "徐汇区",
+          "310105": "长宁区",
+          "310106": "静安区",
+          "310107": "普陀区",
+          "310109": "虹口区",
+          "310110": "杨浦区",
+          "310112": "闵行区",
+          "310113": "宝山区",
+          "310114": "嘉定区",
+          "310115": "浦东新区",
+          "310116": "金山区",
+          "310117": "松江区",
+          "310118": "青浦区",
+          "310120": "奉贤区",
+          "310151": "崇明区"
+        }
+      }
+    },
+    "extend": {
+      "clueId": 72141513,
+      "sourceId": 63432124,
+      "userId": 36439
+    }
+  }
+}
