@@ -17,12 +17,10 @@ module.exports = {
     'plugin:vue/recommended', // 1
     'plugin:vue/strongly-recommended',
     'eslint:recommended',
-    '@vue/standard',
     'plugin:vue/essential',
   ],
 
   plugins: [
-    'html'
   ],
 
   globals: {

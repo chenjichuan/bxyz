@@ -1,10 +1,12 @@
 import Vue from 'vue'
-import './plugins/axios/axios'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import './plugins/axios'
+import './plugins/iview'
+import './plugins/vueLs'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = !eval(process.env.VUE_APP_IS_DEV)
 
 new Vue({
   store,
