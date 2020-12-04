@@ -6,7 +6,7 @@
 
 <style lang="less">
   html {
-    min-width: 1170px;
+    min-width: 1920px;
   }
 
   html, body {

@@ -30,11 +30,13 @@
       .ivu-tabs-nav-container {
         font-weight: 400;
         font-size: 16px;
+        color: #D4FFE9;
       }
       .ivu-tabs-tab-active {
       }
       .ivu-tabs-tab {
         padding: 15px 16px;
+
       }
     }
   }

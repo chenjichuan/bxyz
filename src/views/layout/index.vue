@@ -5,6 +5,7 @@
         <div class="center">
           <Logo class="logo" :src="logoImg" w="153" h="65" />
           <TobTabs class="tabs" />
+          <Actions />
         </div>
       </Header>
       <Content class="main-content">
@@ -19,13 +20,15 @@
   import logoImg from '@/assets/images/logos/logo.png'
   import Logo from '@/components/logo'
   import TobTabs from './components/tabs'
+  import Actions from './components/actions'
   export default {
-    components: { TobTabs, Logo },
+    components: { TobTabs, Logo, Actions },
     data () {
       return {
         logoImg
       }
-    }
+    },
+
   }
 </script>
 
@@ -39,18 +42,21 @@
   }
   .main-header {
     height: auto;
-    background-color: #fff;
-    padding: 30px 123px 29px 123px;
+    background: #82A694;
+    padding: 30px 6.4% 30px 6.4%;
     .center {
       position: relative;
-      border-bottom: 1px solid rgba(227, 227, 227, 0.3);
+      /*border-bottom: 1px solid rgba(227, 227, 227, 0.3);*/
       display: flex;
       .logo {
-        margin-right: 105px;
+        margin-right: 7.8%;
         margin-bottom: 14px;
+        flex-shrink: 0;
       }
       .tabs {
-        transform: translateY(25px)
+        transform: translateY(26px);
+        min-width: 640px;
+        margin-right: 2.9%;
       }
     }
   }
