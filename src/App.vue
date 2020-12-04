@@ -5,12 +5,18 @@
 </template>
 
 <style lang="less">
-html, body {
-  height: 100%;
-}
+  html {
+    min-width: 1170px;
+  }
+
+  html, body {
+    height: 100%;
+  }
 </style>
 <style lang="less" scoped>
   #app {
     height: 100%;
+    width: 100%;
+    overflow: auto;
   }
 </style>
