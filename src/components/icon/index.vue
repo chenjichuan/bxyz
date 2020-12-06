@@ -4,6 +4,10 @@
     <img v-if="type === 'cart'" src="../../assets/images/icons/cart.png">
     <img v-if="type === 'tel'" src="../../assets/images/icons/tel.png" style="padding: 4px">
     <img v-if="type === 'quit'" src="../../assets/images/icons/quit.png">
+    <img v-if="type === 'law'" src="../../assets/images/icons/law-normal.png">
+    <img v-if="type === 'relieved'" src="../../assets/images/icons/relieved-normal.png">
+    <img v-if="type === 'safeguard'" src="../../assets/images/icons/safeguard-normal.png">
+    <img v-if="type === 'counsel'" src="../../assets/images/icons/counsel-hover.png">
   </i>
 </template>
 
