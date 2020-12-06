@@ -5,6 +5,7 @@ import router from './router'
 import './plugins/axios'
 import './plugins/iview'
 import './plugins/vueLs'
+import './plugins/video'
 
 Vue.config.productionTip = !eval(process.env.VUE_APP_IS_DEV)
 
