@@ -4,10 +4,21 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+  // { path: '*',  redirect: 'home', },
   {
     path: '/',
     name: 'root',
-    component: resolve => import('@/views/layout').then(resolve), // 页面基础框架
+    redirect: 'home',
+    component: resolve => import('@/views/layout').then(resolve),
+    children: [{
+      path: '/home',
+      name: 'home',
+      component: resolve => import('@/views/home').then(resolve)
+    }, {
+      path: '/business-show',
+      name: 'business-show',
+      component: resolve => import('@/views/business-show').then(resolve)
+    }]
   },
 ]
 

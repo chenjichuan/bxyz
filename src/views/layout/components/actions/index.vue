@@ -4,8 +4,14 @@
     <div class="infos">
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
-      <Icons type="cart" />
-      <Icons :url="test" />
+      <Icons type="cart" style="margin-right: 39px;" />
+      <div class="user">
+        <Icons class="user-icon" :url="test" w="40" h="40" style="" />
+        <span class="user-name">Jessica</span>
+        <Tooltip content="退出" placement="bottom">
+          <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
+        </Tooltip>
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +63,25 @@
     width: 100%;
     display: flex;
     padding-top: 6px;
-    margin-left: 8%;
+    margin-left: 50px;
+  }
+  .user {
+    display: flex;
+    align-items: center;
+    transform: translateY(-28px);
+    .user-icon {
+      border-radius: 100%;
+      overflow: hidden;
+      border: 2px solid #fff;
+    }
+    .user-name {
+      font-size: 14px;
+      font-family: SourceHanSansSC-Normal;
+      line-height: 19px;
+      color: #FFFFFF;
+      margin-left: 15px;
+      margin-right: 13px;
+    }
   }
 }
 </style>

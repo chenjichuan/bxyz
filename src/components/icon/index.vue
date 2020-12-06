@@ -1,8 +1,9 @@
 <template>
-  <i class="icons">
-    <img v-if="type === 'cart'" src="../../assets/images/icons/cart.png" alt="">
-    <img v-if="type === 'tel'" src="../../assets/images/icons/tel.png" alt="">
-    <img v-if="url" :src="url" alt="">
+  <i class="icons" :style="{width: w + 'px', height: h + 'px'}">
+    <img v-if="url" :src="url" />
+    <img v-if="type === 'cart'" src="../../assets/images/icons/cart.png">
+    <img v-if="type === 'tel'" src="../../assets/images/icons/tel.png" style="padding: 4px">
+    <img v-if="type === 'quit'" src="../../assets/images/icons/quit.png">
   </i>
 </template>
 
@@ -14,6 +15,14 @@
         default: ''
       },
       url: {
+        type: String,
+        default: ''
+      },
+      w: {
+        type: String,
+        default: ''
+      },
+      h: {
         type: String,
         default: ''
       }

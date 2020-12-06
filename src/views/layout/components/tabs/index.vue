@@ -1,21 +1,26 @@
 <template>
-  <Tabs class="mod-top-tabs" value="">
-    <TabPane v-for="item in tabs" :key="item.name" :label="item.label" :name="item.name" />
+  <Tabs class="mod-top-tabs" :value="$route.name" @on-click="tabClickHandler">
+    <TabPane v-for="item in tabs" :key="item.name" :label="item.label" :name="item.name"/>
   </Tabs>
 </template>
 
 <script>
   export default {
-    data () {
+    data() {
       return {
         tabs: [
-          { label: '首页', name: '1' },
-          { label: '业务展示', name: '2' },
-          { label: '专业团队', name: '3' },
-          { label: '视频展示', name: '4' },
-          { label: '宜众资讯', name: '5' },
-          { label: '联系我们', name: '6' },
+          {label: '首页', name: 'home'},
+          {label: '业务展示', name: 'business-show'},
+          {label: '专业团队', name: '3'},
+          {label: '视频展示', name: '4'},
+          {label: '宜众资讯', name: '5'},
+          {label: '联系我们', name: '6'},
         ]
+      }
+    },
+    methods: {
+      tabClickHandler (name) {
+        this.$router.push({ name })
       }
     }
   }
