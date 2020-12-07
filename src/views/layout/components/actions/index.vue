@@ -5,10 +5,15 @@
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
       <Icons type="cart" style="margin-right: 39px;" />
-      <div class="user">
+      <div class="user" v-if="false">
         <Avatar class="user-icon" size="40" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
         <span class="user-name">Jessica</span>
         <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
+      </div>
+      <div v-else class="user">
+        <a href="javascript:;" @click="$router.push({name: 'home/login'})">登录</a>
+        <span class="line"/>
+        <a href="javascript:;" @click="$router.push({name: 'home/register'})">注册</a>
       </div>
     </div>
   </div>
@@ -67,6 +72,19 @@
     display: flex;
     align-items: center;
     transform: translateY(-28px);
+    a {
+      color: #fff;
+      &:hover {
+        color: #D4FFE9;
+      }
+    }
+    .line {
+      height: 14px;
+      display: inline-block;
+      width: 1px;
+      background-color: #fff;
+      margin: 0 10px;
+    }
     .user-icon {
       border-radius: 100%;
       overflow: hidden;
@@ -74,7 +92,6 @@
     }
     .user-name {
       font-size: 14px;
-      font-family: SourceHanSansSC-Normal;
       line-height: 19px;
       color: #FFFFFF;
       margin-left: 15px;
