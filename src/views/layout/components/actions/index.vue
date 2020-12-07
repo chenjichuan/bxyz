@@ -6,11 +6,9 @@
       <p class="number">4000-111-528</p>
       <Icons type="cart" style="margin-right: 39px;" />
       <div class="user">
-        <Icons class="user-icon" :url="test" w="40" h="40" style="" />
+        <Avatar class="user-icon" size="40" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
         <span class="user-name">Jessica</span>
-        <Tooltip content="退出" placement="bottom">
-          <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
-        </Tooltip>
+        <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
       </div>
     </div>
   </div>

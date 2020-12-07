@@ -35,6 +35,7 @@
     data() {
       return {
         playerOptions: {
+          preload: 'none',
           muted: false,
           language: 'cn',
           playbackRates: [0.7, 1.0, 1.5, 2.0],
