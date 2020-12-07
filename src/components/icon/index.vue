@@ -7,6 +7,11 @@
     <img v-if="type === 'relieved'" src="../../assets/images/icons/relieved-normal.png">
     <img v-if="type === 'safeguard'" src="../../assets/images/icons/safeguard-normal.png">
     <img v-if="type === 'counsel'" src="../../assets/images/icons/counsel-hover.png">
+    <img v-if="type === 'play'" src="../../assets/images/icons/play-icon.png">
+    <img v-if="type === 'location'" src="../../assets/images/icons/location.png">
+    <img v-if="type === 'email'" src="../../assets/images/icons/email.png">
+    <img v-if="type === 'phone'" src="../../assets/images/icons/phone.png">
+    <img v-if="type === 'net'" src="../../assets/images/icons/net.png">
   </i>
 </template>
 
