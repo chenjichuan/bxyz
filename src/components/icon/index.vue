@@ -8,6 +8,13 @@
     <img v-if="type === 'relieved'" src="../../assets/images/icons/relieved-normal.png">
     <img v-if="type === 'safeguard'" src="../../assets/images/icons/safeguard-normal.png">
     <img v-if="type === 'counsel'" src="../../assets/images/icons/counsel-hover.png">
+    <img v-if="type === 'order'" src="../../assets/images/icons/order.png">
+    <img v-if="type === 'fw'" src="../../assets/images/icons/fw.png">
+    <img v-if="type === 'zl'" src="../../assets/images/icons/zl.png">
+    <img v-if="type === 'id'" src="../../assets/images/icons/id.png">
+    <img v-if="type === 'lock'" src="../../assets/images/icons/lock.png">
+    <img v-if="type === 'fp'" src="../../assets/images/icons/fp.png">
+    <img v-if="type === 'server'" src="../../assets/images/icons/server.png">
   </i>
 </template>
 

@@ -9,6 +9,7 @@
         </div>
       </Header>
       <Content class="main-content">
+        <Bread class="bread-crumb" />
         <router-view />
       </Content>
       <Footer class="main-footer">
@@ -42,9 +43,10 @@
   import Logo from '@/components/logo'
   import TobTabs from './components/tabs'
   import Actions from './components/actions'
+  import Bread from './components/bread'
 
   export default {
-    components: {TobTabs, Logo, Actions},
+    components: {TobTabs, Logo, Actions, Bread},
     data() {
       return {
         logoImg,
@@ -101,6 +103,11 @@
     }
     .main-content {
       background-color: #fff;
+      .bread-crumb {
+        margin-left: 70px;
+        margin-top: 26px;
+        margin-bottom: 30px;
+      }
     }
     .main-footer {
       background: #fff;
