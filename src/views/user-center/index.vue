@@ -1,7 +1,7 @@
 <template>
   <div class="mod-user-center">
     <Layout style="padding-bottom: 100px;background-color: #fff;">
-      <Sider hide-trigger width="330">
+      <Sider hide-trigger width="330" style="margin-right: 30px;">
         <Menu class="menu" :active-name="$route.name" width="330px" @on-select="menuClick">
           <MenuGroup title="会员中心">
             <MenuItem v-for="item in menu" :key="item.name" :name="item.name">

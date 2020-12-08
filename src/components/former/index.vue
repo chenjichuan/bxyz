@@ -125,7 +125,7 @@
     </template>
     <FormItem v-if="submitButton">
       <Button v-if="cancelButton" type="text" size="large">取消</Button>
-      <Button type="primary" size="large">确定</Button>
+      <Button type="primary" size="large" id="submit" @click="handleSubmit">保存</Button>
     </FormItem>
   </Form>
 </template>
@@ -250,5 +250,12 @@
 
   .sub-titles {
     font-size: 16px;
+  }
+  #submit {
+    width: 200px;
+    height: 50px;
+    background: #82A694;
+    opacity: 1;
+    border-radius: 25px;
   }
 </style>
