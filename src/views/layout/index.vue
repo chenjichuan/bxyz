@@ -44,7 +44,7 @@
   import TobTabs from './components/tabs'
   import Actions from './components/actions'
   import Bread from './components/bread'
-
+  import { mapMutations } from 'vuex'
   export default {
     components: {TobTabs, Logo, Actions, Bread},
     data() {
@@ -69,7 +69,17 @@
         ]
       }
     },
-
+    created () {
+      this.initBreadcrumb(this.$route)
+    },
+    methods: {
+      ...mapMutations(['setBreadcrumb', 'initBreadcrumb'])
+    },
+    watch: {
+      '$route' (newV, oldV) {
+        this.setBreadcrumb([oldV, newV])
+      }
+    }
   }
 </script>
 

@@ -5,8 +5,13 @@
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
       <Icons type="cart" style="margin-right: 39px;" />
-      <div class="user" v-if="false">
-        <Avatar class="user-icon" size="40" src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
+      <div class="user" v-if="true">
+        <Avatar
+          class="user-icon" size="40"
+          style="cursor:pointer;"
+          src="https://i.loli.net/2017/08/21/599a521472424.jpg"
+          @click.native="$router.push({ name: 'user-center' })"
+        />
         <span class="user-name">Jessica</span>
         <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
       </div>

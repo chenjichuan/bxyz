@@ -2,7 +2,7 @@
   <div class="mod-user-center">
     <Layout style="padding-bottom: 100px;background-color: #fff;">
       <Sider hide-trigger width="330">
-        <Menu class="menu" active-name="user-center/order" width="330px" @on-select="menuClick">
+        <Menu class="menu" :active-name="$route.name" width="330px" @on-select="menuClick">
           <MenuGroup title="会员中心">
             <MenuItem v-for="item in menu" :key="item.name" :name="item.name">
               <div style="display:flex;align-items: center;">
@@ -28,8 +28,8 @@
     data() {
       return {
         menu: [
-          { text: '我的订单', name: 'user-center/order', icon: 'order' },
-          { text: '我的服务', name: 'user-center/serve', icon: 'fw' },
+          // { text: '我的订单', name: 'user-center/order', icon: 'order' },
+          // { text: '我的服务', name: 'user-center/serve', icon: 'fw' },
           { text: '会员资料', name: 'user-center/member-info', icon: 'zl' },
           { text: '实名认证', name: 'user-center/check-id', icon: 'id' },
           { text: '密码修改', name: 'user-center/reset-pass', icon: 'lock' },
