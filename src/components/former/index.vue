@@ -123,6 +123,7 @@
       </template>
       <div :key="item.key" v-html="item.tips">{{ item.tips }}</div>
     </template>
+    <slot name="foot" />
     <FormItem v-if="submitButton">
       <Button v-if="cancelButton" type="text" size="large">取消</Button>
       <Button type="primary" size="large" id="submit" @click="handleSubmit">保存</Button>

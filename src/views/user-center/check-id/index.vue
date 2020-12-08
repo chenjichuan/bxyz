@@ -12,8 +12,13 @@
       :submitButton="true"
       :form-label="formLabel"
       style="width: 504px;margin-right: 165px;"
-      @on-change="formChange"
-    />
+      @on-change="formChange">
+      <div slot="foot">
+        <Checkbox v-model="agree" class="agree">
+          <span style="margin: 0 20px 0 17px">我同意</span> <a href="javascript:;">《用户协议及隐私条款》</a>
+        </Checkbox>
+      </div>
+    </Former>
   </div>
 </template>
 
@@ -24,6 +29,7 @@
    components: { Former },
     data() {
       return {
+        agree: false,
         formData: {},
         formLabel,
       }
@@ -52,4 +58,8 @@
     margin-top: 19px;
   }
 }
+  .agree {
+    margin-top: 112px;
+    margin-bottom: 36px;
+  }
 </style>
