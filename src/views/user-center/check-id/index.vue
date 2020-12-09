@@ -7,9 +7,9 @@
     <Former
       ref="mainform"
       class="form-info"
-      labelPosition="left"
+      label-position="left"
       :value="formData"
-      :submitButton="true"
+      :submit-button="true"
       :form-label="formLabel"
       style="width: 504px;margin-right: 165px;"
       @on-change="formChange">

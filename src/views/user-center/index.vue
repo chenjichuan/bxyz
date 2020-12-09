@@ -9,12 +9,12 @@
           <MenuGroup title="会员中心">
             <template v-for="(item) in menu">
               <template v-if="item.sub">
-                <Submenu :name="item.name" :key="item.name">
+                <Submenu :key="item.name" :name="item.name">
                   <div slot="title" class="submenu" style="display:flex;align-items: center;">
                     <Icons :type="item.icon" w="20" h="20" />
                     <p class="menu-name">{{ item.text }}</p>
                   </div>
-                  <MenuItem  v-for="s in item.sub" :name="s.name" :key="s.name">
+                  <MenuItem v-for="s in item.sub" :key="s.name" :name="s.name">
                     <div style="display:flex;align-items: center;">
                       <p class="menu-name">{{ s.text }}</p>
                     </div>
@@ -22,7 +22,7 @@
                 </Submenu>
               </template>
               <template v-else>
-                <MenuItem  :name="item.name" :key="item.name">
+                <MenuItem :key="item.name" :name="item.name">
                   <div style="display:flex;align-items: center;">
                     <Icons :type="item.icon" w="20" h="20" />
                     <p class="menu-name">{{ item.text }}</p>

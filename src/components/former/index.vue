@@ -128,7 +128,7 @@
     <slot name="foot" />
     <FormItem v-if="submitButton" class="bottom-buttons">
       <Button v-if="cancelButton" type="text" size="large">取消</Button>
-      <Button type="primary" size="large" id="submit" @click="handleSubmit">保存</Button>
+      <Button id="submit" type="primary" size="large" @click="handleSubmit">保存</Button>
     </FormItem>
   </Form>
 </template>
