@@ -16,7 +16,7 @@
             <img :src="item.url">
           </template>
           <template v-else>
-            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info />
+            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info/>
           </template>
         </div>
         <Upload
@@ -47,8 +47,8 @@
   import formLabel from './formLabel'
 
   export default {
-    components: { Former },
-    data () {
+    components: {Former},
+    data() {
       return {
         formLabel,
         formData: {},
@@ -61,7 +61,7 @@
         ],
       }
     },
-    mounted () {
+    mounted() {
       this.uploadList = this.$refs.upload.fileList;
       // this.$refs.upload.fileList = [{
       //   url: test,
@@ -69,23 +69,23 @@
       // }]
     },
     methods: {
-      formChange () {
+      formChange() {
       },
       // handleView (name) {
       // this.imgName = name;
       // this.visible = true;
       // },
-      handleRemove (file) {
+      handleRemove(file) {
         const fileList = this.$refs.upload.fileList;
         this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
       },
-      handleFormatError () {
+      handleFormatError() {
         this.$Notice.warning({
           title: '图片类型错误',
           desc: '请上传 jpg,jpeg,png 格式的图片'
         });
       },
-      handleSuccess (res, file) {
+      handleSuccess(res, file) {
         file.url = test
         file.name = '7eb99afb9d5f317c912f08b5212fd69a';
       },
@@ -94,18 +94,21 @@
 </script>
 
 <style lang="less">
-  .member-info #upload {
-    width: 140px;
-    height: 140px;
-    .ivu-upload {
+  .member-info {
+    #upload {
       width: 140px;
       height: 140px;
-      /*display: flex;*/
-      /*align-items: center;*/
-      /*justify-content: center;*/
-      background: transparent;
+      .ivu-upload {
+        width: 140px;
+        height: 140px;
+        background: transparent;
+      }
+    }
+    .bottom-buttons {
+      margin-top: 100px;
     }
   }
+
 </style>
 <style scoped lang="less">
   .member-info {

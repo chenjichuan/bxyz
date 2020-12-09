@@ -13,11 +13,11 @@
       :form-label="formLabel"
       style="width: 504px;margin-right: 165px;"
       @on-change="formChange">
-      <div slot="foot">
+      <template #foot>
         <Checkbox v-model="agree" class="agree">
           <span style="margin: 0 20px 0 17px">我同意</span> <a href="javascript:;">《用户协议及隐私条款》</a>
         </Checkbox>
-      </div>
+      </template>
     </Former>
   </div>
 </template>
@@ -41,7 +41,6 @@
   }
 </script>
 
-
 <style scoped lang="less">
 .top {
   padding-left: 20px;
@@ -60,6 +59,6 @@
 }
   .agree {
     margin-top: 112px;
-    margin-bottom: 36px;
+    margin-bottom: 37px;
   }
 </style>

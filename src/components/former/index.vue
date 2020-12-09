@@ -115,6 +115,7 @@
           <template v-else>
             <Input
               v-model="form[formItem.key]"
+              :placeholder="formItem.placeholder"
               :type="formItem.inputType || 'text'"
               :disabled="formItem.disabled"
               :maxlength="formItem.maxlength || 100" />
@@ -124,7 +125,7 @@
       <div :key="item.key" v-html="item.tips">{{ item.tips }}</div>
     </template>
     <slot name="foot" />
-    <FormItem v-if="submitButton">
+    <FormItem v-if="submitButton" class="bottom-buttons">
       <Button v-if="cancelButton" type="text" size="large">取消</Button>
       <Button type="primary" size="large" id="submit" @click="handleSubmit">保存</Button>
     </FormItem>

@@ -2,15 +2,15 @@
   <div class="mod-user-center">
     <Layout style="padding-bottom: 100px;background-color: #fff;">
       <Sider hide-trigger width="330" style="margin-right: 30px;">
-        <Menu class="menu" :active-name="$route.name" width="330px" @on-select="menuClick">
+        <Menu class="menu" :active-name="$route.name" width="330px" @on-select="menuClick" accordion>
           <MenuGroup title="会员中心">
             <template v-for="item in menu">
               <template v-if="item.sub">
-                <Submenu name="2" :key="item.name">
-                  <template slot="title">
+                <Submenu :name="item.name" :key="item.name">
+                  <div slot="title" class="submenu" style="display:flex;align-items: center;">
                     <Icons :type="item.icon" w="20" h="20" />
-                    {{ item.text }}
-                  </template>
+                    <p class="menu-name">{{ item.text }}</p>
+                  </div>
                   <MenuItem  v-for="s in item.sub" :name="s.name" :key="s.name">
                     <div style="display:flex;align-items: center;">
                       <p class="menu-name">{{ s.text }}</p>
@@ -59,7 +59,14 @@
               { text: '查看历史', name: '3q2', }
             ]
           },
-          { text: '关于售后', name: 'user-center/about-sh', icon: 'server' },
+          {
+            text: '关于售后', name: 'user-center/about-sh', icon: 'server',
+            sub: [
+              { text: '我要退款', name: '11a', },
+              { text: '填写信息', name: '312p3', },
+              { text: '退款记录', name: '3q122', }
+            ]
+          },
         ]
       }
     },
@@ -75,7 +82,11 @@
 
 <style lang="less">
   .mod-user-center {
-    .ivu-menu-item-group-title {
+    .ivu-input {
+      height: 40px;
+      text-indent: 24px;
+    }
+    .ivu-menu-item-group-title{
       font-size: 20px;
       font-weight: bold;
       line-height: 28px;
@@ -85,7 +96,9 @@
       padding-bottom: 44px;
       display: block;
     }
+    ivu-menu-submenu-title {
 
+    }
     .ivu-menu-vertical.ivu-menu-light:after {
       display: none;
     }
@@ -109,6 +122,9 @@
       line-height: 22px;
       margin-left: 14px;
       color: #82A694;
+    }
+    .submenu {
+      margin-left: 0;
     }
   }
 </style>
