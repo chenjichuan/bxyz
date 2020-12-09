@@ -4,8 +4,10 @@
     <div class="infos">
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
-      <Icons type="cart" style="margin-right: 39px;" />
-      <div class="user" v-if="true">
+      <Badge :count="3" class-name="badge" :offset="[18, 2]" style="width: 32px;height: 32px;">
+        <Icons type="cart" style="cursor:pointer;position:absolute;" />
+      </Badge>
+      <div class="user" v-if="false">
         <Avatar
           class="user-icon" size="40"
           style="cursor:pointer;"
@@ -16,9 +18,9 @@
         <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
       </div>
       <div v-else class="user">
-        <a href="javascript:;" @click="$router.push({name: 'home/login'})">登录</a>
+        <a href="javascript:;" @click="$router.push({name: 'auth/login'})">登录</a>
         <span class="line"/>
-        <a href="javascript:;" @click="$router.push({name: 'home/register'})">注册</a>
+        <a href="javascript:;" @click="$router.push({name: 'auth/register'})">注册</a>
       </div>
     </div>
   </div>
@@ -77,6 +79,7 @@
     display: flex;
     align-items: center;
     transform: translateY(-28px);
+    margin-left: 39px;
     a {
       color: #fff;
       &:hover {
