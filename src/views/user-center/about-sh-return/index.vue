@@ -1,43 +1,72 @@
 <template>
   <div style="margin-left: 20px;">
-    <p class="top-title">请选择您要退款的订单</p>
-    <section class="lists">
-      <RadioGroup v-model="order" class="boxs">
-        <Radio class="item" v-for="item in list" :label="item.orderId" :key="item.orderId">
-          <div class="right-content">
-            <h3>{{ item.title }}</h3>
-            <p>
-              <span>{{ item.orderId }}</span>
-              <span>{{ item.time }}</span>
-              <span>{{ item.num }}</span>
-              <span>¥{{ item.price }}</span>
-            </p>
+    <template v-if="!next">
+      <p class="top-title">请选择您要退款的订单</p>
+      <section class="lists">
+        <RadioGroup v-model="order" class="boxs">
+          <Radio class="item" v-for="item in list" :label="item.orderId" :key="item.orderId">
+            <div class="right-content">
+              <h3>{{ item.title }}</h3>
+              <p>
+                <span>{{ item.orderId }}</span>
+                <span>{{ item.time }}</span>
+                <span>{{ item.num }}</span>
+                <span>¥{{ item.price }}</span>
+              </p>
+            </div>
+          </Radio>
+        </RadioGroup>
+        <div class="action">
+          <p>
+            <span>申请退款金额</span><span class="total">¥{{ total }}</span>
+          </p>
+          <Button type="primary" size="large" class="submit" :disabled="!order" @click="next = true">下一步</Button>
+        </div>
+      </section>
+    </template>
+    <section v-else class="choose-reason">
+      <Form ref="formInline" :model="form" label-position="left" :label-width="95">
+        <FormItem label="退款商品">
+          <div class="good">
+            <img src="../../../assets/images/bg/good.png" alt="">
+            <div>
+              <div class="title">{{ current.title }}</div>
+              <p class="price">¥ {{ current.price }} x {{ current.num }}</p>
+            </div>
           </div>
-        </Radio>
-      </RadioGroup>
-      <div class="action">
-        <p>
-          <span>申请退款金额</span><span class="total">¥{{ total }}</span>
-        </p>
-        <Button type="primary" size="large" class="submit" :disabled="!order">下一步</Button>
+        </FormItem>
+        <FormItem label="退款原因" style="margin-bottom: 46px;margin-top: 90px;">
+          <Select v-model="form.reason" style="width: 200px;">
+            <Option value="beijing">New York</Option>
+            <Option value="shanghai">London</Option>
+            <Option value="shenzhen">Sydney</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="退款金额">
+          <p class="price">¥ {{ +current.price * +current.num }}</p>
+        </FormItem>
+      </Form>
+      <div style="margin-top: 79px;">
+        <Button class="prev" @click="next = false">上一步</Button>
+        <Button type="primary" size="large" class="submit" :disabled="!order">提交</Button>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-  //  import Icons from '@/components/icon'
   export default {
-//    components: { Icons },
     data () {
       return {
+        next: false,
         order: '',
+        form: {},
         list: [
           {
             title: '金卡顾问服务',
             orderId: 'GB1590045695-51',
             time: '2020-06-08 15:36:08',
-            num: 1,
+            num: 2,
             price: '9880.00'
           },
           {
@@ -60,7 +89,12 @@
     computed: {
       total () {
         let [res] = this.list.filter(l => l.orderId === this.order)
-        return res && res.price || 0
+        if (!res) return 0
+        return +res.price * (+res.num)
+      },
+      current () {
+        let [res] = this.list.filter(l => l.orderId === this.order)
+        return res || {}
       }
     }
   }
@@ -121,12 +155,37 @@
       color: #FF0000;
       font-size: 18px;
     }
-    .submit {
-      width: 200px;
-      height: 50px;
-      background: #82A694;
-      opacity: 1;
-      border-radius: 25px;
+  }
+  .submit {
+    width: 200px;
+    height: 50px;
+    background: #82A694;
+    border-radius: 25px;
+  }
+  .prev {
+    width: 200px;
+    height: 50px;
+    border-radius: 25px;
+    margin-right: 20px;
+  }
+  .good {
+    display: flex;
+    img {
+      width: 120px;
+      height: 120px;
+      display: block;
+      margin-right: 40px;
     }
+    .title {
+      font-size: 16px;
+      line-height: 21px;
+      color: #4C4C4C;
+      margin-bottom: 22px;
+    }
+  }
+  p.price {
+    font-size: 18px;
+    color: #FF0000;
+    line-height: 34px;
   }
 </style>
