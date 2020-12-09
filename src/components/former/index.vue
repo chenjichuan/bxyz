@@ -15,6 +15,7 @@
           :key="indexform"
           :label-width="formItem.labelWidth"
           :prop="formItem.key"
+          :required="formItem.required"
           :label="formItem.label"
           :rules="formItem.rules"
           :style="formItem.style">
