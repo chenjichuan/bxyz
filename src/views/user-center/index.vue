@@ -54,17 +54,17 @@
           {
             text: '关于发票', name: 'user-center/about-fp', icon: 'fp',
             sub: [
-              { text: '开具发票', name: '1a', },
-              { text: '填写信息', name: '312p', },
-              { text: '查看历史', name: '3q2', }
+              { text: '开具发票', name: 'user-center/about-fp-draw', },
+              { text: '填写信息', name: 'user-center/about-fp-write', },
+              { text: '查看历史', name: 'user-center/about-fp-his', }
             ]
           },
           {
             text: '关于售后', name: 'user-center/about-sh', icon: 'server',
             sub: [
-              { text: '我要退款', name: '11a', },
-              { text: '填写信息', name: '312p3', },
-              { text: '退款记录', name: '3q122', }
+              { text: '我要退款', name: 'user-center/about-sh-return', },
+              { text: '填写信息', name: 'user-center/about-sh-write', },
+              { text: '退款记录', name: 'user-center/about-sh-his', }
             ]
           },
         ]

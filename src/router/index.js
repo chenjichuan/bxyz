@@ -16,25 +16,8 @@ const routes = [
         name: 'home',
         component: resolve => import('@/views/home').then(resolve),
         meta: {
+          title: '百行宜众',
         },
-      },
-      {
-        path: '/home/login',
-        name: 'home/login',
-        meta: {
-          title: '登录',
-          breadShow: true
-        },
-        component: resolve => import('@/views/login').then(resolve)
-      },
-      {
-        path: '/home/register',
-        name: 'home/register',
-        meta: {
-          title: '注册',
-          breadShow: true
-        },
-        component: resolve => import('@/views/register').then(resolve)
       },
       /***********业务展示**********************/
       {
@@ -77,24 +60,80 @@ const routes = [
             component: resolve => import('@/views/user-center/reset-pass').then(resolve)
           },
           {
-            path: '/user-center/about-sh',
-            name: 'user-center/about-sh',
+            path: '/user-center/about-fp-draw',
+            name: 'user-center/about-fp-draw',
             meta: {
-              title: '会员中心-关于售后',
+              title: '会员中心-开具发票',
               breadShow: true
             },
-            component: resolve => import('@/views/user-center/about-sh').then(resolve)
+            component: resolve => import('@/views/user-center/about-fp-draw').then(resolve)
           },
           {
-            path: '/user-center/about-fp',
-            name: 'user-center/about-fp',
+            path: '/user-center/about-fp-write',
+            name: 'user-center/about-fp-write',
             meta: {
-              title: '会员中心-关于发票',
+              title: '会员中心-填写信息',
               breadShow: true
             },
-            component: resolve => import('@/views/user-center/about-fp').then(resolve)
-          }
+            component: resolve => import('@/views/user-center/about-fp-write').then(resolve)
+          },
+          {
+            path: '/user-center/about-fp-his',
+            name: 'user-center/about-fp-his',
+            meta: {
+              title: '会员中心-查看历史',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/about-fp-his').then(resolve)
+          },
+          {
+            path: '/user-center/about-sh-return',
+            name: 'user-center/about-sh-return',
+            meta: {
+              title: '会员中心-我要退款',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/about-sh-return').then(resolve)
+          },
+          {
+            path: '/user-center/about-sh-write',
+            name: 'user-center/about-sh-write',
+            meta: {
+              title: '会员中心-填写信息',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/about-sh-write').then(resolve)
+          },
+          {
+            path: '/user-center/about-sh-his',
+            name: 'user-center/about-sh-his',
+            meta: {
+              title: '会员中心-退款记录',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/about-sh-his').then(resolve)
+          },
         ]
+      },
+      /***********登录**********************/
+      {
+        path: '/auth/login',
+        name: 'auth/login',
+        meta: {
+          title: '登录',
+          breadShow: true
+        },
+        component: resolve => import('@/views/login').then(resolve)
+      },
+      /***********注册**********************/
+      {
+        path: '/auth/register',
+        name: 'auth/register',
+        meta: {
+          title: '注册',
+          breadShow: true
+        },
+        component: resolve => import('@/views/register').then(resolve)
       },
     ]
   }]

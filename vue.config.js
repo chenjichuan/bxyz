@@ -12,7 +12,7 @@ module.exports = {
   chainWebpack: config =>{
     config.plugin('html')
       .tap(args => {
-        args[0].title = "平台";
+        args[0].title = "百行宜众";
         return args;
       })
   },
