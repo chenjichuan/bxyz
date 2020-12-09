@@ -4,7 +4,7 @@
       <p class="top-title">请选择您要退款的订单</p>
       <section class="lists">
         <RadioGroup v-model="order" class="boxs">
-          <Radio class="item" v-for="item in list" :label="item.orderId" :key="item.orderId">
+          <Radio v-for="item in list" :key="item.orderId" :label="item.orderId" class="item">
             <div class="right-content">
               <h3>{{ item.title }}</h3>
               <p>

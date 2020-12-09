@@ -4,9 +4,9 @@
       <Former
         ref="mainform"
         class="form-info"
-        labelPosition="left"
+        label-position="left"
         :value="formData"
-        :submitButton="true"
+        :submit-button="true"
         :form-label="formLabel"
         @on-change="formChange"
       />
@@ -16,7 +16,7 @@
             <img :src="item.url">
           </template>
           <template v-else>
-            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info/>
+            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info />
           </template>
         </div>
         <Upload

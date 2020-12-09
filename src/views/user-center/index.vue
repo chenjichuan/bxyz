@@ -4,9 +4,10 @@
       <Sider hide-trigger width="330" style="margin-right: 30px;">
         <Menu class="menu" :active-name="$route.name" width="330px"
               :open-names="openNames"
-              @on-select="menuClick" accordion>
+              accordion
+              @on-select="menuClick">
           <MenuGroup title="会员中心">
-            <template v-for="item in menu">
+            <template v-for="(item) in menu">
               <template v-if="item.sub">
                 <Submenu :name="item.name" :key="item.name">
                   <div slot="title" class="submenu" style="display:flex;align-items: center;">
