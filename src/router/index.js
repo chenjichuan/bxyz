@@ -60,8 +60,8 @@ const routes = [
             component: resolve => import('@/views/user-center/reset-pass').then(resolve)
           },
           {
-            path: '/user-center/about-fp-draw',
-            name: 'user-center/about-fp-draw',
+            path: '/user-center/about-fp_draw',
+            name: 'user-center/about-fp_draw',
             meta: {
               title: '会员中心-开具发票',
               breadShow: true
@@ -69,8 +69,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-draw').then(resolve)
           },
           {
-            path: '/user-center/about-fp-write',
-            name: 'user-center/about-fp-write',
+            path: '/user-center/about-fp_write',
+            name: 'user-center/about-fp_write',
             meta: {
               title: '会员中心-填写信息',
               breadShow: true
@@ -78,8 +78,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-write').then(resolve)
           },
           {
-            path: '/user-center/about-fp-his',
-            name: 'user-center/about-fp-his',
+            path: '/user-center/about-fp_his',
+            name: 'user-center/about-fp_his',
             meta: {
               title: '会员中心-查看历史',
               breadShow: true
@@ -87,8 +87,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-his').then(resolve)
           },
           {
-            path: '/user-center/about-sh-return',
-            name: 'user-center/about-sh-return',
+            path: '/user-center/about-sh_return',
+            name: 'user-center/about-sh_return',
             meta: {
               title: '会员中心-我要退款',
               breadShow: true
@@ -96,17 +96,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-sh-return').then(resolve)
           },
           {
-            path: '/user-center/about-sh-write',
-            name: 'user-center/about-sh-write',
-            meta: {
-              title: '会员中心-填写信息',
-              breadShow: true
-            },
-            component: resolve => import('@/views/user-center/about-sh-write').then(resolve)
-          },
-          {
-            path: '/user-center/about-sh-his',
-            name: 'user-center/about-sh-his',
+            path: '/user-center/about-sh_his',
+            name: 'user-center/about-sh_his',
             meta: {
               title: '会员中心-退款记录',
               breadShow: true

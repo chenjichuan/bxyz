@@ -2,7 +2,9 @@
   <div class="mod-user-center">
     <Layout style="padding-bottom: 100px;background-color: #fff;">
       <Sider hide-trigger width="330" style="margin-right: 30px;">
-        <Menu class="menu" :active-name="$route.name" width="330px" @on-select="menuClick" accordion>
+        <Menu class="menu" :active-name="$route.name" width="330px"
+              :open-names="openNames"
+              @on-select="menuClick" accordion>
           <MenuGroup title="会员中心">
             <template v-for="item in menu">
               <template v-if="item.sub">
@@ -54,20 +56,35 @@
           {
             text: '关于发票', name: 'user-center/about-fp', icon: 'fp',
             sub: [
-              { text: '开具发票', name: 'user-center/about-fp-draw', },
-              { text: '填写信息', name: 'user-center/about-fp-write', },
-              { text: '查看历史', name: 'user-center/about-fp-his', }
+              { text: '开具发票', name: 'user-center/about-fp_draw', },
+              { text: '填写信息', name: 'user-center/about-fp_write', },
+              { text: '查看历史', name: 'user-center/about-fp_his', }
             ]
           },
           {
             text: '关于售后', name: 'user-center/about-sh', icon: 'server',
             sub: [
-              { text: '我要退款', name: 'user-center/about-sh-return', },
-              { text: '填写信息', name: 'user-center/about-sh-write', },
-              { text: '退款记录', name: 'user-center/about-sh-his', }
+              { text: '我要退款', name: 'user-center/about-sh_return', },
+              { text: '退款记录', name: 'user-center/about-sh_his', }
             ]
           },
         ]
+      }
+    },
+    computed: {
+      openNames () {
+        let name = this.$route.name
+        this.menu.forEach(item => {
+          if (name.indexOf(item.name) > -1) {
+            if (item.name.length < name.length) {
+              name = name.split('_')
+              name.pop()
+              name = name.join('')
+            }
+          }
+        })
+        console.log([name])
+        return [name]
       }
     },
     methods: {
