@@ -1,26 +1,55 @@
 <template>
   <Tabs class="mod-top-tabs" :value="$route.name" @on-click="tabClickHandler">
-    <TabPane v-for="item in tabs" :key="item.name" :label="item.label" :name="item.name"/>
+    <TabPane v-for="item in tabs" :key="item.name" :label="item.labelRender || item.label" :name="item.name" />
   </Tabs>
 </template>
 
 <script>
   export default {
-    data() {
+    data () {
+      const _this = this
       return {
         tabs: [
-          {label: '首页', name: 'home'},
-          {label: '业务展示', name: 'business-show'},
-          {label: '专业团队', name: '3'},
-          {label: '视频展示', name: '4'},
-          {label: '宜众资讯', name: '5'},
-          {label: '联系我们', name: '6'},
+          { label: '首页', name: 'home' },
+          {
+            name: '-1',
+            labelRender (h) {
+              return h('Dropdown', { props: { transfer: true, trigger: 'hover' } }, [
+                h('div', { className: 'ivu-tabs-tab' }, '业务展示'),
+                h('DropdownMenu',
+                  {
+                    slot: 'list',
+                    on: {
+                    },
+                    nativeOn: {
+                      'click' (e) {
+                        const { target } = e
+                        const { name } = target.dataset
+                        _this.$router.push({ name })
+                      },
+                    }
+                  },
+                  [
+                    h('DropdownItem', { attrs: { 'data-name': 'business-show/law' } }, '惠法务'),
+                    h('DropdownItem', { attrs: { 'data-name': 'business-show/advisory'} }, '惠咨询'),
+                    h('DropdownItem', { attrs: { 'data-name': 'business-show/safe'} }, '惠安心'),
+                    h('DropdownItem', { attrs: { 'data-name': 'business-show/talk'} },'荟诉'),
+                  ])
+              ])
+            }
+          },
+          { label: '专业团队', name: '3' },
+          { label: '视频展示', name: '4' },
+          { label: '宜众资讯', name: '5' },
+          { label: '联系我们', name: '6' },
         ]
       }
     },
     methods: {
       tabClickHandler (name) {
-        this.$router.push({ name })
+        if (name === this.$route.name) return
+        if (name !== '-1')
+          this.$router.push({ name })
       }
     }
   }
@@ -30,15 +59,19 @@
   .mod-top-tabs {
     .ivu-tabs-ink-bar {
     }
+
     .ivu-tabs-bar {
       border-bottom: none;
+
       .ivu-tabs-nav-container {
         font-weight: 400;
         font-size: 16px;
         color: #D4FFE9;
       }
+
       .ivu-tabs-tab-active {
       }
+
       .ivu-tabs-tab {
         padding: 15px 16px;
 

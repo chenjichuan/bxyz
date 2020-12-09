@@ -21,9 +21,40 @@ const routes = [
       },
       /***********业务展示**********************/
       {
-        path: '/business-show',
-        name: 'business-show',
-        component: resolve => import('@/views/business-show').then(resolve)
+        path: '/business-show/law',
+        name: 'business-show/law',
+        component: resolve => import('@/views/businessShow-law').then(resolve),
+        meta: {
+          title: '业务展示-惠法务',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/advisory',
+        name: 'business-show/advisory',
+        component: resolve => import('@/views/businessShow-advisory').then(resolve),
+        meta: {
+          title: '业务展示-惠咨询',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe',
+        name: 'business-show/safe',
+        component: resolve => import('@/views/businessShow-safe').then(resolve),
+        meta: {
+          title: '业务展示-惠安心',
+          breadShow: true,
+        }
+      },
+      {
+        path: '/businessShow/talk',
+        name: 'business-show/talk',
+        component: resolve => import('@/views/businessShow-talk').then(resolve),
+        meta: {
+          title: '业务展示-荟诉',
+          breadShow: true,
+        }
       },
       /***********会员中心**********************/
       {
