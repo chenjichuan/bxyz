@@ -57,9 +57,17 @@
 
 <style lang="less">
   .mod-top-tabs {
-    .ivu-tabs-ink-bar {
+    .ivu-tabs-tab-active {
+      color: #fff;
     }
 
+    .ivu-tabs-tab:hover {
+      color: #fff;
+    }
+
+    .ivu-tabs-ink-bar {
+      background-color: #fff;
+    }
     .ivu-tabs-bar {
       border-bottom: none;
 
@@ -68,13 +76,8 @@
         font-size: 16px;
         color: #D4FFE9;
       }
-
-      .ivu-tabs-tab-active {
-      }
-
       .ivu-tabs-tab {
         padding: 15px 16px;
-
       }
     }
   }
