@@ -30,6 +30,60 @@ const routes = [
         },
       },
       {
+        path: '/business-show/law/ask',
+        name: 'business-show/law/ask',
+        component: resolve => import('@/views/businessshow-law/ask').then(resolve),
+        meta: {
+          title: '法律咨询',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/law/contract',
+        name: 'business-show/law/contract',
+        component: resolve => import('@/views/businessshow-law/contract').then(resolve),
+        meta: {
+          title: '合同服务',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/law/resource',
+        name: 'business-show/law/resource',
+        component: resolve => import('@/views/businessshow-law/resource').then(resolve),
+        meta: {
+          title: '人资合同',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/law/manage',
+        name: 'business-show/law/manage',
+        component: resolve => import('@/views/businessshow-law/manage').then(resolve),
+        meta: {
+          title: '人资管理',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/law/offline',
+        name: 'business-show/law/offline',
+        component: resolve => import('@/views/businessshow-law/offline').then(resolve),
+        meta: {
+          title: '线下服务',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/law/people',
+        name: 'business-show/law/people',
+        component: resolve => import('@/views/businessshow-law/people').then(resolve),
+        meta: {
+          title: '顾问服务',
+          breadShow: true,
+        },
+      },
+      {
         path: '/business-show/advisory',
         name: 'business-show/advisory',
         component: resolve => import('@/views/businessshow-advisory').then(resolve),

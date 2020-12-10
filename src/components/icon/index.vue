@@ -25,6 +25,9 @@
     <img v-if="type === 'rzmb'" src="../../assets/images/icons/rzmb.png">
     <img v-if="type === 'xyfw'" src="../../assets/images/icons/xyfw.png">
     <img v-if="type === 'gwfw'" src="../../assets/images/icons/gwfw.png">
+    <img v-if="type === 'step1'" src="../../assets/images/icons/step1.png">
+    <img v-if="type === 'step2'" src="../../assets/images/icons/step2.png">
+    <img v-if="type === 'step3'" src="../../assets/images/icons/step3.png">
   </i>
 </template>
 
