@@ -14,7 +14,7 @@
           {
             name: '-1',
             labelRender (h) {
-              return h('Dropdown', { props: { transfer: true, trigger: 'hover' } }, [
+              return h('Dropdown', { props: { transfer: true, trigger: 'click' } }, [
                 h('div', { className: 'ivu-tabs-tab' }, '业务展示'),
                 h('DropdownMenu',
                   {

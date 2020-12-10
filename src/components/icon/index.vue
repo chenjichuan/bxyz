@@ -19,6 +19,12 @@
     <img v-if="type === 'lock'" src="../../assets/images/icons/lock.png">
     <img v-if="type === 'fp'" src="../../assets/images/icons/fp.png">
     <img v-if="type === 'server'" src="../../assets/images/icons/server.png">
+    <img v-if="type === 'flzx'" src="../../assets/images/icons/flzx.png">
+    <img v-if="type === 'contract'" src="../../assets/images/icons/contract.png">
+    <img v-if="type === 'renz'" src="../../assets/images/icons/renz.png">
+    <img v-if="type === 'rzmb'" src="../../assets/images/icons/rzmb.png">
+    <img v-if="type === 'xyfw'" src="../../assets/images/icons/xyfw.png">
+    <img v-if="type === 'gwfw'" src="../../assets/images/icons/gwfw.png">
   </i>
 </template>
 
