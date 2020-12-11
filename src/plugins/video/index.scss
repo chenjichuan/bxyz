@@ -1,5 +1,8 @@
 @import '~video.js/dist/video-js.css';
 .video-js  {
+  .vjs-poster {
+    background-size: 100% 100%;
+  }
   .vjs-big-play-button {
     position: absolute;
     left: 0;

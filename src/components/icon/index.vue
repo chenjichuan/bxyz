@@ -29,6 +29,7 @@
     <img v-if="type === 'step2'" src="../../assets/images/icons/step2.png">
     <img v-if="type === 'step3'" src="../../assets/images/icons/step3.png">
     <img v-if="type === 'pass'" src="../../assets/images/icons/pass.png">
+    <img v-if="type === 'zan'" src="../../assets/images/icons/zan.png">
   </i>
 </template>
 

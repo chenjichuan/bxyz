@@ -267,6 +267,16 @@ const routes = [
         },
         component: resolve => import('@/views/groups').then(resolve)
       },
+      /***********视频展示**********************/
+      {
+        path: '/videoshow',
+        name: 'videoshow',
+        meta: {
+          title: '视频展示',
+          breadShow: true,
+        },
+        component: resolve => import('@/views/videoshow').then(resolve)
+      },
       /***********会员中心**********************/
       {
         path: '/user-center',
