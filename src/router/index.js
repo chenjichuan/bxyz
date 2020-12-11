@@ -257,6 +257,16 @@ const routes = [
           breadShow: true,
         }
       },
+      /***********专业团队**********************/
+      {
+        path: '/groups',
+        name: 'groups',
+        meta: {
+          title: '专业团队',
+          breadShow: true,
+        },
+        component: resolve => import('@/views/groups').then(resolve)
+      },
       /***********会员中心**********************/
       {
         path: '/user-center',
