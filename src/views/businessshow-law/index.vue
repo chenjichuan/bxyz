@@ -4,16 +4,18 @@
     <div class="line" />
     <h3>公益价位 专业品质</h3>
     <div class="list">
-      <div v-for="item in list" :key="item.title" class="item">
-        <div class="top">
-          <Icons :type="item.icon" w="60" h="60"/>
-          <span>{{ item.title }}</span>
-        </div>
-        <div class="bottom">
-          <p v-html="item.text.toString()" />
-          <span>{{ item.price }}</span>
-          <Button @click="$router.push({ name: item.go })">了解详情</Button>
-        </div>
+      <div v-for="(item, index) in list" :key="index" class="item">
+        <template v-if="item.title">
+          <div class="top">
+            <Icons :type="item.icon" w="60" h="60"/>
+            <span>{{ item.title }}</span>
+          </div>
+          <div class="bottom">
+            <p v-html="item.text.toString()" />
+            <span>{{ item.price }}</span>
+            <Button @click="$router.push({ name: item.go })">了解详情</Button>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -68,6 +70,8 @@
             price: '6888元起',
             go: 'business-show/law/people'
           },
+          {},
+          {},
         ]
       }
     },
@@ -77,7 +81,7 @@
 <style scoped lang="less">
   .content {
     text-align: center;
-    padding: 0 166px;
+    padding: 0 214px;
     .line {
       width: 80px;
       height: 2px;
@@ -101,11 +105,12 @@
       margin-top: 120px;
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       .item {
         /*border-radius: 8px;*/
         /*overflow: hidden;*/
-        width: 25%;
-        padding: 0 48px;
+        width: 300px;
+        /*padding: 0 48px;*/
         margin-bottom: 100px;
         .top {
           border-radius: 8px 8px 0px 0px;

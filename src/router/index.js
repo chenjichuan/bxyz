@@ -19,7 +19,7 @@ const routes = [
           title: '百行宜众',
         },
       },
-      /***********业务展示**********************/
+      /***********惠法务**********************/
       {
         path: '/business-show/law',
         name: 'business-show/law',
@@ -83,6 +83,7 @@ const routes = [
           breadShow: true,
         },
       },
+      /***********惠咨询**********************/
       {
         path: '/business-show/advisory',
         name: 'business-show/advisory',
@@ -93,6 +94,34 @@ const routes = [
         },
       },
       {
+        path: '/business-show/advisory/ask',
+        name: 'business-show/advisory/ask',
+        component: resolve => import('@/views/businessshow-advisory/ask').then(resolve),
+        meta: {
+          title: '法律咨询',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/advisory/contract',
+        name: 'business-show/advisory/contract',
+        component: resolve => import('@/views/businessshow-advisory/contract').then(resolve),
+        meta: {
+          title: '合同服务',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/advisory/offline',
+        name: 'business-show/advisory/offline',
+        component: resolve => import('@/views/businessshow-advisory/offline').then(resolve),
+        meta: {
+          title: '线下服务',
+          breadShow: true,
+        },
+      },
+      /***********惠安心**********************/
+      {
         path: '/business-show/safe',
         name: 'business-show/safe',
         component: resolve => import('@/views/businessshow-safe').then(resolve),
@@ -101,6 +130,7 @@ const routes = [
           breadShow: true,
         }
       },
+      /***********荟诉**********************/
       {
         path: '/businessshow/talk',
         name: 'business-show/talk',
