@@ -6,7 +6,7 @@
           <Video :options="item.playerOptions" />
           <p class="video-title">{{ item.title }}</p>
           <div style="display: flex;justify-content: space-between;align-items: center">
-            <Icons type="zan" w="30" h="30" style="cursor:pointer;"/>
+            <Icons type="zan" w="30" h="30" style="cursor:pointer;" />
             <Button class="watch">观看</Button>
           </div>
         </template>

@@ -51,11 +51,6 @@ export default {
       return `editor${this._uid}`
     }
   },
-  methods: {
-    setHtml (val) {
-      this.editor.txt.html(val)
-    }
-  },
   mounted () {
     this.editor = new Editor(`#${this.editorId}`)
     this.editor.config.onchange = (newHtml) => {
@@ -63,7 +58,12 @@ export default {
     }
     this.editor.config.onchangeTimeout = 500 // 修改为 500ms
     this.editor.create()
-  }
+  },
+  methods: {
+    setHtml (val) {
+      this.editor.txt.html(val)
+    }
+  },
 }
 </script>
 
