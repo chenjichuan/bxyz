@@ -130,6 +130,87 @@ const routes = [
           breadShow: true,
         }
       },
+      {
+        path: '/business-show/safe/zdfa',
+        name: 'business-show/safe/zdfa',
+        component: resolve => import('@/views/businessshow-safe/zdfa').then(resolve),
+        meta: {
+          title: '惠安心指导方案',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/sqyz',
+        name: 'business-show/safe/sqyz',
+        component: resolve => import('@/views/businessshow-safe/sqyz').then(resolve),
+        meta: {
+          title: '特殊家庭生前遗嘱',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/ydjh',
+        name: 'business-show/safe/ydjh',
+        component: resolve => import('@/views/businessshow-safe/ydjh').then(resolve),
+        meta: {
+          title: '意定监护',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/zdjhr',
+        name: 'business-show/safe/zdjhr',
+        component: resolve => import('@/views/businessshow-safe/zdjhr').then(resolve),
+        meta: {
+          title: '遗嘱指定监护人',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/jtyz',
+        name: 'business-show/safe/jtyz',
+        component: resolve => import('@/views/businessshow-safe/jtyz').then(resolve),
+        meta: {
+          title: '特殊家庭遗嘱',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/cfgl',
+        name: 'business-show/safe/cfgl',
+        component: resolve => import('@/views/businessshow-safe/cfgl').then(resolve),
+        meta: {
+          title: '特殊家庭财富管理',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/nlrd',
+        name: 'business-show/safe/nlrd',
+        component: resolve => import('@/views/businessshow-safe/nlrd').then(resolve),
+        meta: {
+          title: '民事行为能力认定',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/ycglr',
+        name: 'business-show/safe/ycglr',
+        component: resolve => import('@/views/businessshow-safe/ycglr').then(resolve),
+        meta: {
+          title: '遗产管理人',
+          breadShow: true,
+        },
+      },
+      {
+        path: '/business-show/safe/flgw',
+        name: 'business-show/safe/flgw',
+        component: resolve => import('@/views/businessshow-safe/flgw').then(resolve),
+        meta: {
+          title: '家庭法律顾问',
+          breadShow: true,
+        },
+      },
       /***********荟诉**********************/
       {
         path: '/businessshow/talk',
@@ -140,6 +221,42 @@ const routes = [
           breadShow: true,
         }
       },
+      {
+        path: '/businessshow/talk/flzx',
+        name: 'business-show/talk/flzx',
+        component: resolve => import('@/views/businessshow-talk/flzx').then(resolve),
+        meta: {
+          title: '涉诉法律咨询',
+          breadShow: true,
+        }
+      },
+      {
+        path: '/businessshow/talk/fsfw',
+        name: 'business-show/talk/fsfw',
+        component: resolve => import('@/views/businessshow-talk/fsfw').then(resolve),
+        meta: {
+          title: '非诉服务',
+          breadShow: true,
+        }
+      },
+      {
+        path: '/businessshow/talk/hyfw',
+        name: 'business-show/talk/hyfw',
+        component: resolve => import('@/views/businessshow-talk/hyfw').then(resolve),
+        meta: {
+          title: '荟员服务',
+          breadShow: true,
+        }
+      },
+      {
+        path: '/businessshow/talk/ssfw',
+        name: 'business-show/talk/ssfw',
+        component: resolve => import('@/views/businessshow-talk/ssfw').then(resolve),
+        meta: {
+          title: '诉讼服务',
+          breadShow: true,
+        }
+      },
       /***********会员中心**********************/
       {
         path: '/user-center',
@@ -147,6 +264,51 @@ const routes = [
         redirect: 'user-center/member-info',
         component: resolve => import('@/views/user-center').then(resolve),
         children: [
+          {
+            path: '/user-center/serve-ask',
+            name: 'user-center/serve-ask',
+            meta: {
+              title: '我的服务-我要提问',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/serve-ask').then(resolve)
+          },
+          {
+            path: '/user-center/serve-qus',
+            name: 'user-center/serve-qus',
+            meta: {
+              title: '我的服务-我的问题',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/serve-qus').then(resolve)
+          },
+          {
+            path: '/user-center/serve-qus-detail/:id',
+            name: 'user-center/serve-qus-detail',
+            meta: {
+              title: '我的服务-我的问题',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/serve-qus/detail').then(resolve)
+          },
+          {
+            path: '/user-center/serve-conflict',
+            name: 'user-center/serve-conflict',
+            meta: {
+              title: '我的服务-利益冲突',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/serve-conflict').then(resolve)
+          },
+          {
+            path: '/user-center/lawyer-detail/:id',
+            name: 'user-center/lawyer-detail',
+            meta: {
+              title: '律师专区-服务详情',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/lawyer/detail').then(resolve)
+          },
           {
             path: '/user-center/member-info',
             name: 'user-center/member-info',
@@ -218,6 +380,24 @@ const routes = [
               breadShow: true
             },
             component: resolve => import('@/views/user-center/about-sh-his').then(resolve)
+          },
+          {
+            path: '/user-center/lawyer-list',
+            name: 'user-center/lawyer-list',
+            meta: {
+              title: '律师专区-服务列表',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/lawyer/list').then(resolve)
+          },
+          {
+            path: '/user-center/lawyer-detail/:id',
+            name: 'user-center/lawyer-detail',
+            meta: {
+              title: '律师专区-服务详情',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/lawyer/detail').then(resolve)
           },
         ]
       },

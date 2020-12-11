@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <h2>惠法务-单位法律服务</h2>
+    <h2>慧咨询-个人法律服务</h2>
     <div class="line" />
-    <h3>公益价位 专业品质</h3>
+    <h3>价位亲民 品质保障</h3>
     <div class="list">
       <div v-for="item in list" :key="item.title" class="item">
         <div class="top">

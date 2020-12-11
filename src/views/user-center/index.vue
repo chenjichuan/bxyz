@@ -49,8 +49,14 @@
     data () {
       return {
         menu: [
-          // { text: '我的订单', name: 'user-center/order', icon: 'order' },
-          // { text: '我的服务', name: 'user-center/serve', icon: 'fw' },
+          { text: '我的订单', name: 'user-center/order', icon: 'order' },
+          { text: '我的服务', name: 'user-center/serve', icon: 'fw',
+            sub: [
+              { text: '我要提问', name: 'user-center/serve-ask', },
+              { text: '我的问题', name: 'user-center/serve-qus', },
+              { text: '利益冲突', name: 'user-center/serve-conflict', }
+            ]
+          },
           { text: '会员资料', name: 'user-center/member-info', icon: 'zl' },
           { text: '实名认证', name: 'user-center/check-id', icon: 'id' },
           { text: '密码修改', name: 'user-center/reset-pass', icon: 'lock' },
@@ -69,6 +75,12 @@
               { text: '退款记录', name: 'user-center/about-sh_his', }
             ]
           },
+          {
+            text: '律师专区', name: 'user-center/lawyer-list', icon: 'pass',
+            sub: [
+              { text: '服务列表', name: 'user-center/lawyer-list', },
+            ]
+          },
         ]
       }
     },
@@ -84,7 +96,6 @@
             }
           }
         })
-        console.log([name])
         return [name]
       }
     },
