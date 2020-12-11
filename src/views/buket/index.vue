@@ -8,6 +8,7 @@
       <Checkbox
         :indeterminate="indeterminate"
         :value="checkAll"
+        :disabled="choosePay"
         style="display: flex;align-items: center; margin-bottom: 17px;"
         @click.prevent.native="handleCheckAll">
         <div class="table">
@@ -23,7 +24,7 @@
         </div>
       </Checkbox>
       <CheckboxGroup v-model="checked" class="my-favor" @on-change="checkAllGroupChange">
-        <Checkbox v-for="(item, index) in list" :key="item.id" :label="item.id" style="display:flex;align-items: center">
+        <Checkbox v-for="(item, index) in list" :key="item.id" :label="item.id" :disabled="choosePay" style="display:flex;align-items: center">
           <div class="table item" v-if="item.id">
             <Row type="flex" justify="space-between">
               <Col span="1" />
@@ -50,11 +51,11 @@
         </Checkbox>
       </CheckboxGroup>
     </div>
-    <div  v-if="!choosePay" class="bottom">
+    <div  class="bottom">
       <p>共 {{ checked.length }} 件商品，商品总金额 <span> ¥{{ totalPrice }}</span></p>
-      <Button type="primary" :disabled="!checked.length" @click="choosePay = true">提交订单</Button>
+      <Button v-if="!choosePay" type="primary" :disabled="!checked.length" @click="choosePay = true">提交订单</Button>
     </div>
-    <div v-else class="pay">
+    <div v-if="choosePay" class="pay">
       <p>请选择支付方式</p>
       <div class="wx" :class="{active: active === 'wx'}" @click="active = 'wx'"><div /><img src="./wx.png" alt=""></div>
       <div class="ali"  :class="{active: active === 'ali'}" @click="active = 'ali'"><div /><img src="./zfb.png" alt=""></div>
@@ -219,7 +220,7 @@
       margin-top: 144px;
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 184px;
+      margin-bottom: 80px;
       align-items:center;
       p {
         font-size: 20px;
@@ -230,6 +231,7 @@
           font-size: 36px;
           color: #333333;
           margin-left: 50px;
+          color: #FF0000;
         }
       }
       button {
@@ -241,7 +243,7 @@
     }
     .pay {
       p {
-        margin-bottom: 70px;
+        margin-bottom: 40px;
         font-size: 20px;
         color: #333333;
       }
