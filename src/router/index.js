@@ -441,6 +441,16 @@ const routes = [
         },
         component: resolve => import('@/views/register').then(resolve)
       },
+      /***********购物车**********************/
+      {
+        path: '/buket',
+        name: 'buket',
+        meta: {
+          title: '购物车',
+          breadShow: true
+        },
+        component: resolve => import('@/views/buket').then(resolve)
+      },
     ]
   }]
 

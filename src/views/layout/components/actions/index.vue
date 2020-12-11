@@ -4,7 +4,9 @@
     <div class="infos">
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
-      <Badge :count="3" class-name="badge" :offset="[18, 2]" style="width: 32px;height: 32px;">
+      <Badge
+        :count="3" class-name="badge" :offset="[18, 2]" style="cursor:pointer;width: 32px;height: 32px;"
+        @click.native="goBuket">
         <Icons type="cart" style="cursor:pointer;position:absolute;" />
       </Badge>
       <div class="user" v-if="false">
@@ -40,6 +42,10 @@
     methods: {
       onSearch (value) {
         console.log(value)
+      },
+      goBuket () {
+        if (this.$route.name === 'buket') return
+        this.$router.push({ name: 'buket' })
       }
     }
   }
