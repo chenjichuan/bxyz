@@ -1,9 +1,9 @@
 <template>
   <div class="content">
     <div class="goods">
-      <img src="../../../assets/images/bg/good-poster.png" alt="">
+      <img src="./poster.png" alt="">
       <div class="right">
-        <div class="title">法律咨询</div>
+        <div class="title">{{ title }}</div>
         <div class="lists">
           <CheckboxGroup v-model="good">
             <Checkbox
@@ -48,7 +48,9 @@
               </div>
             </div>
           </TabPane>
-          <TabPane label="用户评价" name="2">标签二的内容</TabPane>
+          <TabPane label="用户评价" name="2">
+            <Evaluate />
+          </TabPane>
         </Tabs>
       </div>
     </div>
@@ -57,8 +59,9 @@
 
 <script>
   import Icons from '@/components/icon'
+  import Evaluate from '@/components/evaluate'
   export default {
-    components: { Icons },
+    components: { Icons, Evaluate },
     data () {
       return {
         good: [],
@@ -74,6 +77,9 @@
       }
     },
     computed: {
+      title () {
+        return this.$route.meta.title
+      },
       total () {
         let res = 0
         this.good.forEach(item => {
