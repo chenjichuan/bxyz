@@ -52,7 +52,7 @@ const routes = [
         name: 'business-show/law/resource',
         component: resolve => import('@/views/businessshow-law/resource').then(resolve),
         meta: {
-          title: '人资合同',
+          title: '定制人力资源合同',
           breadShow: true,
         },
       },
@@ -61,7 +61,7 @@ const routes = [
         name: 'business-show/law/manage',
         component: resolve => import('@/views/businessshow-law/manage').then(resolve),
         meta: {
-          title: '人资管理',
+          title: '定制人资管理模板',
           breadShow: true,
         },
       },
