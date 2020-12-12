@@ -31,6 +31,7 @@
     <img v-if="type === 'pass'" src="../../assets/images/icons/pass.png">
     <img v-if="type === 'zan'" src="../../assets/images/icons/zan.png">
     <img v-if="type === 'star'" src="../../assets/images/icons/star.png">
+    <img v-if="type === 'upload'" src="../../assets/images/icons/upload.png">
   </i>
 </template>
 

@@ -321,8 +321,8 @@ const routes = [
             component: resolve => import('@/views/user-center/order').then(resolve)
           },
           {
-            path: '/user-center/serve-ask',
-            name: 'user-center/serve-ask',
+            path: '/user-center/serve/ask',
+            name: 'user-center/serve/ask',
             meta: {
               title: '我的服务-我要提问',
               breadShow: true
@@ -330,8 +330,8 @@ const routes = [
             component: resolve => import('@/views/user-center/serve-ask').then(resolve)
           },
           {
-            path: '/user-center/serve-qus',
-            name: 'user-center/serve-qus',
+            path: '/user-center/serve/qus',
+            name: 'user-center/serve/qus',
             meta: {
               title: '我的服务-我的问题',
               breadShow: true
@@ -339,8 +339,8 @@ const routes = [
             component: resolve => import('@/views/user-center/serve-qus').then(resolve)
           },
           {
-            path: '/user-center/serve-qus-detail/:id',
-            name: 'user-center/serve-qus-detail',
+            path: '/user-center/serve/qus-detail/:id',
+            name: 'user-center/serve/qus-detail',
             meta: {
               title: '我的服务-我的问题',
               breadShow: true
@@ -348,8 +348,8 @@ const routes = [
             component: resolve => import('@/views/user-center/serve-qus/detail').then(resolve)
           },
           {
-            path: '/user-center/serve-conflict',
-            name: 'user-center/serve-conflict',
+            path: '/user-center/serve/conflict',
+            name: 'user-center/serve/conflict',
             meta: {
               title: '我的服务-利益冲突',
               breadShow: true
@@ -393,8 +393,8 @@ const routes = [
             component: resolve => import('@/views/user-center/reset-pass').then(resolve)
           },
           {
-            path: '/user-center/about-fp_draw',
-            name: 'user-center/about-fp_draw',
+            path: '/user-center/about-fp/draw',
+            name: 'user-center/about-fp/draw',
             meta: {
               title: '会员中心-开具发票',
               breadShow: true
@@ -402,8 +402,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-draw').then(resolve)
           },
           {
-            path: '/user-center/about-fp_write',
-            name: 'user-center/about-fp_write',
+            path: '/user-center/about-fp/write',
+            name: 'user-center/about-fp/write',
             meta: {
               title: '会员中心-填写信息',
               breadShow: true
@@ -411,8 +411,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-write').then(resolve)
           },
           {
-            path: '/user-center/about-fp_his',
-            name: 'user-center/about-fp_his',
+            path: '/user-center/about-fp/his',
+            name: 'user-center/about-fp/his',
             meta: {
               title: '会员中心-查看历史',
               breadShow: true
@@ -420,8 +420,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-his').then(resolve)
           },
           {
-            path: '/user-center/about-sh_return',
-            name: 'user-center/about-sh_return',
+            path: '/user-center/about-sh/return',
+            name: 'user-center/about-sh/return',
             meta: {
               title: '会员中心-我要退款',
               breadShow: true
@@ -429,8 +429,8 @@ const routes = [
             component: resolve => import('@/views/user-center/about-sh-return').then(resolve)
           },
           {
-            path: '/user-center/about-sh_his',
-            name: 'user-center/about-sh_his',
+            path: '/user-center/about-sh/is',
+            name: 'user-center/about-sh/his',
             meta: {
               title: '会员中心-退款记录',
               breadShow: true

@@ -52,9 +52,9 @@
           { text: '我的订单', name: 'user-center/order', icon: 'order' },
           { text: '我的服务', name: 'user-center/serve', icon: 'fw',
             sub: [
-              { text: '我要提问', name: 'user-center/serve-ask', },
-              { text: '我的问题', name: 'user-center/serve-qus', },
-              { text: '利益冲突', name: 'user-center/serve-conflict', }
+              { text: '我要提问', name: 'user-center/serve/ask', },
+              { text: '我的问题', name: 'user-center/serve/qus', },
+              { text: '利益冲突', name: 'user-center/serve/conflict', }
             ]
           },
           { text: '会员资料', name: 'user-center/member-info', icon: 'zl' },
@@ -63,16 +63,16 @@
           {
             text: '关于发票', name: 'user-center/about-fp', icon: 'fp',
             sub: [
-              { text: '开具发票', name: 'user-center/about-fp_draw', },
-              { text: '填写信息', name: 'user-center/about-fp_write', },
-              { text: '查看历史', name: 'user-center/about-fp_his', }
+              { text: '开具发票', name: 'user-center/about-fp/draw', },
+              { text: '填写信息', name: 'user-center/about-fp/write', },
+              { text: '查看历史', name: 'user-center/about-fp/his', }
             ]
           },
           {
             text: '关于售后', name: 'user-center/about-sh', icon: 'server',
             sub: [
-              { text: '我要退款', name: 'user-center/about-sh_return', },
-              { text: '退款记录', name: 'user-center/about-sh_his', }
+              { text: '我要退款', name: 'user-center/about-sh/return', },
+              { text: '退款记录', name: 'user-center/about-sh/his', }
             ]
           },
           {
@@ -90,9 +90,9 @@
         this.menu.forEach(item => {
           if (name.indexOf(item.name) > -1) {
             if (item.name.length < name.length) {
-              name = name.split('_')
+              name = name.split('/')
               name.pop()
-              name = name.join('')
+              name = name.join('/')
             }
           }
         })
@@ -131,7 +131,9 @@
     .ivu-menu-vertical.ivu-menu-light:after {
       display: none;
     }
-
+    .ivu-layout-sider {
+      background-color: transparent;
+    }
     .ivu-menu-item-selected {
       .menu-name {
         /*color: #fff!important;*/
