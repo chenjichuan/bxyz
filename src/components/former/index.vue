@@ -3,7 +3,7 @@
     ref="form"
     :model="form"
     :hide-required-mark="hideRequiredMark"
-    :label-width="100"
+    :label-width="labelWidth || 100"
     :label-position="labelPosition"
     class="form">
     <template v-for="(item, index) in formLabel">
@@ -118,6 +118,7 @@
               v-model="form[formItem.key]"
               :placeholder="formItem.placeholder"
               :type="formItem.inputType || 'text'"
+              :autosize="{minRows: 4, maxRows: 50}"
               :disabled="formItem.disabled"
               :maxlength="formItem.maxlength || 100" />
           </template>
@@ -143,6 +144,10 @@
       labelPosition: {
         type: String,
         default: 'right'
+      },
+      labelWidth: {
+        type: Number,
+        default: 100
       },
       value: {
         type: Object,

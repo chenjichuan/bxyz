@@ -40,8 +40,8 @@
           },
           { label: '专业团队', name: 'groups' },
           { label: '视频展示', name: 'videoshow' },
-          { label: '宜众资讯', name: '5' },
-          { label: '联系我们', name: '6' },
+          { label: '宜众资讯', name: 'news' },
+          { label: '联系我们', name: 'call-us' },
         ]
       }
     },

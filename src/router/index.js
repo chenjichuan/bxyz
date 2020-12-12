@@ -277,6 +277,33 @@ const routes = [
         },
         component: resolve => import('@/views/videoshow').then(resolve)
       },
+      /***********宜众资讯**********************/
+      {
+        path: '/news',
+        name: 'news',
+        meta: {
+          title: '宜众资讯',
+        },
+        component: resolve => import('@/views/news').then(resolve)
+      },
+      {
+        path: '/news-detail/:id',
+        name: 'news-detail',
+        meta: {
+          breadShow: true,
+          title: '资讯详情',
+        },
+        component: resolve => import('@/views/news/detail').then(resolve)
+      },
+      /***********宜众资讯**********************/
+      {
+        path: '/call-us',
+        name: 'call-us',
+        meta: {
+          title: '联系我们',
+        },
+        component: resolve => import('@/views/call-us').then(resolve)
+      },
       /***********会员中心**********************/
       {
         path: '/user-center',
@@ -284,6 +311,15 @@ const routes = [
         redirect: 'user-center/member-info',
         component: resolve => import('@/views/user-center').then(resolve),
         children: [
+          {
+            path: '/user-center/order',
+            name: 'user-center/order',
+            meta: {
+              title: '会员中心-我的订单',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/order').then(resolve)
+          },
           {
             path: '/user-center/serve-ask',
             name: 'user-center/serve-ask',
