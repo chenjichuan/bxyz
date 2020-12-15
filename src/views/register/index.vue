@@ -12,13 +12,19 @@
       </Tabs>
       <Form ref="formCustom" :model="formCustom" :label-width="100" label-position="left" class="form">
         <FormItem label="手机号码" prop="phone">
-          <Input type="tel" v-model="formCustom.phone" maxlength="11" />
+          <div style="display: flex;justify-content: space-between">
+            <Input v-model="formCustom.phone" type="tel" maxlength="11" style="width: 300px" />
+            <Button>发送验证码</Button>
+          </div>
         </FormItem>
-        <FormItem label="登录密码" prop="passwd">
-          <Input type="password" v-model="formCustom.passwd"></Input>
+        <FormItem label="登录密码" prop="password">
+          <Input v-model="formCustom.password" type="password" />
         </FormItem>
-        <FormItem label="确认密码" prop="passwdCheck">
-          <Input type="password" v-model="formCustom.passwdCheck"></Input>
+        <FormItem label="确认密码" prop="password_confirmation">
+          <Input v-model="formCustom.password_confirmation" type="password" />
+        </FormItem>
+        <FormItem label="验证码" prop="code">
+          <Input v-model="formCustom.code" />
         </FormItem>
         <template v-if="tab === '2'">
           <FormItem label="单位类型" prop="city">
@@ -52,16 +58,16 @@
             <Input v-model="formCustom.phone" />
           </FormItem>
         </template>
-        <FormItem label="">
-          <div id="smoth"></div>
-        </FormItem>
+<!--        <FormItem label="">-->
+<!--          <div id="smoth"></div>-->
+<!--        </FormItem>-->
         <FormItem>
           <Checkbox v-model="agree" class="agree">
             <span style="margin: 0 20px 0 17px">我同意</span> <a href="javascript:;">《用户协议及隐私条款》</a>
           </Checkbox>
         </FormItem>
         <FormItem class="">
-          <Button class="sure" :disabled="!allow || !agree">确认注册</Button>
+          <Button class="sure" :disabled="!agree" @click="register">确认注册</Button>
           <a href="javascript:;" class="login-go" @click="$router.push({ name: 'auth/login' })">已有账号，请直接登录</a>
         </FormItem>
       </Form>
@@ -71,7 +77,9 @@
 
 <script>
 
-  import '../../common/js/jigsaw.min.js'
+  // import '../../common/js/jigsaw.min.js'
+  import { register } from "../../common/api";
+
   export default {
     data () {
       return {
@@ -82,21 +90,21 @@
       }
     },
     mounted () {
-      const _this = this
-      window.jigsaw.init({
-        el: document.getElementById('smoth'),
-        width: 310, // 可选, 默认310
-        height: 155, // 可选, 默认155
-        onSuccess: function () {
-          _this.allow = true
-        },
-        onFail: function () {
-          _this.allow = false
-        },
-        onRefresh: function () {
-          _this.allow = false
-        }
-      })
+      // const _this = this
+      // window.jigsaw.init({
+      //   el: document.getElementById('smoth'),
+      //   width: 310, // 可选, 默认310
+      //   height: 155, // 可选, 默认155
+      //   onSuccess: function () {
+      //     _this.allow = true
+      //   },
+      //   onFail: function () {
+      //     _this.allow = false
+      //   },
+      //   onRefresh: function () {
+      //     _this.allow = false
+      //   }
+      // })
     },
     methods: {
       label: (h) => {
@@ -106,8 +114,11 @@
             h('Icon', { attrs: { type: 'ios-alert-outline' } })
           ]),
         ])
+      },
+      register () {
+        register(this.formCustom)
       }
-    }
+    },
   }
 </script>
 
