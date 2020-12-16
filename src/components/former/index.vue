@@ -230,6 +230,7 @@
       handleSubmit (cb, errorCb) {
         this.$refs['form'].validate((valid) => {
           if (valid) {
+            this.$emit('on-submit')
             cb && cb()
           } else {
             errorCb && errorCb()

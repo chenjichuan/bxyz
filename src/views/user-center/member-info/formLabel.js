@@ -1,16 +1,16 @@
-function checkPhone (phone) {
-  if (/^1[3456789]\d{9}$/.test(phone)) {
-    return true
-  }
-}
+// function checkPhone (phone) {
+//   if (/^1[3456789]\d{9}$/.test(phone)) {
+//     return true
+//   }
+// }
 
-const validatePhone = (rule, value, callback) => {
-  if (checkPhone(value)) {
-    callback()
-  } else {
-    callback(new Error('请输入正确的手机号'))
-  }
-}
+// const validatePhone = (rule, value, callback) => {
+//   if (checkPhone(value)) {
+//     callback()
+//   } else {
+//     callback(new Error('请输入正确的手机号'))
+//   }
+// }
 export default [{
   key: '',
   title: '',
@@ -22,18 +22,18 @@ export default [{
       maxlength: 11,
       disabled: true,
       rules: [{
-        validator: validatePhone, trigger: 'blur'
+        // validator: validatePhone, trigger: 'blur'
       }],
     },
     {
-      key: 'username',
+      key: 'company_linkman',
       label: '联系人',
-      value: '奥斯特洛夫司机',
+      value: '',
     },
     {
-      key: 'local',
+      key: 'law_office',
       label: '所在律所',
-      value: '白宫',
+      value: '',
     },
     {
       key: 'email',
