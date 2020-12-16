@@ -41,8 +41,13 @@
     computed: {
       ...mapGetters(['userInfo'])
     },
+    created () {
+      this.setUserInfo({
+        token: this.$ls.get('token')
+      })
+    },
     methods: {
-      ...mapMutations(['clearUserInfo']),
+      ...mapMutations(['setUserInfo', 'clearUserInfo']),
       onSearch (value) {
         console.log(value)
       },

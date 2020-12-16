@@ -1,7 +1,8 @@
 import Vue from 'vue'
 export default {
   state: {
-    userInfo: {}
+    userInfo: {
+    }
   },
   getters: {
     userInfo: (state) => state.userInfo,
