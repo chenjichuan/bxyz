@@ -135,8 +135,6 @@
         this.$refs['formCustom'].validate((valid) => {
           if (valid) {
             this.registerHandler()
-          } else {
-            this.$Message.error('Fail!');
           }
         })
       },

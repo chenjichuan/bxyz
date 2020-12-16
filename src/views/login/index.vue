@@ -11,18 +11,30 @@
       </Tabs>
       <Form
         v-show="tab === '1'"
-        ref="formCustom" :model="formCustom" :label-width="100" label-position="left" class="form">
+        ref="formCustom"
+        :model="formCustom"
+        :rules="ruleValidate"
+        :label-width="100" label-position="left" class="form">
         <FormItem label="手机号码" prop="phone" style="width: 500px;">
           <Input type="tel" v-model="formCustom.phone" maxlength="11" />
         </FormItem>
         <FormItem label="密码" prop="password" style="width: 500px;">
           <Input type="password" v-model="formCustom.password"></Input>
         </FormItem>
-        <FormItem label="验证码" prop="captcha" style="width: 320px;">
-          <Input type="password" v-model="formCustom.captcha"></Input>
+        <FormItem label="验证码" prop="captcha">
+          <div style="display: flex;">
+            <Input type="password" v-model="formCustom.captcha" style="width: 220px;margin-right: 20px;" />
+            <div style="position:relative;width: 120px;height: 47px;">
+              <span v-html="codeImg" />
+              <Icon
+                type="ios-refresh" size="20"
+                style="position:absolute;right: 0;cursor:pointer;"
+                @click="getCode" />
+            </div>
+          </div>
         </FormItem>
         <FormItem class="">
-          <Button class="sure">登录</Button>
+          <Button class="sure" @click="handleSubmit">登录</Button>
           <Button class="register" @click="$router.push({ name: 'auth/register' })">注册</Button>
           <a href="javascript:;" style="margin-left: 37px;">忘记密码</a>
         </FormItem>
@@ -36,20 +48,65 @@
 </template>
 
 <script>
-  // import { getCaptcha } from '../../common/api'
-  import { mapMutations } from "vuex";
+  import { mapMutations } from "vuex"
+  import { loadJs } from "../../common/js/utils"
+  import { getCaptcha } from '../../common/api'
+  import { login } from './api'
+  function checkPhone (rule, value, callback) {
+    if (/^1[3456789]\d{9}$/.test(value)) {
+      callback()
+      return true
+    } else {
+      callback(new Error(rule.message));
+    }
+  }
   export default {
     data () {
       return {
         tab: '1',
-        formCustom: {}
+        codeImg: '',
+        formCustom: {},
+        ruleValidate: {
+          phone: [
+            { validator: checkPhone, message: '请输入正确的手机号码', trigger: 'blur' }
+          ]
+        }
       }
     },
     mounted () {
-      // getCaptcha()
+      loadJs('https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js', () => {
+        console.log(window.WxLogin)
+      })
+      this.getCode()
     },
     methods: {
       ...mapMutations(['setUserInfo']),
+      getCode () {
+        getCaptcha().then(res => {
+          console.log(res.data)
+          this.codeImg = res.data
+        })
+      },
+      login () {
+        login({
+          ...this.formCustom
+        }).then(res => {
+          this.$Message.success(res.message)
+          this.setUserInfo({
+            token: res.token
+          })
+          setTimeout(() => {
+            this.$router.replace({ name: 'home' })
+          }, 1000)
+        })
+      },
+      handleSubmit () {
+        this.$refs['formCustom'].validate((valid) => {
+          if (valid) {
+            this.login()
+          }
+        })
+      },
     }
   }
 </script>

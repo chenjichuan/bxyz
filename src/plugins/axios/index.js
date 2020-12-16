@@ -26,7 +26,14 @@ _axios.interceptors.request.use(
 // Add a response interceptor
 _axios.interceptors.response.use(
   function (response) {
-    // Do something with response data
+    if (typeof (response.data) === 'string') {
+      if (response.data.indexOf('<img') !== -1) {
+        response.data = {
+          data:  response.data,
+          code: 200
+        }
+      }
+    }
     return response;
   },
   function (error) {
@@ -39,7 +46,7 @@ _axios.interceptors.response.use(
 const doAjax = ({ type, url, data, resolve, reject }) => {
   const { $Message } = Vue.prototype
   _axios[type](url, data).then(response => {
-    if (response.data.code === 200) {
+    if (response.data && response.data.code === 200) {
       resolve(response.data)
     } else {
       $Message.error(response.data.message);
