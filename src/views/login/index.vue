@@ -15,11 +15,11 @@
         <FormItem label="手机号码" prop="phone" style="width: 500px;">
           <Input type="tel" v-model="formCustom.phone" maxlength="11" />
         </FormItem>
-        <FormItem label="密码" prop="passwd" style="width: 500px;">
-          <Input type="password" v-model="formCustom.passwd"></Input>
+        <FormItem label="密码" prop="password" style="width: 500px;">
+          <Input type="password" v-model="formCustom.password"></Input>
         </FormItem>
-        <FormItem label="验证码" prop="passwdCheck" style="width: 320px;">
-          <Input type="password" v-model="formCustom.passwdCheck"></Input>
+        <FormItem label="验证码" prop="captcha" style="width: 320px;">
+          <Input type="password" v-model="formCustom.captcha"></Input>
         </FormItem>
         <FormItem class="">
           <Button class="sure">登录</Button>
@@ -36,8 +36,7 @@
 </template>
 
 <script>
-
-  import '../../common/js/jigsaw.min.js'
+  import { getCaptcha } from '../../common/api'
   export default {
     data () {
       return {
@@ -46,6 +45,7 @@
       }
     },
     mounted () {
+      getCaptcha()
     },
     methods: {
     }
