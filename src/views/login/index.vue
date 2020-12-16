@@ -36,7 +36,8 @@
 </template>
 
 <script>
-  import { getCaptcha } from '../../common/api'
+  // import { getCaptcha } from '../../common/api'
+  import { mapMutations } from "vuex";
   export default {
     data () {
       return {
@@ -45,9 +46,10 @@
       }
     },
     mounted () {
-      getCaptcha()
+      // getCaptcha()
     },
     methods: {
+      ...mapMutations(['setUserInfo']),
     }
   }
 </script>

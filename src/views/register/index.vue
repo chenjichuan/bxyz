@@ -10,11 +10,15 @@
         <TabPane label="单位注册" name="2" />
         <TabPane label="律师注册" name="3" />
       </Tabs>
-      <Form ref="formCustom" :model="formCustom" :label-width="100" label-position="left" class="form">
+      <Form
+        ref="formCustom"
+        :model="formCustom"
+        :rules="ruleValidate"
+        :label-width="100" label-position="left" class="form">
         <FormItem label="手机号码" prop="phone">
           <div style="display: flex;justify-content: space-between">
             <Input v-model="formCustom.phone" type="tel" maxlength="11" style="width: 300px" />
-            <Button>发送验证码</Button>
+            <Button @click="sendCodeHandler">发送验证码</Button>
           </div>
         </FormItem>
         <FormItem label="登录密码" prop="password">
@@ -27,47 +31,44 @@
           <Input v-model="formCustom.code" />
         </FormItem>
         <template v-if="tab === '2'">
-          <FormItem label="单位类型" prop="city">
-            <Select v-model="formCustom.city" placeholder="选择单位类型">
-              <Option value="beijing">New York</Option>
-              <Option value="shanghai">London</Option>
-              <Option value="shenzhen">Sydney</Option>
+          <FormItem label="单位类型" prop="company_type">
+            <Select v-model="formCompany.company_type" placeholder="选择单位类型">
+              <Option v-for="item in options" :key="item.value" :value="item.value">
+                {{ item.text }}
+              </Option>
             </Select>
           </FormItem>
-          <FormItem label="单位全称" prop="sss">
-            <Input v-model="formCustom.phone" />
+          <FormItem label="单位全称" prop="company_name">
+            <Input v-model="formCompany.company_name" />
           </FormItem>
-          <FormItem label="联系人" prop="ffff">
-            <Input v-model="formCustom.phone" />
+          <FormItem label="联系人" prop="company_linkman">
+            <Input v-model="formCompany.company_linkman" />
           </FormItem>
         </template>
         <template v-if="tab === '3'">
-          <FormItem label="真实姓名" prop="namerr">
-            <Input v-model="formCustom.namerr" />
+          <FormItem label="真实姓名" prop="real_name">
+            <Input v-model="formLaw.real_name" />
           </FormItem>
-          <FormItem label="执业证号" prop="addd">
-            <Input v-model="formCustom.addd" />
+          <FormItem label="执业证号" prop="practice_number">
+            <Input v-model="formLaw.practice_number" />
           </FormItem>
-          <FormItem label="职业年限" prop="fadsd">
-            <Input v-model="formCustom.fadsd" />
+          <FormItem label="职业年限" prop="working_years">
+            <Input v-model="formLaw.working_years" />
           </FormItem>
-          <FormItem label="专业领域" prop="ff1ff">
-            <Input v-model="formCustom.fadsd" />
+          <FormItem label="专业领域" prop="specialty">
+            <Input v-model="formLaw.specialty" />
           </FormItem>
-          <FormItem label="所在律所" prop="ff1ff">
-            <Input v-model="formCustom.phone" />
+          <FormItem label="所在律所" prop="law_office">
+            <Input v-model="formLaw.law_office" />
           </FormItem>
         </template>
-<!--        <FormItem label="">-->
-<!--          <div id="smoth"></div>-->
-<!--        </FormItem>-->
         <FormItem>
           <Checkbox v-model="agree" class="agree">
             <span style="margin: 0 20px 0 17px">我同意</span> <a href="javascript:;">《用户协议及隐私条款》</a>
           </Checkbox>
         </FormItem>
         <FormItem class="">
-          <Button class="sure" :disabled="!agree" @click="register">确认注册</Button>
+          <Button class="sure" :loading="posting" :disabled="!agree" @click="handleSubmit">确认注册</Button>
           <a href="javascript:;" class="login-go" @click="$router.push({ name: 'auth/login' })">已有账号，请直接登录</a>
         </FormItem>
       </Form>
@@ -76,35 +77,41 @@
 </template>
 
 <script>
-
-  // import '../../common/js/jigsaw.min.js'
-  import { register } from "../../common/api";
-
+  import { register, companyRegister, lawyerRegister } from "./api";
+  import { sendCode } from "../../common/api";
+  function checkPhone (rule, value, callback) {
+    if (/^1[3456789]\d{9}$/.test(value)) {
+      callback()
+      return true
+    } else {
+      callback(new Error(rule.message));
+    }
+  }
   export default {
     data () {
       return {
+        posting: false,
         agree: false,
-        allow: false,
         tab: '1',
-        formCustom: {}
+        formCustom: {},
+        formCompany: {},
+        formLaw: {},
+        options: [
+          { value: '1', text: '民办非企业' },
+          { value: '2', text: '基金会' },
+          { value: '3', text: '社会团体' },
+          { value: '4', text: '见外非政府组织' },
+          { value: '5', text: '企业' },
+          { value: '6', text: '其他单位' },
+        ],
+        ruleValidate: {
+          phone: [
+            { validator: checkPhone, message: '请输入正确的手机号码', trigger: 'blur' }
+          ]
+        }
       }
     },
     mounted () {
-      // const _this = this
-      // window.jigsaw.init({
-      //   el: document.getElementById('smoth'),
-      //   width: 310, // 可选, 默认310
-      //   height: 155, // 可选, 默认155
-      //   onSuccess: function () {
-      //     _this.allow = true
-      //   },
-      //   onFail: function () {
-      //     _this.allow = false
-      //   },
-      //   onRefresh: function () {
-      //     _this.allow = false
-      //   }
-      // })
     },
     methods: {
       label: (h) => {
@@ -115,8 +122,54 @@
           ]),
         ])
       },
-      register () {
-        register(this.formCustom)
+      sendCodeHandler () {
+        this.$refs['formCustom'].validateField('phone', (fail) => {
+          if (!fail) {
+            sendCode({ tel: this.formCustom.phone }).then(res => {
+              this.$Message.success(res.message)
+            })
+          }
+        })
+      },
+      handleSubmit () {
+        this.$refs['formCustom'].validate((valid) => {
+          if (valid) {
+            this.registerHandler()
+          } else {
+            this.$Message.error('Fail!');
+          }
+        })
+      },
+      registerHandler () {
+        let params = {}
+        let api = register
+        if (this.tab === '1') {
+          api = register
+          params = { ...this.formCustom }
+        } else if (this.tab === '2') {
+          api = companyRegister
+          params = {
+            ...this.formCustom,
+            ...this.formCompany,
+          }
+        } else {
+          api = lawyerRegister
+          params = {
+            ...this.formCustom,
+            ...this.formLaw,
+          }
+        }
+        this.posting = true
+        api(params).then(res => {
+          this.$Message.success(res.message)
+          setTimeout(() => {
+            this.$router.replace({ name: 'auth/login' })
+          }, 1000)
+        }).finally(() => {
+          setTimeout(() => {
+            this.posting = false
+          }, 1000)
+        })
       }
     },
   }
@@ -198,8 +251,9 @@
         color: #82A694;
         margin-left: 40px;
       }
+
       #smoth {
-        margin: 0!important;
+        margin: 0 !important;
       }
     }
   }

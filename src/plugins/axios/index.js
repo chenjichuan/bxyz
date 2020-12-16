@@ -2,9 +2,8 @@
 
 import Vue from 'vue';
 import axios from "axios";
-// import qs from 'qs'
 let config = {
-  baseURL: '//a.chen.cc/api/',
+  baseURL: '//zhucan.209.qiyundongli.cn/api/',
   headers: {
     'Content-Type': 'multipart/form-data'
   }
@@ -38,14 +37,45 @@ _axios.interceptors.response.use(
 
 
 const doAjax = ({ type, url, data, resolve, reject }) => {
+  const { $Message } = Vue.prototype
   _axios[type](url, data).then(response => {
     if (response.data.code === 200) {
       resolve(response.data)
     } else {
+      $Message.error(response.data.message);
       reject(response.data)
     }
   }).catch((error) => {
-    Vue.prototype.$Message.error(error.message);
+    let message = error.message
+    const { response: { data = {} } } = error
+    const { errors } = data
+    if (errors) {
+      let errArr = []
+      for (let key in errors) {
+        errArr.push(errors[key])
+      }
+      $Message.error({
+        background: true,
+        duration: 3,
+        render: h => {
+          return h('div', errArr.map(item => {
+            return  [
+              h('p', {}, item),
+            ]
+          }))
+        }
+      });
+    } else {
+      try {
+        if (error.response.data.message) {
+          message = error.response.data.message
+        }
+      } catch (e) {
+        console.log(e)
+      }
+      $Message.error(message);
+    }
+
     // Vue.prototype.$Notice.error({
     //   title: '错误',
     //   desc: `${message}: ${error}`,
@@ -71,6 +101,7 @@ const $http = {
     for (let key in data) {
       formData.append(key, data[key])
     }
+    // return api('post', url, qs.stringify(data), message)
     return api('post', url, formData, message)
   }
 }
