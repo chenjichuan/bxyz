@@ -73,6 +73,11 @@
         }
       }
     },
+    beforeCreate () {
+      if (this.$ls.get('token')) {
+        this.$router.push({ name: 'home' })
+      }
+    },
     mounted () {
       loadJs('https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js', () => {
         console.log(window.WxLogin)
@@ -96,7 +101,7 @@
             token: res.token
           })
           setTimeout(() => {
-            this.$router.replace({ name: 'home' })
+            location.href = '/#/home'
           }, 1000)
         })
       },
