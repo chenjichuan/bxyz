@@ -6,8 +6,9 @@ process.env.VUE_APP_IS_DEV = `${isDev}`
 
 module.exports = {
   lintOnSave: undefined,
-  configureWebpack: {
-    plugins: []
+  devServer: {
+  },
+  configureWebpack: () => {
   },
   chainWebpack: config =>{
     config.plugin('html')

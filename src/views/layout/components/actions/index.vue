@@ -9,7 +9,7 @@
         @click.native="goBuket">
         <Icons type="cart" style="cursor:pointer;position:absolute;" />
       </Badge>
-      <div class="user" v-if="false">
+      <div class="user" v-if="userInfo.token">
         <Avatar
           class="user-icon" size="40"
           style="cursor:pointer;"
@@ -17,12 +17,12 @@
           @click.native="$router.push({ name: 'user-center' })"
         />
         <span class="user-name">Jessica</span>
-        <Icons type="quit" w="20" h="20"  style="cursor: pointer;"/>
+        <Icons type="quit" w="20" h="20"  style="cursor: pointer;" @click.native="logOut"/>
       </div>
       <div v-else class="user">
-        <a href="javascript:;" @click="$router.push({name: 'auth/login'})">登录</a>
-        <span class="line"/>
-        <a href="javascript:;" @click="$router.push({name: 'auth/register'})">注册</a>
+        <a v-if="$route.name !== 'auth/login'" href="javascript:;" @click="$router.push({name: 'auth/login'})">登录</a>
+        <span v-if="$route.name !== 'auth/register' && $route.name !== 'auth/login'" class="line"/>
+        <a v-if="$route.name !== 'auth/register'" href="javascript:;" @click="$router.push({name: 'auth/register'})">注册</a>
       </div>
     </div>
   </div>
@@ -32,21 +32,38 @@
   import Icons from '@/components/icon'
   import Search from '../search'
   import test from '@/assets/images/icons/timg2.jpeg'
+  import { mapMutations, mapGetters } from 'vuex'
   export default {
     components: { Search, Icons },
     data () {
       return {
-        test
+        test,
       }
     },
+    computed: {
+      ...mapGetters(['userInfo'])
+    },
+    created () {
+      this.setUserInfo({
+        token: this.$ls.get('token')
+      })
+    },
     methods: {
+      ...mapMutations(['setUserInfo', 'clearUserInfo']),
       onSearch (value) {
         console.log(value)
       },
       goBuket () {
         if (this.$route.name === 'buket') return
         this.$router.push({ name: 'buket' })
-      }
+      },
+      logOut () {
+        this.clearUserInfo(() => {
+          if (this.$route.name !== 'auth/login') {
+            location.replace( '/#/auth/login')
+          }
+        })
+      },
     }
   }
 </script>

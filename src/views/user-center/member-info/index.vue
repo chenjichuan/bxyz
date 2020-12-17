@@ -9,31 +9,26 @@
         :submit-button="true"
         :form-label="formLabel"
         @on-change="formChange"
+        @on-submit="submit"
       />
       <div id="upload">
-        <div v-for="(item, index) in uploadList" :key="index" class="image-show">
-          <template v-if="item.status === 'finished'">
-            <img :src="item.url">
-          </template>
-          <template v-else>
-            <Progress v-if="item.showProgress" :percent="item.percentage" hide-info />
-          </template>
-        </div>
         <Upload
           ref="upload"
           :show-upload-list="false"
           :default-file-list="defaultList"
+          :before-upload="handleUploadicon"
           :on-format-error="handleFormatError"
-          :on-success="handleSuccess"
           :format="['jpg','jpeg','png']"
           :max-size="2048"
           multiple
           type="drag"
-          action="//jsonplaceholder.typicode.com/posts/"
+          action=""
           style="display: inline-block;">
           <div class="user-text">
             <p>上传头像</p>
           </div>
+          <Icon v-if="uploadList.length === 0" type="md-camera" size="20" style="margin-top: 40px;" />
+          <img v-else :src="formData.image" style="width: 100%;height: 100%;">
         </Upload>
       </div>
     </div>
@@ -42,52 +37,55 @@
 
 <script>
   import Former from '@/components/former'
-  //  import Icons from '@/components/icon'
   import test from '@/assets/images/bg/icon-holder.png'
   import formLabel from './formLabel'
+  import { updUserInfo } from "./api";
 
   export default {
-    components: {Former},
-    data() {
+    components: { Former },
+    data () {
       return {
         formLabel,
         formData: {},
         uploadList: [],
-        defaultList: [
-          {
-            name: 'a42bdcc1178e62b4694c830f028db5c0',
-            url: test
-          },
-        ],
+        defaultList: [],
       }
     },
-    mounted() {
+    mounted () {
       this.uploadList = this.$refs.upload.fileList;
-      // this.$refs.upload.fileList = [{
-      //   url: test,
-      //   name: '7eb99afb9d5f317c912f08b5212fd69a'
-      // }]
     },
     methods: {
-      formChange() {
+      formChange () {
       },
-      // handleView (name) {
-      // this.imgName = name;
-      // this.visible = true;
+      // handleRemove (file) {
+      //   const fileList = this.$refs.upload.fileList;
+      //   this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
       // },
-      handleRemove(file) {
+      handleUploadicon (file) {
         const fileList = this.$refs.upload.fileList;
-        this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
+        const newFile = window.URL.createObjectURL(file)
+        this.formData.image = newFile
+        fileList.pop()
+        fileList.push({
+          url: test,
+          name: file.name
+        })
       },
-      handleFormatError() {
+      handleFormatError () {
         this.$Notice.warning({
           title: '图片类型错误',
           desc: '请上传 jpg,jpeg,png 格式的图片'
         });
       },
-      handleSuccess(res, file) {
-        file.url = test
-        file.name = '7eb99afb9d5f317c912f08b5212fd69a';
+      submit () {
+        updUserInfo(this.formData).then(res => {
+          console.log(res)
+          this.clearUserInfo(() => {
+            if (this.$route.name !== 'auth/login') {
+              location.replace( '/#/auth/login')
+            }
+          })
+        })
       },
     }
   }
@@ -98,12 +96,14 @@
     #upload {
       width: 140px;
       height: 140px;
+
       .ivu-upload {
         width: 140px;
         height: 140px;
         background: transparent;
       }
     }
+
     .bottom-buttons {
       margin-top: 100px;
     }
@@ -119,8 +119,10 @@
         width: 504px;
         margin-right: 165px;
       }
+
       #upload {
         position: relative;
+
         .user-text {
           width: 100%;
           position: absolute;
@@ -132,10 +134,12 @@
           color: #FFFFFF;
         }
       }
+
       .image-show {
         position: absolute;
         width: 140px;
         height: 140px;
+
         img {
           width: 100%;
           height: 100%;
