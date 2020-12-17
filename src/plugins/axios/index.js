@@ -12,8 +12,8 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   function (config) {
-    if (Vue.ls.get('token')) {
-      config.data.append('token', Vue.ls.get('token'))
+    if (Vue.ls.get('userInfo').token) {
+      config.data.append('token', Vue.ls.get('userInfo').token)
     }
     return config;
   },

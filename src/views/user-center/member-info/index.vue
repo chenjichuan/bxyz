@@ -40,6 +40,7 @@
   import test from '@/assets/images/bg/icon-holder.png'
   import formLabel from './formLabel'
   import { updUserInfo } from "./api";
+  import { mapGetters } from "vuex";
 
   export default {
     components: { Former },
@@ -49,6 +50,19 @@
         formData: {},
         uploadList: [],
         defaultList: [],
+      }
+    },
+    computed: {
+      ...mapGetters(['userInfo'])
+    },
+    watch: {
+      userInfo: {
+        deep: true,
+        immediate: true,
+        handler (v) {
+          console.log(v)
+          this.formLabel[0].items[0].value = v.phone
+        }
       }
     },
     mounted () {

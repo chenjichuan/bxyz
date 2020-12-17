@@ -98,7 +98,8 @@
         }).then(res => {
           this.$Message.success(res.message)
           this.setUserInfo({
-            token: res.token
+            ...res.data,
+            phone: this.formCustom.phone,
           })
           setTimeout(() => {
             location.href = '/#/home'

@@ -1,23 +1,21 @@
 import Vue from 'vue'
 export default {
   state: {
-    userInfo: {
-    }
+    userInfo: {}
   },
   getters: {
     userInfo: (state) => state.userInfo,
   },
   mutations: {
     setUserInfo(state, data) {
-      state.userInfo = data
-      const { token } = data
       const ls = Vue.prototype.$ls
-      token && ls.set('token', token)
+      ls.set('userInfo', Object.assign(state.userInfo, data))
+      state.userInfo =  Object.assign(state.userInfo, data)
     },
     clearUserInfo(state, cb) {
       const ls = Vue.prototype.$ls
       state.userInfo = {}
-      ls.set('token', '')
+      ls.set('userInfo', '')
       setTimeout(() => {
         cb && cb()
       }, 500)

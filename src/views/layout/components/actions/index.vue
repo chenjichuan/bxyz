@@ -7,14 +7,14 @@
       <Badge :count="3" class-name="badge" :offset="[18, 2]" style="width: 32px;height: 32px;">
         <Icons type="cart" style="cursor:pointer;position:absolute;" />
       </Badge>
-      <div class="user" v-if="userInfo.token">
+      <div class="user" v-if="userInfo.id">
         <Avatar
           class="user-icon" size="40"
           style="cursor:pointer;"
-          src="https://i.loli.net/2017/08/21/599a521472424.jpg"
+          :src="userInfo.image"
           @click.native="$router.push({ name: 'user-center' })"
         />
-        <span class="user-name">Jessica</span>
+        <span class="user-name">{{ userInfo.username }}</span>
         <Icons type="quit" w="20" h="20"  style="cursor: pointer;" @click.native="logOut"/>
       </div>
       <div v-else class="user">
@@ -42,9 +42,8 @@
       ...mapGetters(['userInfo'])
     },
     created () {
-      this.setUserInfo({
-        token: this.$ls.get('token')
-      })
+      // 先从本地提取userinfo
+      this.setUserInfo(this.$ls.get('userInfo') || {})
     },
     methods: {
       ...mapMutations(['setUserInfo', 'clearUserInfo']),
