@@ -46,8 +46,9 @@
   export default {
     components: { Former },
     data () {
+      const userInfo = this.$ls.get('userInfo') || {}
       return {
-        formLabel,
+        formLabel: formLabel(userInfo.type),
         formData: {},
         uploadList: [],
         defaultList: [],
@@ -95,6 +96,7 @@
         let urlList = this.uploadList[0] || {}
         updUserInfo({
           ...this.formData,
+          id: this.userInfo.id,
           image: urlList.url
         }).then(res => {
           console.log(res)
