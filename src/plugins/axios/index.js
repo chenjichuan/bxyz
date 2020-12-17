@@ -1,9 +1,11 @@
 "use strict";
 
 import Vue from 'vue';
+// import { mapMutations } from 'vuex';
 import axios from "axios";
 let config = {
   baseURL: '//zhucan.209.qiyundongli.cn/api/',
+  // baseURL: '//a.chen.cc/api/',
   headers: {
     'Content-Type': 'multipart/form-data'
   }
@@ -12,7 +14,8 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   function (config) {
-    if (Vue.ls.get('userInfo').token) {
+    const userInfo = Vue.ls.get('userInfo') || {}
+    if (userInfo.token) {
       config.data.append('token', Vue.ls.get('userInfo').token)
     }
     return config;
@@ -56,6 +59,14 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
     let message = error.message
     const { response: { data = {} } } = error
     const { errors } = data
+    data.message ? message = data.message : ''
+    if (/未登录|过期|请登录/.test(message)) {
+      const ls = Vue.prototype.$ls
+      ls.set('userInfo', {})
+      setTimeout(() => {
+        location.href = location.origin + '/#/auth/login'
+      }, 1000)
+    }
     if (errors) {
       let errArr = []
       for (let key in errors) {
@@ -71,7 +82,7 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
             ]
           }))
         }
-      });
+      })
     } else {
       try {
         if (error.response.data.message) {
@@ -82,12 +93,6 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
       }
       $Message.error(message);
     }
-
-    // Vue.prototype.$Notice.error({
-    //   title: '错误',
-    //   desc: `${message}: ${error}`,
-    //   duration: 4,
-    // })
     reject(error)
   })
 }

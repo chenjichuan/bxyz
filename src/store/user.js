@@ -8,8 +8,6 @@ export default {
   },
   mutations: {
     setUserInfo(state, data) {
-      const ls = Vue.prototype.$ls
-      ls.set('userInfo', Object.assign(state.userInfo, data))
       state.userInfo =  Object.assign(state.userInfo, data)
     },
     clearUserInfo(state, cb) {

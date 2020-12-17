@@ -14,21 +14,23 @@
       <div id="upload">
         <Upload
           ref="upload"
+          name="image"
           :show-upload-list="false"
           :default-file-list="defaultList"
-          :before-upload="handleUploadicon"
+          :before-upload="handleBeforeUpload"
           :on-format-error="handleFormatError"
+          :on-success="handleSuccess"
+          :on-error="handleError"
           :format="['jpg','jpeg','png']"
           :max-size="2048"
-          multiple
           type="drag"
-          action=""
+          action="//zhucan.209.qiyundongli.cn/api/uploadImg"
           style="display: inline-block;">
           <div class="user-text">
             <p>上传头像</p>
           </div>
           <Icon v-if="uploadList.length === 0" type="md-camera" size="20" style="margin-top: 40px;" />
-          <img v-else :src="formData.image" style="width: 100%;height: 100%;">
+          <img v-else :src="this.uploadList[0].url" style="width: 100%;height: 100%;">
         </Upload>
       </div>
     </div>
@@ -37,7 +39,6 @@
 
 <script>
   import Former from '@/components/former'
-  import test from '@/assets/images/bg/icon-holder.png'
   import formLabel from './formLabel'
   import { updUserInfo } from "./api";
   import { mapGetters } from "vuex";
@@ -60,7 +61,6 @@
         deep: true,
         immediate: true,
         handler (v) {
-          console.log(v)
           this.formLabel[0].items[0].value = v.phone
         }
       }
@@ -69,21 +69,15 @@
       this.uploadList = this.$refs.upload.fileList;
     },
     methods: {
-      formChange () {
+      formChange () {},
+      handleBeforeUpload () {
+        return true
       },
-      // handleRemove (file) {
-      //   const fileList = this.$refs.upload.fileList;
-      //   this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-      // },
-      handleUploadicon (file) {
-        const fileList = this.$refs.upload.fileList;
-        const newFile = window.URL.createObjectURL(file)
-        this.formData.image = newFile
-        fileList.pop()
-        fileList.push({
-          url: test,
-          name: file.name
-        })
+      handleSuccess (res, file) {
+        this.$set(file, 'url', res.path)
+        if(this.uploadList.length > 1) {
+          this.uploadList.shift()
+        }
       },
       handleFormatError () {
         this.$Notice.warning({
@@ -91,14 +85,24 @@
           desc: '请上传 jpg,jpeg,png 格式的图片'
         });
       },
+      handleError (error) {
+        this.$Notice.warning({
+          title: '上传失败',
+          desc: error
+        })
+      },
       submit () {
-        updUserInfo(this.formData).then(res => {
+        let urlList = this.uploadList[0] || {}
+        updUserInfo({
+          ...this.formData,
+          image: urlList.url
+        }).then(res => {
           console.log(res)
-          this.clearUserInfo(() => {
-            if (this.$route.name !== 'auth/login') {
-              location.replace( '/#/auth/login')
-            }
-          })
+          // this.clearUserInfo(() => {
+          //   if (this.$route.name !== 'auth/login') {
+          //     location.replace( '/#/auth/login')
+          //   }
+          // })
         })
       },
     }

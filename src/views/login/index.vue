@@ -97,10 +97,13 @@
           ...this.formCustom
         }).then(res => {
           this.$Message.success(res.message)
-          this.setUserInfo({
+          const userInfo = {
             ...res.data,
             phone: this.formCustom.phone,
-          })
+          }
+          // 更新本地userInfo
+          this.$ls.set('userInfo', userInfo)
+          this.setUserInfo(userInfo)
           setTimeout(() => {
             location.href = '/#/home'
           }, 1000)

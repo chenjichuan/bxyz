@@ -45,6 +45,14 @@
       // 先从本地提取userinfo
       this.setUserInfo(this.$ls.get('userInfo') || {})
     },
+    watch: {
+      '$route' () {
+        let userInfo = this.$ls.get('userInfo') || {}
+        if (!Object.keys(userInfo).length) {
+          this.clearUserInfo()
+        }
+      }
+    },
     methods: {
       ...mapMutations(['setUserInfo', 'clearUserInfo']),
       onSearch (value) {
