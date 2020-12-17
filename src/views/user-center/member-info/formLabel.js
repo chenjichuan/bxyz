@@ -13,21 +13,20 @@ export default function (type) {
       inputType: 'email',
       value: ''
     }]
-  if (+type === 2) { // 律师
-    labels.push({
-      key: 'law_office',
-      label: '所在律所',
-      value: '',
-    })
-  }
-  if (+type === 3) { // 单位
+  if (+type === 2) { // 单位
     labels.push({
       key: 'company_linkman',
       label: '联系人',
       value: '',
     })
   }
-
+  if (+type === 3) { // 律师
+    labels.push({
+      key: 'law_office',
+      label: '所在律所',
+      value: '',
+    })
+  }
   return [{
     key: '',
     title: '',

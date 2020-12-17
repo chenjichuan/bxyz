@@ -94,11 +94,13 @@
       },
       submit () {
         let urlList = this.uploadList[0] || {}
-        updUserInfo({
+        const params = {
           ...this.formData,
           id: this.userInfo.id,
           image: urlList.url
-        }).then(res => {
+        }
+        delete params.phone
+        updUserInfo(params).then(res => {
           console.log(res)
           // this.clearUserInfo(() => {
           //   if (this.$route.name !== 'auth/login') {
