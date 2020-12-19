@@ -96,7 +96,7 @@
         let urlList = this.uploadList[0] || {}
         const params = {
           ...this.formData,
-          id: this.userInfo.id,
+          u_id: this.userInfo.id,
           image: urlList.url
         }
         delete params.phone

@@ -7,6 +7,10 @@
           <img class="poster" :src="item.cover" alt="">
           <div style="display: flex;justify-content: space-between;align-items: center">
             <p class="video-title">{{ item.title }}</p>
+<!--            <div>-->
+<!--              <Icons type="zan" w="30" h="30" style="cursor:pointer;margin-right: 34px;" />-->
+<!--              <Icons type="star" w="30" h="30" style="cursor:pointer;" />-->
+<!--            </div>-->
             <Button class="watch">观看</Button>
           </div>
         </template>

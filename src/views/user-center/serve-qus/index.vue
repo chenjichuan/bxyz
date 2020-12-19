@@ -1,12 +1,135 @@
 <template>
-  <div></div>
+  <div class="content">
+    <div class="msg">
+      <Row type="flex">
+        <Col>会员卡到期时间：<span class="red">2020-06-08</span><Button type="primary" class="xf">续费</Button></Col>
+        <Col style="margin-right: 137px;">法律服务剩余使用次数：<span class="red">28次</span></Col>
+        <Col>合同审查剩余使用次数：：<span class="red">8次</span></Col>
+      </Row>
+    </div>
+    <div class="table">
+      <TableShow
+        class="car-source-table"
+        :width="200"
+        :columns="head"
+        :table-loading="loading"
+        :table-data="tableData"
+        :total="page.total"
+        :current="page.currentPage"
+        @on-pageChange="changePage"
+        @on-button-click="buttonAction"
+      />
+    </div>
+    <Modal
+      v-model="modal"
+      class-name="top-modal"
+      title="撤销服务申请"
+      ok-text="确定"
+      cancel-text="取消"
+      @on-ok="sure">
+      <p class="first">您确定要撤销服务申请吗？如撤销，请点击确定。</p>
+      <p class="second">说明：已经撤销的服务将无法恢复，如有服务需要，请重新提交服务请求。</p>
+    </Modal>
+  </div>
 </template>
 
 <script>
+  import TableShow from '@/components/table-show'
+  import head from './head'
   export default {
+    components: {
+      TableShow,
+    },
+    data () {
+      return {
+        head,
+        modal: false,
+        loading: false,
+        tableData: [{
+          clueId: '48237849',
+          title: '惠法务法律咨询-其它咨询',
+          licenseDate: '残疾人就业保障金办理流程是什么？',
+          cityName: '2020-06-08',
+          roadHaul: '2020-06-08',
+          sourceTypeName: '待审核',
+        }],
+        page: {
+          currentPage: 1,
+          total: 0,
+        },
+      }
+    },
+    methods: {
+      changePage () {},
+      buttonAction (id, obj) {
+        if (id === '1') {
+          this.$router.push({
+            name: 'user-center/serve/qus-detail',
+            params: { id: obj.clueId }
+          })
+        } 
+        if (id === '2') {
+          this.modal = true
+        }
+      },
+      sure () {
+        console.log(22)
+      }
+    }
   }
 </script>
 
-<style scoped>
+<style lang="less">
+  .top-modal {
+    .ivu-modal-content {
+      padding-left: 30px;
+      padding-right: 30px;
+      padding-top: 24px;
+    }
+    .ivu-modal-header,.ivu-modal-footer {
+      border:none;
+    }
+    .ivu-modal-header-inner {
+      font-size: 21px;
+      color: rgba(0, 0, 0, 0.85);
+    }
+    .first {
+      font-size: 16px;
+      line-height: 35px;
+      color: rgba(0, 0, 0, 0.65);
+    }
+    .second {
+      font-size: 11px;
+      line-height: 15px;
+      color: rgba(0, 0, 0, 0.85);
+      margin-top: 13px;
+    }
+  }
+</style>
+<style scoped lang="less">
+  .content {
+    padding-right: 187px;
+    .msg {
+      margin-bottom: 60px;
+      border: 1px solid #C8C8C8;
+      padding: 18px 13px 21px 13px;
+      width: 1100px;
+      >div {
+        align-items:center;
+        .red {
+          font-size: 16px;
+          color: #FF0000;
+        }
+        .xf {
+          width: 89px;
+          height: 30px;
+          border-radius: 15px;
+          margin-left: 33px;
+          margin-right: 143px;
+        }
+      }
+    }
+
+  }
 
 </style>
