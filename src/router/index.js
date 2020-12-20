@@ -275,6 +275,14 @@ const routes = [
         },
         component: resolve => import('@/views/videoshow').then(resolve)
       },
+      {
+        path: '/videoshow/detail/:id',
+        name: 'videoshow/detail',
+        meta: {
+          title: '视频观看',
+        },
+        component: resolve => import('@/views/videoshow/detail').then(resolve)
+      },
       /***********宜众资讯**********************/
       {
         path: '/news',

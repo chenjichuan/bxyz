@@ -11,7 +11,7 @@
 <!--              <Icons type="zan" w="30" h="30" style="cursor:pointer;margin-right: 34px;" />-->
 <!--              <Icons type="star" w="30" h="30" style="cursor:pointer;" />-->
 <!--            </div>-->
-            <Button class="watch">观看</Button>
+            <Button class="watch" @click="goDetail(item.id, item.title)">观看</Button>
           </div>
         </template>
       </Col>
@@ -66,6 +66,16 @@
           })
         }
       })
+    },
+    methods: {
+      goDetail (id, title) {
+        const { href } = this.$router.resolve({
+          name: 'videoshow/detail',
+          query: { title },
+          params: { id }
+        });
+        window.open(href, '_blank');
+      }
     }
   }
 </script>
