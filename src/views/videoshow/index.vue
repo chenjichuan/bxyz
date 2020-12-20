@@ -3,19 +3,23 @@
     <Row class="members" type="flex" justify="space-between" :gutter="46">
       <Col v-for="(item, index) in list" :key="index">
         <template v-if="item.title">
-<!--          <Video :options="item.playerOptions" />-->
           <img class="poster" :src="item.cover" alt="">
           <div style="display: flex;justify-content: space-between;align-items: center">
             <p class="video-title">{{ item.title }}</p>
-<!--            <div>-->
-<!--              <Icons type="zan" w="30" h="30" style="cursor:pointer;margin-right: 34px;" />-->
-<!--              <Icons type="star" w="30" h="30" style="cursor:pointer;" />-->
-<!--            </div>-->
             <Button class="watch" @click="goDetail(item.id, item.title)">观看</Button>
           </div>
         </template>
       </Col>
     </Row>
+    <div class="buttons">
+      <Button
+        type="primary" shape="circle"
+        @click="$router.push({ name: 'filter-videos', query: { tab: '1', title: '我赞过的视频' } })">我赞过的视频
+      </Button>
+      <Button
+        type="primary" shape="circle"
+        @click="$router.push({ name: 'filter-videos', query: { tab: '2', title: '我收藏的视频' } })">我收藏的视频</Button>
+    </div>
     <Page class="page" :total="count" />
   </div>
 </template>
@@ -112,10 +116,20 @@
       }
     }
   }
+
   .poster {
     width: 400px;
     height: 240px;
   }
+
+  .buttons {
+    text-align: right;
+
+    button {
+      margin-right: 20px;
+    }
+  }
+
   .page {
     margin-top: 154px;
     margin-bottom: 202px;

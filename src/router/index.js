@@ -276,6 +276,12 @@ const routes = [
         component: resolve => import('@/views/videoshow').then(resolve)
       },
       {
+        path: '/filter-videos',
+        name: 'filter-videos',
+        meta: {},
+        component: resolve => import('@/views/videoshow/filter-videos').then(resolve)
+      },
+      {
         path: '/videoshow/detail/:id',
         name: 'videoshow/detail',
         meta: {
