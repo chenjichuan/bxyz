@@ -77,7 +77,7 @@
     },
     watch: {
       '$route' (newV, oldV) {
-        this.setBreadcrumb([oldV, newV])
+        this.setBreadcrumb([newV, oldV])
       }
     }
   }

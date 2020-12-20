@@ -73,6 +73,7 @@
 <style scoped lang="less">
   .content {
     padding: 0 69px;
+    padding-top: 67px;
   }
 
   .members {

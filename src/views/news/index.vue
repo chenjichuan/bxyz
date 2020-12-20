@@ -2,6 +2,7 @@
   <div class="content">
     <ul>
       <li v-for="(item, index) in list" :key="index"
+          style="cursor:pointer;"
           @click="$router.push({ name: 'news-detail', params: { id: index } })">
         <img :src="item.poster" alt="">
         <div>

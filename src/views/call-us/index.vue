@@ -40,8 +40,9 @@
 </template>
 
 <script>
+  import Icons from '@/components/icon'
   export default {
-    components: {},
+    components: { Icons },
     data() {
       return {
         us: [

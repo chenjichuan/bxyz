@@ -42,17 +42,19 @@
 </template>
 
 <script>
-//  import Video from '@/components/video'
-//  import Icons from '@/components/icon'
+  import { informationDetail } from './api'
   export default {
     components: {
-//      Video, Icons
     },
     data () {
       return {
       }
     },
     watch: {
+    },
+    mounted () {
+      // todo 没有数据
+      informationDetail({ id: this.$route.params.id })
     }
   }
 </script>

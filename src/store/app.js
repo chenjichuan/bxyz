@@ -1,60 +1,58 @@
+import Vue from 'vue'
 export default {
   state: {
-    breadcrumb: [
-      { text: '首页', to: 'home' },
-    ]
+    breadcrumb: []
   },
   getters: {
     breadcrumb: (state) => state.breadcrumb,
   },
   mutations: {
     initBreadcrumb (state, router) {
-      if (router.meta.breadShow) {
-        state.breadcrumb.push({
+      const ls = Vue.prototype.$ls
+      const breadcrumb = ls.get('breadcrumb')
+      let index = -1
+      breadcrumb.forEach((item, i) => {
+        if (item.to === router.name) {
+          index = i
+        }
+      })
+      if (index > -1) {
+        breadcrumb.splice(index + 1, state.breadcrumb.length - 1)
+      } else {
+        breadcrumb.push({
           text: router.meta.title,
           to: router.name
         })
       }
+      ls.set('breadcrumb', breadcrumb)
+      state.breadcrumb = breadcrumb
     },
-    setPushBreadcrumb(state, breadcrum) {
-      state.breadcrumb.push(breadcrum)
-    },
-    setBreadcrumb (state, [oldRoute, newRoute]) {
-      let breadcrumbOld = oldRoute.path.split('/')
-      let breadcrumbNew = newRoute.path.split('/')
-      if (breadcrumbNew.length > breadcrumbOld.length) {
-        // 深1级
-        if (newRoute.meta.breadShow) {
-          state.breadcrumb.push({
-            text: newRoute.meta.title
-          })
+    setBreadcrumb (state, [newRoute]) {
+      const ls = Vue.prototype.$ls
+      let breadcrumbNew = newRoute.name
+      const { meta = {} } = newRoute
+      let index = -1
+      state.breadcrumb.forEach((item, i) => {
+        if (item.to === breadcrumbNew) {
+          index = i
         }
-        return
+      })
+      if (index > -1) {
+        state.breadcrumb.splice(index + 1, state.breadcrumb.length - 1)
+      } else {
+        state.breadcrumb.push({
+          text: meta.title,
+          to: breadcrumbNew
+        })
       }
-      if (breadcrumbNew.length < breadcrumbOld.length) {
-        // 少几级
-        state.breadcrumb.splice(breadcrumbOld.length - 2, breadcrumbOld.length - breadcrumbNew.length)
-        return
+      console.error(newRoute.name)
+      if (newRoute.name === 'home') {
+        state.breadcrumb = [{
+          text:'首页',
+          to: 'home'
+        }]
       }
-      if (breadcrumbNew.length === breadcrumbOld.length) {
-        if (!newRoute.meta.breadShow) {
-          return;
-        }
-        // 少几级
-        if (state.breadcrumb.length > 1) {
-          state.breadcrumb.pop()
-          state.breadcrumb.push({
-            text: newRoute.meta.title,
-            to: newRoute.name
-          })
-        } else {
-          state.breadcrumb.push({ text: newRoute.meta.title, to: newRoute.name })
-        }
-        return
-      }
-      if (state.breadcrumb.length === 0) {
-        state.breadcrumb.unshift({ text: '首页', to: 'home' })
-      }
+      ls.set('breadcrumb', state.breadcrumb)
     }
   },
   actions: {}

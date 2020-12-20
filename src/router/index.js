@@ -16,7 +16,7 @@ const routes = [
         name: 'home',
         component: resolve => import('@/views/home').then(resolve),
         meta: {
-          title: '百行宜众',
+          title: '首页',
         },
       },
       /***********惠法务**********************/
@@ -263,7 +263,6 @@ const routes = [
         name: 'groups',
         meta: {
           title: '专业团队',
-          breadShow: true,
         },
         component: resolve => import('@/views/groups').then(resolve)
       },
@@ -273,7 +272,6 @@ const routes = [
         name: 'videoshow',
         meta: {
           title: '视频展示',
-          breadShow: true,
         },
         component: resolve => import('@/views/videoshow').then(resolve)
       },
