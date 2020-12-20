@@ -65,6 +65,9 @@
         this.$router.push({ name: 'buket' })
       },
       logOut () {
+        this.$Notice.success({
+          title: '退出成功'
+        });
         this.clearUserInfo(() => {
           if (this.$route.name !== 'auth/login') {
             location.replace( '/#/auth/login')

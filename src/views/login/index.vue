@@ -96,7 +96,6 @@
         login({
           ...this.formCustom
         }).then(res => {
-          this.$Message.success(res.message)
           const userInfo = {
             ...res.data,
             phone: this.formCustom.phone,
@@ -104,6 +103,9 @@
           // 更新本地userInfo
           this.$ls.set('userInfo', userInfo)
           this.setUserInfo(userInfo)
+          this.$Notice.success({
+            title: res.message
+          });
           setTimeout(() => {
             location.href = '/#/home'
           }, 1000)
