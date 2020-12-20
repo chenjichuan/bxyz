@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { lawyerList } from './api'
   export default {
     data () {
       return {
@@ -75,7 +76,11 @@
             pofess: '刑事，民事',
             poster: ''
           },
-        ]
+        ],
+        pages: {
+          page: 1,
+          pageNum: 20
+        },
       }
     },
     watch: {
@@ -87,6 +92,10 @@
           }
         }
       }
+    },
+    mounted () {
+      // todo 没有数据
+      lawyerList(this.pages)
     }
   }
 </script>
@@ -98,6 +107,7 @@
     .title {
       font-size: 18px;
       color: #333333;
+      margin-top: 22px;
     }
   }
 

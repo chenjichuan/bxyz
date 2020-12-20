@@ -5,11 +5,11 @@ export default [{
     {
       key: 'username',
       label: '真实姓名',
-      value: '奥斯特洛夫司机',
+      value: '',
     },
     {
-      key: 'local',
+      key: 'idCard',
       label: '身份证号',
-      value: '12132138********',
+      value: '',
     }]
 }]
