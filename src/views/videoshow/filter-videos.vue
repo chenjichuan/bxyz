@@ -44,7 +44,6 @@
       this.getData(this.$route.query.tab)
     },
     methods: {
-      // todo 没数据
       getData (key) {
         var api = collectVedioList
         if (key === '1') {
@@ -56,6 +55,8 @@
           u_id: this.userInfo.id,
           page: 1,
           pageNum: 100000
+        }).then(() => {
+          // todo 没数据
         })
       }
     }

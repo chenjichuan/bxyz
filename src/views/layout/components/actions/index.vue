@@ -5,7 +5,7 @@
       <Icons type="tel" />
       <p class="number">4000-111-528</p>
       <Badge
-        :count="3" class-name="badge" :offset="[18, 2]" style="cursor:pointer;width: 32px;height: 32px;"
+        :count="cartList.length" class-name="badge" :offset="[18, 2]" style="cursor:pointer;width: 32px;height: 32px;"
         @click.native="goBuket">
         <Icons type="cart" style="cursor:pointer;position:absolute;" />
       </Badge>
@@ -32,6 +32,7 @@
   import Icons from '@/components/icon'
   import Search from '../search'
   import test from '@/assets/images/icons/timg2.jpeg'
+  import { cartList as getCartList } from '@/common/api'
   import { mapMutations, mapGetters } from 'vuex'
   export default {
     components: { Search, Icons },
@@ -41,11 +42,12 @@
       }
     },
     computed: {
-      ...mapGetters(['userInfo'])
+      ...mapGetters(['userInfo', 'cartList'])
     },
     created () {
       // 先从本地提取userinfo
       this.setUserInfo(this.$ls.get('userInfo') || {})
+      this.getCarlist()
     },
     watch: {
       '$route' () {
@@ -56,9 +58,14 @@
       }
     },
     methods: {
-      ...mapMutations(['setUserInfo', 'clearUserInfo']),
+      ...mapMutations(['setUserInfo', 'clearUserInfo', 'setCartList']),
       onSearch (value) {
         console.log(value)
+      },
+      getCarlist() {
+        getCartList({ u_id: this.userInfo.id }).then(res => {
+          this.setCartList(res || {})
+        })
       },
       goBuket () {
         if (this.$route.name === 'buket') return

@@ -14,7 +14,7 @@
           </CheckboxGroup>
         </div>
         <div class="price">价格 <span>¥ {{ total }}</span></div>
-        <Button class="add">加入购物车</Button>
+        <Button class="add" @click="addCarList">加入购物车</Button>
         <Button class="buy">立即下单</Button>
         <Tabs value="1" class="tabs">
           <TabPane label="产品详情" name="1">
@@ -60,6 +60,8 @@
 <script>
   import Icons from '@/components/icon'
   import Evaluate from '@/components/evaluate'
+  import { addCart, getcartList } from "../api";
+  import { mapGetters, mapMutations } from 'vuex'
   export default {
     components: { Icons, Evaluate },
     data () {
@@ -73,10 +75,11 @@
           { id: 5, text: '劳动争议', price: 100 },
           { id: 6, text: '特殊咨询（提供法律依据）', price: 100 },
           { id: 7, text: '深度咨询（提供法律依据+相似案例）', price: 100 },
-        ]
+        ],
       }
     },
     computed: {
+      ...mapGetters(['userInfo']),
       title () {
         return this.$route.meta.title
       },
@@ -87,6 +90,25 @@
           res += tar.price
         })
         return res
+      }
+    },
+    methods: {
+      ...mapMutations(['setCartList']),
+      refreshCart() { // 刷新购物车
+        getcartList({ u_id: this.userInfo.id }).then(res => {
+          this.setCartList(res || {})
+        })
+      },
+      addCarList () {
+        let pAll = []
+        this.good.forEach(item => {
+          pAll.push(addCart({ u_id: this.userInfo.id, p_id: item }))
+        })
+        Promise.all(pAll).then(() => {
+          this.refreshCart()
+        }, () => {
+          this.refreshCart()
+        })
       }
     }
   }
@@ -106,26 +128,12 @@
       padding: 18px 33px;
     }
 
-    /*.ivu-tabs-nav {*/
-    /*  color: #888888;*/
-
-    /*  !*.ivu-tabs-tab-active {*!*/
-    /*  !*  color: #82A694;*!*/
-    /*  !*}*!*/
-
-    /*  !*.ivu-tabs-tab:hover {*!*/
-    /*  !*  color: #82A694;*!*/
-    /*  !*}*!*/
-
-    /*  !*.ivu-tabs-ink-bar {*!*/
-    /*  !*  background-color: #82A694;*!*/
-    /*  !*}*!*/
-    /*}*/
   }
 </style>
 <style scoped lang="less">
   .content {
     padding: 59px 200px 430px 200px;
+
     .goods {
       display: flex;
 
@@ -192,14 +200,17 @@
       .tabs {
         margin-top: 82px;
       }
+
       .right-text {
         margin-left: 21px;
+
         > p {
           font-size: 24px;
           line-height: 32px;
           color: #82A694;
           margin-bottom: 25px;
         }
+
         ul {
           li {
             color: #333333;
@@ -207,20 +218,24 @@
           }
         }
       }
+
       .steps {
         display: flex;
         align-items: center;
         margin-top: 86px;
+
         .line {
           width: 32px;
           height: 28px;
           border-top: 1px solid #8CAD9C;
           margin: 0 18px;
         }
-        >div {
+
+        > div {
           display: flex;
           flex-direction: column;
           justify-content: center;
+
           p {
             text-align: center;
             margin-top: 24px;

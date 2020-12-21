@@ -213,7 +213,7 @@ const routes = [
       },
       /***********荟诉**********************/
       {
-        path: '/businessshow/talk',
+        path: '/business-show/talk',
         name: 'business-show/talk',
         component: resolve => import('@/views/businessshow-talk').then(resolve),
         meta: {
@@ -222,7 +222,7 @@ const routes = [
         }
       },
       {
-        path: '/businessshow/talk/flzx',
+        path: '/business-show/talk/flzx',
         name: 'business-show/talk/flzx',
         component: resolve => import('@/views/businessshow-talk/flzx').then(resolve),
         meta: {
@@ -231,7 +231,7 @@ const routes = [
         }
       },
       {
-        path: '/businessshow/talk/fsfw',
+        path: '/business-show/talk/fsfw',
         name: 'business-show/talk/fsfw',
         component: resolve => import('@/views/businessshow-talk/fsfw').then(resolve),
         meta: {
@@ -240,7 +240,7 @@ const routes = [
         }
       },
       {
-        path: '/businessshow/talk/hyfw',
+        path: '/business-show/talk/hyfw',
         name: 'business-show/talk/hyfw',
         component: resolve => import('@/views/businessshow-talk/hyfw').then(resolve),
         meta: {
@@ -249,7 +249,7 @@ const routes = [
         }
       },
       {
-        path: '/businessshow/talk/ssfw',
+        path: '/business-show/talk/ssfw',
         name: 'business-show/talk/ssfw',
         component: resolve => import('@/views/businessshow-talk/ssfw').then(resolve),
         meta: {

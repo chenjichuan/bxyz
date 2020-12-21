@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <Tabs v-model="tab" :animated="false">
+    <Tabs v-model="tab" :animated="false" @on-click="getData">
       <TabPane label="全部订单" name="1" />
       <TabPane label="待支付" name="2" />
       <TabPane label="已支付" name="3" />
@@ -13,23 +13,13 @@
       </Row>
       <div class="list">
         <div class="left">
-          <Row type="flex" justify="space-between">
+          <Row
+            v-for="item in list" :key="item.id"
+            type="flex" justify="space-between">
             <Col class="poster"><img src="" alt="" /></Col>
-            <Col class="title">惠法务法律咨询-劳动争议</Col>
-            <Col class="number center">1</Col>
-            <Col class="price center">￥100.00</Col>
-          </Row>
-          <Row type="flex" justify="space-between">
-            <Col class="poster"><img src="" alt="" /></Col>
-            <Col class="title">惠法务法律咨询-劳动争议</Col>
-            <Col class="number center">1</Col>
-            <Col class="price center">￥100.00</Col>
-          </Row>
-          <Row type="flex" justify="space-between">
-            <Col class="poster"><img src="" alt="" /></Col>
-            <Col class="title">惠法务法律咨询-劳动争议</Col>
-            <Col class="number center">1</Col>
-            <Col class="price center">￥100.00</Col>
+            <Col class="title">{{ item.title }}</Col>
+            <Col class="number center">{{ item.num }}</Col>
+            <Col class="price center">￥{{ item.price }}</Col>
           </Row>
         </div>
         <div class="right"></div>
@@ -39,13 +29,47 @@
 </template>
 
 <script>
+  import { orderList } from './api'
+  import { mapGetters } from 'vuex'
   export default {
     data() {
       return {
-        tab: '1'
+        tab: '1',
+        list: [{
+          id: 1,
+          title: '惠法务法律咨询-劳动争议',
+          num: 1,
+          price: 100,
+        },{
+          id: 2,
+          title: '惠法务法律咨询-劳动争议',
+          num: 1,
+          price: 100,
+        }],
+        pages: {
+          page: 1,
+          pageNum: 10000
+        }
       }
     },
+    computed: {
+      ...mapGetters(['userInfo'])
+    },
+    mounted () {
+      this.getData()
+    },
     methods: {
+      getData(key) {
+        orderList({
+          u_id: this.userInfo.id,
+          type: key || this.tab,
+          ...this.pages
+        }).then(res => {
+          console.log(res)
+          // todo 没有数据
+          // this.list = res.data
+        })
+      }
     }
   }
 </script>

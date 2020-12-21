@@ -1,12 +1,27 @@
 import Vue from 'vue'
 export default {
   state: {
+    cartList: [],
     breadcrumb: []
   },
   getters: {
     breadcrumb: (state) => state.breadcrumb,
+    cartList: (state) => state.cartList,
   },
   mutations: {
+    clearBreadcrumb (state, router) {
+      const ls = Vue.prototype.$ls
+      state.breadcrumb = []
+      state.breadcrumb.push({
+        text:'首页',
+        to: 'home'
+      })
+      state.breadcrumb.push({
+        text: router.query.title || router.meta.title,
+        to: router.name
+      })
+      ls.set('breadcrumb', state.breadcrumb)
+    },
     initBreadcrumb (state, router) {
       const ls = Vue.prototype.$ls
       const breadcrumb = ls.get('breadcrumb') || []
@@ -61,7 +76,20 @@ export default {
         }]
       }
       ls.set('breadcrumb', state.breadcrumb)
+    },
+    setCartList (state, list) {
+      state.cartList = []
+      for (let key in list) {
+        if (!isNaN(+key) && typeof (+key) === 'number') {
+          state.cartList.push(list[key])
+        }
+      }
+    },
+    addCartList (state, list) {
+      state.cartList = list
+    },
+    delCartList (state, list) {
+      state.cartList = list
     }
   },
-  actions: {}
 }

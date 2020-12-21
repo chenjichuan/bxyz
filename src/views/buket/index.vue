@@ -2,7 +2,7 @@
   <div class="content">
     <div class="top">
       <span>我的购物车</span>
-      <span>共 {{ list.length }} 件商品， 已选择 {{ checked.length }} 件商品</span>
+      <span>共 {{ cartList.length }} 件商品， 已选择 {{ checked.length }} 件商品</span>
     </div>
     <div>
       <Checkbox
@@ -24,17 +24,17 @@
         </div>
       </Checkbox>
       <CheckboxGroup v-model="checked" class="my-favor" @on-change="checkAllGroupChange">
-        <Checkbox v-for="(item, index) in list" :key="item.id" :label="item.id" :disabled="choosePay" style="display:flex;align-items: center">
+        <Checkbox v-for="(item, index) in cartList" :key="item.id" :label="item.id" :disabled="choosePay" style="display:flex;align-items: center">
           <div class="table item" v-if="item.id">
             <Row type="flex" justify="space-between">
               <Col span="1" />
-              <Col span="2" class="poster"><img :src="item.poster" alt=""></Col>
+              <Col span="2" class="poster"><img :src="item.image" alt=""></Col>
               <Col span="4" class="name">{{ item.name }}</Col>
               <Col span="4" class="price colom">￥{{ item.price }}</Col>
               <Col span="4" class="colom">
-                <InputNumber v-model="item.num" :min="1" :editable="false" />
+                <InputNumber v-model="item.number" :min="1" :editable="false" />
               </Col>
-              <Col span="4" class="colom">￥{{ +item.num * +item.price }}</Col>
+              <Col span="4" class="colom">￥{{ +item.number * +item.price }}</Col>
               <Col span="2" class="colom">
                 <Poptip
                   confirm
@@ -67,46 +67,26 @@
 </template>
 
 <script>
+  // import { cartList } from './api'
+  import { mapGetters } from "vuex";
+
   export default {
     data () {
       return {
-        num: 0,
         checked: [],
         indeterminate: false,
         checkAll: false,
         choosePay: false,
         active: '',
-        list: [
-          {
-            id: 1,
-            poster: require('./poster.png'),
-            name: '惠法务法律咨询-劳动争议',
-            price: '199',
-            num: 1,
-          },
-          {
-            id: 2,
-            poster: require('./poster.png'),
-            name: '惠法务法律咨询-劳动争议',
-            price: '299',
-            num: 1,
-          },
-          {
-            id: 3,
-            poster: require('./poster.png'),
-            name: '惠法务法律咨询-劳动争议',
-            price: '399',
-            num: 1,
-          },
-        ]
       }
     },
     computed: {
+      ...mapGetters(['cartList']),
       totalPrice () {
         let totalPrice = 0
         this.checked.forEach(item => {
-          let [res] = this.list.filter(v => v.id === item)
-          totalPrice += +res.price * +res.num
+          let [res] = this.cartList.filter(v => v.id === item)
+          totalPrice += +res.price * +res.number
         })
         return totalPrice
       }
@@ -121,13 +101,13 @@
         this.indeterminate = false;
 
         if (this.checkAll) {
-          this.checked = this.list.map(item => item.id)
+          this.checked = this.cartList.map(item => item.id)
         } else {
           this.checked = [];
         }
       },
       checkAllGroupChange (data) {
-        if (data.length === this.list.length) {
+        if (data.length === this.cartList.length) {
           this.indeterminate = false;
           this.checkAll = true;
         } else if (data.length > 0) {
@@ -148,7 +128,7 @@
           this.checked.splice(idx, 1)
         }
         this.$nextTick(() =>  {
-          this.list.splice(index, 1)
+          this.cartList.splice(index, 1)
           this.checkAllGroupChange(this.checked)
         })
       }
