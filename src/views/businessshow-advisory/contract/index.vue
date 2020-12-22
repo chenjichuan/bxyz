@@ -14,7 +14,7 @@
           </CheckboxGroup>
         </div>
         <div class="price">价格 <span>¥ {{ total }}</span></div>
-        <Button class="add">加入购物车</Button>
+        <Button class="add" @click="addCarList">加入购物车</Button>
         <Button class="buy">立即下单</Button>
         <Tabs value="1" class="tabs">
           <TabPane label="产品详情" name="1">
@@ -25,7 +25,7 @@
               <div class="right-text">
                 <p>合同服务体量说明</p>
                 <ul>
-                  <li>中文合同服务字符不含空格5000字以内。 </li>
+                  <li>中文合同服务字符不含空格5000字以内。</li>
                   <li>英文合同服务字符不含空格6000字以内。</li>
                 </ul>
               </div>
@@ -37,9 +37,9 @@
               <div class="right-text">
                 <p>合同审查服务流程</p>
                 <ul>
-                  <li>在“我的订单”里点击“我要服务”。  </li>
+                  <li>在“我的订单”里点击“我要服务”。</li>
                   <li>根据提示对所需要起草或审查的进合同行简单描述，同时根据流程提交相关资料。</li>
-                  <li>律师会在三个工作日内为您做出解答，请您到会员中心“我的问题”中查看回复。 </li>
+                  <li>律师会在三个工作日内为您做出解答，请您到会员中心“我的问题”中查看回复。</li>
                 </ul>
               </div>
             </div>
@@ -80,10 +80,13 @@
 </template>
 
 <script>
-//  import Icons from '@/components/icon'
+  //  import Icons from '@/components/icon'
   import Evaluate from '@/components/evaluate'
+  import cartMixin from '@/mixins/cart.js'
+
   export default {
     components: { Evaluate },
+    mixins: [cartMixin],
     data () {
       return {
         good: [],
@@ -148,6 +151,7 @@
 <style scoped lang="less">
   .content {
     padding: 59px 200px 430px 200px;
+
     .goods {
       display: flex;
 
@@ -214,14 +218,17 @@
       .tabs {
         margin-top: 82px;
       }
+
       .right-text {
         margin-left: 21px;
+
         > p {
           font-size: 24px;
           line-height: 32px;
           color: #82A694;
           margin-bottom: 25px;
         }
+
         ul {
           li {
             color: #333333;
@@ -229,24 +236,29 @@
           }
         }
       }
+
       .steps {
         display: flex;
         align-items: center;
         margin-top: 86px;
+
         .line {
           width: 32px;
           height: 28px;
           border-top: 1px solid #8CAD9C;
           margin: 0 18px;
         }
-        >div {
+
+        > div {
           display: flex;
           flex-direction: column;
           justify-content: center;
           margin-right: 84px;
+
           span {
             text-align: center;
           }
+
           p {
             text-align: center;
             width: 100px;
@@ -257,9 +269,9 @@
             font-size: 24px;
             color: #82A694;
             margin-bottom: 24px;
+          }
         }
       }
     }
   }
-}
 </style>

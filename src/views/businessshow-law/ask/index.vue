@@ -60,10 +60,12 @@
 <script>
   import Icons from '@/components/icon'
   import Evaluate from '@/components/evaluate'
-  import { addCart, getcartList } from "../api";
-  import { mapGetters, mapMutations } from 'vuex'
+  // import { addCart, getcartList } from "../api";
+  // import { mapGetters } from 'vuex'
+  import cartMixin from '@/mixins/cart.js'
   export default {
     components: { Icons, Evaluate },
+    mixins: [cartMixin],
     data () {
       return {
         good: [],
@@ -79,7 +81,6 @@
       }
     },
     computed: {
-      ...mapGetters(['userInfo']),
       title () {
         return this.$route.meta.title
       },
@@ -92,25 +93,7 @@
         return res
       }
     },
-    methods: {
-      ...mapMutations(['setCartList']),
-      refreshCart() { // 刷新购物车
-        getcartList({ u_id: this.userInfo.id }).then(res => {
-          this.setCartList(res || {})
-        })
-      },
-      addCarList () {
-        let pAll = []
-        this.good.forEach(item => {
-          pAll.push(addCart({ u_id: this.userInfo.id, p_id: item }))
-        })
-        Promise.all(pAll).then(() => {
-          this.refreshCart()
-        }, () => {
-          this.refreshCart()
-        })
-      }
-    }
+    methods: {}
   }
 </script>
 
