@@ -3,7 +3,7 @@ export default [{
   title: '',
   items: [
     {
-      key: 'username',
+      key: 'type',
       label: '发票类型',
       value: 0,
       type: 'select',
@@ -11,30 +11,31 @@ export default [{
       required: true,
       style: { width: '270px' },
       children: [
-        { value: 0, label: '电子发票', },
+        { value: 1, label: '电子发票', },
+        { value: 2, label: '纸质', },
       ]
     },
     {
-      key: 'type',
+      key: 'taitou_type',
       label: '抬头类型',
       required: true,
       value: 0,
       type: 'radio',
       placeholder: '请选择',
       children: [
-        { value: 0, label: '个人', },
-        { value: 1, label: '单位', },
+        { value: 1, label: '个人', },
+        { value: 2, label: '单位', },
       ]
     },
     {
-      key: 'title',
+      key: 'taitou',
       label: '发票抬头',
       required: true,
       value: '',
       placeholder: '请输入发票抬头'
     },
     {
-      key: 'number',
+      key: 'unit_num',
       label: '单位税号',
       required: true,
       value: '',
@@ -49,17 +50,24 @@ export default [{
       placeholder: '请选择',
       required: true,
       children: [
-        { value: 0, label: '服务费', },
-        { value: 1, label: '餐饮费', },
+        { value: 1, label: '服务费', },
+        { value: 2, label: '咨询费', },
+        { value: 3, label: '顾问费', },
+        { value: 4, label: '培训费', },
       ]
     },
     {
       key: 'email',
       label: 'E-mail地址',
-      required: true,
       inputType: 'email',
       value: '',
       placeholder: '请输入电子邮箱地址'
+    },
+    {
+      key: 'address',
+      label: '发货地址',
+      value: '',
+      placeholder: '请输入发货地址'
     },
     {
       key: 'phone',
@@ -68,13 +76,13 @@ export default [{
       placeholder: '请输入您的手机号码'
     },
     {
-      key: '3',
+      key: 'opening_back',
       label: '开户行',
       value: '',
       placeholder: '请输入开户行'
     },
     {
-      key: 'num31',
+      key: 'back_account',
       label: '开户行号',
       value: '',
       placeholder: '请输入开户行号'

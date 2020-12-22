@@ -24,9 +24,9 @@
 </template>
 
 <script>
-  //  import Icons from '@/components/icon'
+  import { InvoiceList } from './api'
+  import { mapGetters } from "vuex";
   export default {
-//    components: { Icons },
     data () {
       return {
         list: [{
@@ -47,6 +47,12 @@
       }
     },
     computed: {
+      ...mapGetters(['userInfo']),
+    },
+    mounted () {
+      InvoiceList({
+        u_id: this.userInfo.id
+      })
     }
   }
 </script>

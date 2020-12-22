@@ -414,15 +414,6 @@ const routes = [
             component: resolve => import('@/views/user-center/about-fp-draw').then(resolve)
           },
           {
-            path: '/user-center/about-fp/write',
-            name: 'user-center/about-fp/write',
-            meta: {
-              title: '会员中心-填写信息',
-              breadShow: true
-            },
-            component: resolve => import('@/views/user-center/about-fp-write').then(resolve)
-          },
-          {
             path: '/user-center/about-fp/his',
             name: 'user-center/about-fp/his',
             meta: {

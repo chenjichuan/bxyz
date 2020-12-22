@@ -19,16 +19,20 @@
         <p>
           <span>共{{ order.length }}个订单，开票总金额</span><span class="total">¥{{ total }}</span>
         </p>
-        <Button type="primary" size="large" class="submit" :disabled="!order.length">下一步</Button>
+        <Button
+          type="primary" size="large" class="submit" :disabled="!order.length"
+          @click="$refs['infos'].modal = true">下一步
+        </Button>
       </div>
     </section>
+    <Info ref="infos" :order-id="order" />
   </div>
 </template>
 
 <script>
-  //  import Icons from '@/components/icon'
+  import Info from './dialog/info'
   export default {
-//    components: { Icons },
+    components: { Info },
     data () {
       return {
         order: [],
@@ -77,15 +81,19 @@
     line-height: 19px;
     color: #646464;
   }
+
   .lists {
     margin-top: 52px;
+
     .boxs {
       display: flex;
       flex-direction: column;
+
       .item {
         display: flex;
         align-items: center;
         margin-bottom: 30px;
+
         .right-content {
           height: 80px;
           margin-left: 32px;
@@ -93,10 +101,12 @@
           border-radius: 1px;
           padding: 14px 48px 16px;
           width: 800px;
+
           h3 {
             font-size: 16px;
             color: #333333;
           }
+
           p {
             font-size: 14px;
             color: #646464;
@@ -108,23 +118,27 @@
       }
     }
   }
+
   .action {
     display: flex;
     align-items: center;
     width: 800px;
     justify-content: flex-end;
     margin-top: 70px;
+
     p {
       width: 508px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
     }
+
     .total {
       margin-left: 45px;
       color: #82A694;
       font-size: 18px;
     }
+
     .submit {
       width: 200px;
       height: 50px;

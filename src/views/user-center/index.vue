@@ -64,7 +64,6 @@
             text: '关于发票', name: 'user-center/about-fp', icon: 'fp',
             sub: [
               { text: '开具发票', name: 'user-center/about-fp/draw', },
-              { text: '填写信息', name: 'user-center/about-fp/write', },
               { text: '查看历史', name: 'user-center/about-fp/his', }
             ]
           },
