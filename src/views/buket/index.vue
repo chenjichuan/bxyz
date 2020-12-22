@@ -32,7 +32,7 @@
               <Col span="4" class="name">{{ item.name }}</Col>
               <Col span="4" class="price colom">￥{{ item.price }}</Col>
               <Col span="4" class="colom">
-                <InputNumber v-model="item.number" :min="1" :editable="false" />
+                <InputNumber v-model="item.number" :min="1" :editable="false" @on-change="updCartNumChange(item.id, item.number)" />
               </Col>
               <Col span="4" class="colom">￥{{ +item.number * +item.price }}</Col>
               <Col span="2" class="colom">
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  // import { cartList } from './api'
+  import { delCart, updCartNum } from './api'
   import { mapGetters } from "vuex";
 
   export default {
@@ -81,7 +81,7 @@
       }
     },
     computed: {
-      ...mapGetters(['cartList']),
+      ...mapGetters(['cartList', 'userInfo']),
       totalPrice () {
         let totalPrice = 0
         this.checked.forEach(item => {
@@ -121,15 +121,29 @@
       preventDefault (e) {
         e.preventDefault()
       },
+      updCartNumChange (p_id, number) {
+        console.log(p_id, number)
+        updCartNum({
+          u_id: this.userInfo.id,
+          p_id,
+          number
+        })
+      },
       del (index, id) {
         console.log(index, id, this.checked)
-        let idx = this.checked.indexOf(id)
-        if (idx > -1) {
-          this.checked.splice(idx, 1)
-        }
-        this.$nextTick(() =>  {
-          this.cartList.splice(index, 1)
-          this.checkAllGroupChange(this.checked)
+        delCart({
+          u_id: this.userInfo.id,
+          p_id: id,
+        }).then(() => {
+          // 删除成功更新购物车
+          let idx = this.checked.indexOf(id)
+          if (idx > -1) {
+            this.checked.splice(idx, 1)
+          }
+          this.$nextTick(() =>  {
+            this.cartList.splice(index, 1)
+            this.checkAllGroupChange(this.checked)
+          })
         })
       }
     }
