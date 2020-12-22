@@ -22,6 +22,10 @@ export default {
       })
       ls.set('breadcrumb', state.breadcrumb)
     },
+    delBreadList (state, [item, index]) {
+      console.log(item)
+      state.breadcrumb.splice(index, 1)
+    },
     initBreadcrumb (state, router) {
       const ls = Vue.prototype.$ls
       const breadcrumb = ls.get('breadcrumb') || []
@@ -85,11 +89,5 @@ export default {
         }
       }
     },
-    addCartList (state, list) {
-      state.cartList = list
-    },
-    delCartList (state, list) {
-      state.cartList = list
-    }
   },
 }

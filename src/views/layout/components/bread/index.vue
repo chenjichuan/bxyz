@@ -1,13 +1,21 @@
 <template>
     <Breadcrumb v-show="showbread">
-      <BreadcrumbItem
-        v-for="(item, index) in breadcrumb" :key="index" :to="renderTo(item.to, index)">
-        {{ item.text }}
-      </BreadcrumbItem>
+      <template v-for="(item, index) in breadcrumb">
+        <Icon
+          :key="item.to"
+          v-show="item.to !== 'home'"
+          style="cursor:pointer;"
+          type="ios-close-circle-outline" @click.stop="closeBread(item, index)" />
+        <BreadcrumbItem
+          :key="index" :to="renderTo(item.to, index)">
+          {{ item.text }}
+        </BreadcrumbItem>
+      </template>
+
     </Breadcrumb>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapMutations } from 'vuex'
 
   export default {
     data () {
@@ -20,11 +28,16 @@
       }
     },
     methods: {
+      ...mapMutations(['delBreadList']),
       renderTo (to, index) {
         if (this.breadcrumb.length - 1 === index) {
           return ''
         }
         return to && ('/' + to)
+      },
+      closeBread (item, index) {
+        console.log(item, index)
+        this.delBreadList([item, index])
       }
     },
     created () {
