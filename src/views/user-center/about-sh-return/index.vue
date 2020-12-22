@@ -3,7 +3,7 @@
     <template v-if="!next">
       <p class="top-title">请选择您要退款的订单</p>
       <section class="lists">
-        <RadioGroup v-model="order" class="boxs">
+        <RadioGroup v-model="form.order_id" class="boxs">
           <Radio v-for="item in list" :key="item.orderId" :label="item.orderId" class="item">
             <div class="right-content">
               <h3>{{ item.title }}</h3>
@@ -20,7 +20,7 @@
           <p>
             <span>申请退款金额</span><span class="total">¥{{ total }}</span>
           </p>
-          <Button type="primary" size="large" class="submit" :disabled="!order" @click="next = true">下一步</Button>
+          <Button type="primary" size="large" class="submit" :disabled="!form.order_id" @click="next = true">下一步</Button>
         </div>
       </section>
     </template>
@@ -36,10 +36,11 @@
           </div>
         </FormItem>
         <FormItem label="退款原因" style="margin-bottom: 46px;margin-top: 90px;">
-          <Select v-model="form.reason" style="width: 200px;">
-            <Option value="beijing">New York</Option>
-            <Option value="shanghai">London</Option>
-            <Option value="shenzhen">Sydney</Option>
+          <Select v-model="form.refund_type" style="width: 200px;">
+            <Option value="1">七天无理由</Option>
+            <Option value="2">买错了</Option>
+            <Option value="3">买多了</Option>
+            <Option value="4">其他</Option>
           </Select>
         </FormItem>
         <FormItem label="退款金额">
@@ -48,18 +49,19 @@
       </Form>
       <div style="margin-top: 79px;">
         <Button class="prev" @click="next = false">上一步</Button>
-        <Button type="primary" size="large" class="submit" :disabled="!order">提交</Button>
+        <Button type="primary" size="large" class="submit" :disabled="!form.order_id" @click="submit">提交</Button>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+  import { applyForRefund } from './api'
+  import { mapGetters } from "vuex";
   export default {
     data () {
       return {
         next: false,
-        order: '',
         form: {},
         list: [
           {
@@ -87,14 +89,28 @@
       }
     },
     computed: {
+      ...mapGetters(['userInfo']),
       total () {
-        let [res] = this.list.filter(l => l.orderId === this.order)
+        let [res] = this.list.filter(l => l.orderId === this.form.order_id)
         if (!res) return 0
         return +res.price * (+res.num)
       },
       current () {
-        let [res] = this.list.filter(l => l.orderId === this.order)
+        let [res] = this.list.filter(l => l.orderId === this.form.order_id)
         return res || {}
+      }
+    },
+    methods: {
+      submit () {
+        const params = {
+          u_id: this.userInfo.id,
+          order_id: '',
+          ...this.form
+        }
+        applyForRefund(params).then(res => {
+          console.log(res)
+          // todo
+        })
       }
     }
   }
