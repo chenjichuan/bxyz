@@ -105,22 +105,6 @@
     .ivu-tabs-tab {
       padding: 18px 33px;
     }
-
-    /*.ivu-tabs-nav {*/
-    /*  color: #888888;*/
-
-    /*  !*.ivu-tabs-tab-active {*!*/
-    /*  !*  color: #82A694;*!*/
-    /*  !*}*!*/
-
-    /*  !*.ivu-tabs-tab:hover {*!*/
-    /*  !*  color: #82A694;*!*/
-    /*  !*}*!*/
-
-    /*  !*.ivu-tabs-ink-bar {*!*/
-    /*  !*  background-color: #82A694;*!*/
-    /*  !*}*!*/
-    /*}*/
   }
 </style>
 <style scoped lang="less">

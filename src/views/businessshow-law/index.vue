@@ -23,7 +23,7 @@
 
 <script>
   import Icons from '@/components/icon'
-  import { serveList, product } from './api'
+  import { serveList } from './api'
   export default {
     components: { Icons },
     data() {
@@ -78,7 +78,6 @@
     },
     mounted () {
       serveList()
-      product()
     }
   }
 </script>
