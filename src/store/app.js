@@ -1,26 +1,18 @@
 import Vue from 'vue'
 export default {
   state: {
+    homeData: {},
     cartList: [],
     breadcrumb: []
   },
   getters: {
     breadcrumb: (state) => state.breadcrumb,
     cartList: (state) => state.cartList,
+    homeData: (state) => state.homeData,
   },
   mutations: {
-    clearBreadcrumb (state, router) {
-      const ls = Vue.prototype.$ls
-      state.breadcrumb = []
-      state.breadcrumb.push({
-        text:'首页',
-        to: 'home'
-      })
-      state.breadcrumb.push({
-        text: router.query.title || router.meta.title,
-        to: router.name
-      })
-      ls.set('breadcrumb', state.breadcrumb)
+    setHomeData (state, data) {
+      state.homeData = data
     },
     delBreadList (state, [item, index]) {
       const ls = Vue.prototype.$ls

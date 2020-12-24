@@ -63,9 +63,11 @@
         console.log(value)
       },
       getCarlist() {
-        getCartList({ u_id: this.userInfo.id }).then(res => {
-          this.setCartList(res || {})
-        })
+        if ((this.$ls.get('userInfo') || {}).token) {
+          getCartList({ u_id: this.userInfo.id }).then(res => {
+            this.setCartList(res || {})
+          })
+        }
       },
       goBuket () {
         if (this.$route.name === 'buket') return

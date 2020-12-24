@@ -140,7 +140,9 @@
       }
     },
     mounted () {
-
+      content().then(res => {
+        console.log(res)
+      })
     },
     methods: {}
   }
