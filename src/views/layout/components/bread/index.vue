@@ -2,7 +2,7 @@
     <Breadcrumb v-show="showbread">
       <template v-for="(item, index) in breadcrumb">
         <Icon
-          :key="item.to"
+          :key="item.to + index"
           v-show="item.to !== 'home'"
           style="cursor:pointer;"
           type="ios-close-circle-outline" @click.stop="closeBread(item, index)" />

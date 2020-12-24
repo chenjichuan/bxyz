@@ -49,23 +49,29 @@ _axios.interceptors.response.use(
 const doAjax = ({ type, url, data, resolve, reject }) => {
   const { $Message } = Vue.prototype
   _axios[type](url, data).then(response => {
-    if (response.data && response.data.code === 200) {
+    if (!response.data) {
+      reject(response)
+    }
+    if (response.data.code === 200) {
       resolve(response.data)
-    } else {
+    }
+    else {
       $Message.error(response.data.message);
       reject(response.data)
     }
   }).catch((error) => {
     let message = error.message
     const { response: { data = {} } } = error
-    const { errors } = data
+    const { errors, code } = data
     data.message ? message = data.message : ''
-    if (/未登录|过期|请登录/.test(message)) {
+    console.log(data)
+    if (code === 40046) {
       const ls = Vue.prototype.$ls
       ls.set('userInfo', {})
       setTimeout(() => {
         location.href = location.origin + '/#/auth/login'
       }, 1000)
+      reject()
     }
     if (errors) {
       let errArr = []
