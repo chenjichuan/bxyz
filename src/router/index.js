@@ -23,7 +23,7 @@ const routes = [
       {
         path: '/business-show/law',
         name: 'business-show/law',
-        props: { id: 4 },
+        props: { id: 1 },
         component: resolve => import('@/views/businessshow-law').then(resolve),
         meta: {
           title: '业务展示-惠法务',
@@ -42,7 +42,7 @@ const routes = [
       {
         path: '/business-show/advisory',
         name: 'business-show/advisory',
-        props: { id: 4 },
+        props: { id: 2 },
         component: resolve => import('@/views/businessshow-advisory').then(resolve),
         meta: {
           title: '业务展示-惠咨询',
@@ -61,7 +61,7 @@ const routes = [
       {
         path: '/business-show/safe',
         name: 'business-show/safe',
-        props: { id: 4 },
+        props: { id: 3 },
         component: resolve => import('@/views/businessshow-safe').then(resolve),
         meta: {
           title: '业务展示-惠安心',

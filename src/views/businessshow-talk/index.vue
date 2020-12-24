@@ -7,7 +7,7 @@
       <div v-for="(item, index) in list" :key="index" class="item">
         <template v-if="item.name">
           <div class="top">
-            <Icons :type="item.icon" w="60" h="60"/>
+            <Icons :url="item.icon" w="60" h="60"/>
             <span>{{ item.name }}</span>
           </div>
           <div class="bottom">

@@ -32,6 +32,7 @@
     <img v-if="type === 'zan'" src="../../assets/images/icons/zan.png">
     <img v-if="type === 'star'" src="../../assets/images/icons/star.png">
     <img v-if="type === 'upload'" src="../../assets/images/icons/upload.png">
+    <img v-if="url" :src="url">
   </i>
 </template>
 
