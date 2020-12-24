@@ -68,9 +68,9 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
     if (code === 40046) {
       const ls = Vue.prototype.$ls
       ls.set('userInfo', {})
-      setTimeout(() => {
-        location.href = location.origin + '/#/auth/login'
-      }, 1000)
+      // setTimeout(() => {
+      //   location.href = location.origin + '/#/auth/login'
+      // }, 1000)
       reject()
     }
     if (errors) {

@@ -77,7 +77,7 @@
 <script>
   import Icons from '@/components/icon'
   import Video from '@/components/video'
-
+  import { content } from './api'
   export default {
     components: { Video, Icons },
     data () {
@@ -139,7 +139,9 @@
         ],
       }
     },
+    mounted () {
 
+    },
     methods: {}
   }
 </script>
