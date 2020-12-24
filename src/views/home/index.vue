@@ -29,7 +29,7 @@
             <h3>{{ item.text[1] }}</h3>
             <p>{{ item.text[2] }}</p>
           </div>
-          <Button type="primary" ghost>了解详情</Button>
+          <Button type="primary" ghost @click="$router.push({name: item.to})">了解详情</Button>
         </i-col>
       </Row>
     </section>
@@ -59,7 +59,7 @@
             <Col class="desc">
               <h3>北京百行宜众助残法律服务与研究中心</h3>
               <div v-for="(item, index) in us" :key="index">
-                <Icons :type="item.icon" w="19.2" h="19.2"/>
+                <Icons :type="item.icon" w="19.2" h="19.2" />
                 <div class="text">
                   <p>{{ item.text[1] }}</p>
                   <p>{{ item.text[2] }}</p>
@@ -90,10 +90,10 @@
           { text: { 1: 'E-mail:', 2: 'www.be-bj.org' }, icon: 'email' },
         ],
         businessPresentations: [
-          { text: { 1: '惠法务', 2: '单位定制 专业严谨', }, icon: 'law', active: false },
-          { text: { 1: '慧咨询', 2: '个人咨询 定向服务', }, icon: 'counsel', active: true },
-          { text: { 1: '汇安心', 2: '特殊家庭 用心关爱', }, icon: 'relieved', active: false },
-          { text: { 1: '荟诉', 2: '预先约定 全年保障', }, icon: 'safeguard', active: false },
+          { text: { 1: '惠法务', 2: '单位定制 专业严谨', }, icon: 'law', to: 'business-show/law', active: false },
+          { text: { 1: '慧咨询', 2: '个人咨询 定向服务', }, icon: 'counsel', to: 'business-show/advisory', active: true },
+          { text: { 1: '汇安心', 2: '特殊家庭 用心关爱', }, icon: 'relieved', to: 'business-show/safe', active: false },
+          { text: { 1: '荟诉', 2: '预先约定 全年保障', }, icon: 'safeguard', to: 'business-show/talk', active: false },
         ],
         videos: [{
           title: '民法典解读附案例',
@@ -287,6 +287,7 @@
         .map-img {
           width: 552px;
           margin-right: 20px;
+
           img {
             width: 100%;
             display: block;
@@ -302,19 +303,24 @@
             color: #333333;
             margin-bottom: 37px;
           }
+
           > div {
             display: flex;
-            &+div {
+
+            & + div {
               margin-top: 30px;
             }
+
             .text {
               margin-left: 8px;
+
               p {
                 font-size: 16px;
                 font-weight: 400;
                 line-height: 22px;
                 color: #86A998;
               }
+
               p + p {
                 font-size: 14px;
                 font-weight: 400;

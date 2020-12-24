@@ -70,6 +70,9 @@ export default {
       if (index > -1) {
         state.breadcrumb.splice(index + 1, state.breadcrumb.length - 1)
       } else {
+        if(state.breadcrumb.length > 10) {
+          state.breadcrumb.pop()
+        }
         state.breadcrumb.push({
           text: meta.title,
           to: breadcrumbNew
@@ -81,6 +84,7 @@ export default {
           to: 'home'
         }]
       }
+
       ls.set('breadcrumb', state.breadcrumb)
     },
     setCartList (state, list) {
