@@ -1,14 +1,24 @@
-import { addCart, getcartList, product, productDetail } from "./api";
+import { addCart, getcartList,  productDetail } from "./api";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
   computed: {
     ...mapGetters(['userInfo']),
+    title () {
+      return this.$route.query.title
+    },
+    total () {
+      let res = 0
+      this.good.forEach(item => {
+        let [tar] = this.list.filter(v => v.id === item)
+        res += +tar.price
+      })
+      return res
+    }
   },
   mounted () {
     // product()
     // 获取商品列表
-    console.log(product)
     productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)

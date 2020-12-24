@@ -80,19 +80,7 @@
         ],
       }
     },
-    computed: {
-      title () {
-        return this.$route.query.title
-      },
-      total () {
-        let res = 0
-        this.good.forEach(item => {
-          let [tar] = this.list.filter(v => v.id === item)
-          res += tar.price
-        })
-        return res
-      }
-    },
+
     methods: {}
   }
 </script>

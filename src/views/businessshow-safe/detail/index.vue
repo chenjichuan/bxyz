@@ -69,28 +69,7 @@
     data () {
       return {
         good: [],
-        list: [
-//          { id: 1, text: '劳动争议', price: 100 },
-//          { id: 2, text: '劳动争议', price: 100 },
-//          { id: 3, text: '劳动争议', price: 100 },
-//          { id: 4, text: '劳动争议', price: 100 },
-//          { id: 5, text: '劳动争议', price: 100 },
-//          { id: 6, text: '特殊咨询（提供法律依据）', price: 100 },
-//          { id: 7, text: '深度咨询（提供法律依据+相似案例）', price: 100 },
-        ],
-      }
-    },
-    computed: {
-      title () {
-        return this.$route.query.title
-      },
-      total () {
-        let res = 0
-        this.good.forEach(item => {
-          let [tar] = this.list.filter(v => v.id === item)
-          res += tar.price
-        })
-        return res
+        list: [],
       }
     },
     methods: {}

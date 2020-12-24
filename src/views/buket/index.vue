@@ -32,7 +32,7 @@
               <Col span="4" class="name">{{ item.name }}</Col>
               <Col span="4" class="price colom">￥{{ item.price }}</Col>
               <Col span="4" class="colom">
-                <InputNumber v-model="item.number" :min="1" :editable="false" @on-change="updCartNumChange(item.id, item.number)" />
+                <InputNumber v-model="item.number" :min="1" :editable="false" @on-change="updCartNumChange(item.p_id, item.number)" />
               </Col>
               <Col span="4" class="colom">￥{{ +item.number * +item.price }}</Col>
               <Col span="2" class="colom">
@@ -42,7 +42,7 @@
                   transfer
                   word-wrap
                   title="是否确定删除这个商品?"
-                  @on-ok="del(index, item.id)">
+                  @on-ok="del(index, item.p_id)">
                   <Icon type="ios-trash" size="28" color="#82A694" style="cursor:pointer;" @click="preventDefault" />
                 </Poptip>
               </Col>
@@ -130,7 +130,6 @@
         })
       },
       del (index, id) {
-        console.log(index, id, this.checked)
         delCart({
           u_id: this.userInfo.id,
           p_id: id,
