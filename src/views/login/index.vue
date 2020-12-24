@@ -50,7 +50,7 @@
 <script>
   import { mapMutations } from "vuex"
   import { loadJs } from "../../common/js/utils"
-  import { getCaptcha } from '../../common/api'
+  import { getCaptcha, cartList as getCartList } from '../../common/api'
   import { login } from './api'
   function checkPhone (rule, value, callback) {
     if (/^1[3456789]\d{9}$/.test(value)) {
@@ -85,7 +85,7 @@
       this.getCode()
     },
     methods: {
-      ...mapMutations(['setUserInfo']),
+      ...mapMutations(['setUserInfo', 'setCartList']),
       getCode () {
         getCaptcha().then(res => {
           console.log(res.data)
@@ -106,9 +106,13 @@
           this.$Notice.success({
             title: res.message
           });
-          setTimeout(() => {
-            location.href = '/#/home'
-          }, 1000)
+          getCartList({ u_id: res.data.id }).then(res => {
+            this.setCartList(res || {})
+            setTimeout(() => {
+              location.href = '/#/home'
+            }, 1000)
+          })
+
         })
       },
       handleSubmit () {

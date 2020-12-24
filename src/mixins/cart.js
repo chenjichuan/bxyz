@@ -1,4 +1,4 @@
-import { addCart, getcartList, product } from "./api";
+import { addCart, getcartList, product, productDetail } from "./api";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -8,9 +8,12 @@ export default {
   mounted () {
     // product()
     // 获取商品列表
-    product({ id: this.$route.query.id }).then(res => {
+    console.log(product)
+    productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)
+      const { list } = res.data
+      this.list = list
     })
   },
   methods: {

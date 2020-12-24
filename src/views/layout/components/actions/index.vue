@@ -76,6 +76,7 @@
           title: '退出成功'
         });
         this.clearUserInfo(() => {
+          this.setCartList({})
           if (this.$route.name !== 'auth/login') {
             location.replace( '/#/auth/login')
           }

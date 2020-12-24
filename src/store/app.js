@@ -23,8 +23,10 @@ export default {
       ls.set('breadcrumb', state.breadcrumb)
     },
     delBreadList (state, [item, index]) {
+      const ls = Vue.prototype.$ls
       console.log(item)
       state.breadcrumb.splice(index, 1)
+      ls.set('breadcrumb',  state.breadcrumb)
     },
     initBreadcrumb (state, router) {
       const ls = Vue.prototype.$ls

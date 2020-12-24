@@ -25,7 +25,9 @@
                       'click' (e) {
                         const { target } = e
                         const { name } = target.dataset
-                        _this.$router.push({ name })
+                        if (_this.$route.name !== name) {
+                          _this.$router.push({ name })
+                        }
                       },
                     }
                   },

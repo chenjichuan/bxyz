@@ -23,6 +23,7 @@ const routes = [
       {
         path: '/business-show/law',
         name: 'business-show/law',
+        props: { id: 4 },
         component: resolve => import('@/views/businessshow-law').then(resolve),
         meta: {
           title: '业务展示-惠法务',
@@ -30,56 +31,10 @@ const routes = [
         },
       },
       {
-        path: '/business-show/law/ask',
-        name: 'business-show/law/ask',
-        component: resolve => import('@/views/businessshow-law/ask').then(resolve),
+        path: '/business-show/law/detail',
+        name: 'business-show/law/detail',
+        component: resolve => import('@/views/businessshow-law/detail').then(resolve),
         meta: {
-          title: '法律咨询',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/law/contract',
-        name: 'business-show/law/contract',
-        component: resolve => import('@/views/businessshow-law/contract').then(resolve),
-        meta: {
-          title: '合同服务',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/law/resource',
-        name: 'business-show/law/resource',
-        component: resolve => import('@/views/businessshow-law/resource').then(resolve),
-        meta: {
-          title: '定制人力资源合同',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/law/manage',
-        name: 'business-show/law/manage',
-        component: resolve => import('@/views/businessshow-law/manage').then(resolve),
-        meta: {
-          title: '定制人资管理模板',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/law/offline',
-        name: 'business-show/law/offline',
-        component: resolve => import('@/views/businessshow-law/offline').then(resolve),
-        meta: {
-          title: '线下服务',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/law/people',
-        name: 'business-show/law/people',
-        component: resolve => import('@/views/businessshow-law/people').then(resolve),
-        meta: {
-          title: '顾问服务',
           breadShow: true,
         },
       },
@@ -87,6 +42,7 @@ const routes = [
       {
         path: '/business-show/advisory',
         name: 'business-show/advisory',
+        props: { id: 4 },
         component: resolve => import('@/views/businessshow-advisory').then(resolve),
         meta: {
           title: '业务展示-惠咨询',
@@ -94,29 +50,10 @@ const routes = [
         },
       },
       {
-        path: '/business-show/advisory/ask',
-        name: 'business-show/advisory/ask',
-        component: resolve => import('@/views/businessshow-advisory/ask').then(resolve),
+        path: '/business-show/advisory/detail',
+        name: 'business-show/advisory/detail',
+        component: resolve => import('@/views/businessshow-advisory/detail').then(resolve),
         meta: {
-          title: '法律咨询',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/advisory/contract',
-        name: 'business-show/advisory/contract',
-        component: resolve => import('@/views/businessshow-advisory/contract').then(resolve),
-        meta: {
-          title: '合同服务',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/advisory/offline',
-        name: 'business-show/advisory/offline',
-        component: resolve => import('@/views/businessshow-advisory/offline').then(resolve),
-        meta: {
-          title: '线下服务',
           breadShow: true,
         },
       },
@@ -124,6 +61,7 @@ const routes = [
       {
         path: '/business-show/safe',
         name: 'business-show/safe',
+        props: { id: 4 },
         component: resolve => import('@/views/businessshow-safe').then(resolve),
         meta: {
           title: '业务展示-惠安心',
@@ -131,83 +69,10 @@ const routes = [
         }
       },
       {
-        path: '/business-show/safe/zdfa',
-        name: 'business-show/safe/zdfa',
-        component: resolve => import('@/views/businessshow-safe/zdfa').then(resolve),
+        path: '/business-show/safe/detail',
+        name: 'business-show/safe/detail',
+        component: resolve => import('@/views/businessshow-safe/detail').then(resolve),
         meta: {
-          title: '惠安心指导方案',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/sqyz',
-        name: 'business-show/safe/sqyz',
-        component: resolve => import('@/views/businessshow-safe/sqyz').then(resolve),
-        meta: {
-          title: '特殊家庭生前遗嘱',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/ydjh',
-        name: 'business-show/safe/ydjh',
-        component: resolve => import('@/views/businessshow-safe/ydjh').then(resolve),
-        meta: {
-          title: '意定监护',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/zdjhr',
-        name: 'business-show/safe/zdjhr',
-        component: resolve => import('@/views/businessshow-safe/zdjhr').then(resolve),
-        meta: {
-          title: '遗嘱指定监护人',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/jtyz',
-        name: 'business-show/safe/jtyz',
-        component: resolve => import('@/views/businessshow-safe/jtyz').then(resolve),
-        meta: {
-          title: '特殊家庭遗嘱',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/cfgl',
-        name: 'business-show/safe/cfgl',
-        component: resolve => import('@/views/businessshow-safe/cfgl').then(resolve),
-        meta: {
-          title: '特殊家庭财富管理',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/nlrd',
-        name: 'business-show/safe/nlrd',
-        component: resolve => import('@/views/businessshow-safe/nlrd').then(resolve),
-        meta: {
-          title: '民事行为能力认定',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/ycglr',
-        name: 'business-show/safe/ycglr',
-        component: resolve => import('@/views/businessshow-safe/ycglr').then(resolve),
-        meta: {
-          title: '遗产管理人',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/safe/flgw',
-        name: 'business-show/safe/flgw',
-        component: resolve => import('@/views/businessshow-safe/flgw').then(resolve),
-        meta: {
-          title: '家庭法律顾问',
           breadShow: true,
         },
       },
@@ -215,6 +80,7 @@ const routes = [
       {
         path: '/business-show/talk',
         name: 'business-show/talk',
+        props: { id: 4 },
         component: resolve => import('@/views/businessshow-talk').then(resolve),
         meta: {
           title: '业务展示-荟诉',
@@ -222,40 +88,12 @@ const routes = [
         }
       },
       {
-        path: '/business-show/talk/flzx',
-        name: 'business-show/talk/flzx',
-        component: resolve => import('@/views/businessshow-talk/flzx').then(resolve),
+        path: '/business-show/talk/detail',
+        name: 'business-show/talk/detail',
+        component: resolve => import('@/views/businessshow-talk/detail').then(resolve),
         meta: {
-          title: '涉诉法律咨询',
           breadShow: true,
-        }
-      },
-      {
-        path: '/business-show/talk/fsfw',
-        name: 'business-show/talk/fsfw',
-        component: resolve => import('@/views/businessshow-talk/fsfw').then(resolve),
-        meta: {
-          title: '非诉服务',
-          breadShow: true,
-        }
-      },
-      {
-        path: '/business-show/talk/hyfw',
-        name: 'business-show/talk/hyfw',
-        component: resolve => import('@/views/businessshow-talk/hyfw').then(resolve),
-        meta: {
-          title: '荟员服务',
-          breadShow: true,
-        }
-      },
-      {
-        path: '/business-show/talk/ssfw',
-        name: 'business-show/talk/ssfw',
-        component: resolve => import('@/views/businessshow-talk/ssfw').then(resolve),
-        meta: {
-          title: '诉讼服务',
-          breadShow: true,
-        }
+        },
       },
       /***********专业团队**********************/
       {
