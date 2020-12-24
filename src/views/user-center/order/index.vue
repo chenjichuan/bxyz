@@ -66,8 +66,11 @@
           ...this.pages
         }).then(res => {
           console.log(res)
-          // todo 没有数据
-          // this.list = res.data
+          if (typeof res.data === 'string') {
+            this.$Message.info(res.data)
+          } else {
+            this.list = res.data
+          }
         })
       }
     }

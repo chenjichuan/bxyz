@@ -25,7 +25,7 @@
           <div style="display: flex;">
             <Input type="password" v-model="formCustom.captcha" style="width: 220px;margin-right: 20px;" />
             <div style="position:relative;width: 120px;height: 47px;">
-              <span v-html="codeImg" />
+              <img :src="codeImg" />
               <Icon
                 type="ios-refresh" size="20"
                 style="position:absolute;right: 0;cursor:pointer;"
@@ -88,8 +88,7 @@
       ...mapMutations(['setUserInfo', 'setCartList']),
       getCode () {
         getCaptcha().then(res => {
-          console.log(res.data)
-          this.codeImg = res.data
+          this.codeImg = res.url.img
         })
       },
       login () {

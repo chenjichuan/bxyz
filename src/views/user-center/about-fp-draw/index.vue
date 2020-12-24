@@ -31,6 +31,8 @@
 
 <script>
   import Info from './dialog/info'
+  import { mapGetters } from 'vuex'
+  import { applyInvoiceList } from './api'
   export default {
     components: { Info },
     data () {
@@ -62,6 +64,7 @@
       }
     },
     computed: {
+      ...mapGetters(['userInfo']),
       total () {
         let total = 0
         this.order.forEach(item => {
@@ -70,6 +73,13 @@
         })
         return total
       }
+    },
+    mounted () {
+      applyInvoiceList({
+        u_id: this.userInfo.id
+      }).then(res => {
+        console.log(res)
+      })
     }
   }
 </script>

@@ -10,6 +10,7 @@
           <img class="poster" :src="item.cover" alt="">
           <div style="display: flex;justify-content: space-between;align-items: center">
             <p class="video-title">{{ item.title }}</p>
+            <Button class="watch" @click="goDetail(item.id, item.title)">观看</Button>
           </div>
         </template>
       </Col>
@@ -55,9 +56,17 @@
           u_id: this.userInfo.id,
           page: 1,
           pageNum: 100000
-        }).then(() => {
-          // todo 没数据
+        }).then((res) => {
+          this.list = res.data
         })
+      },
+      goDetail (id, title) {
+        const { href } = this.$router.resolve({
+          name: 'videoshow/detail',
+          query: { title },
+          params: { id }
+        });
+        window.open(href, '_blank');
       }
     }
   }
@@ -95,6 +104,15 @@
           color: #1F2126;
           margin-top: 42px;
           margin-bottom: 32px;
+        }
+        .watch {
+          flex-shrink: 0;
+          width: 120px;
+          height: 40px;
+          background: #82A694;
+          border-radius: 20px;
+          color: #fff;
+          margin-left: 10px;
         }
       }
     }

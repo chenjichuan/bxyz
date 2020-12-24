@@ -5,3 +5,4 @@ export const vedioCommentList = (data, message) => $HTTP.post('vedioCommentList'
 export const vedioComent = (data, message) => $HTTP.post('vedioComent', data, message)
 export const likeVedioList = (data, message) => $HTTP.post('likeVedioList', data, message)
 export const collectVedioList = (data, message) => $HTTP.post('collectVedioList', data, message)
+export const vedioDetail = (data, message) => $HTTP.post('vedioDetail', data, message)

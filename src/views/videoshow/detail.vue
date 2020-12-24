@@ -7,19 +7,19 @@
         <div class="icons">
           <Icon size="30" :color="like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
           <Icon size="30" :color="add ? '#82A694' : ''" type="md-star" @click="addHandler" />
-          <Icon size="30" type="md-text" />
+          <Icon size="30" type="md-text"  @click="tabValue = '3'" />
         </div>
       </div>
-      <Tabs class="tabs">
-        <TabPane label="视频内容">
+      <Tabs  :value="tabValue" class="tabs">
+        <TabPane label="视频内容" name="1">
           <div class="inner"></div>
         </TabPane>
-        <TabPane label="视频简介">
+        <TabPane label="视频简介" name="2">
           <div class="inner">
             <h3>视频简介</h3>
           </div>
         </TabPane>
-        <TabPane label="视频评论">
+        <TabPane label="视频评论" name="3">
           <div class="inner">
             <h3 style="margin-bottom: 50px;">全部评论</h3>
             <ul>
@@ -44,7 +44,7 @@
 
 <script>
   import Video from '@/components/video'
-  import { vedioLike, vedioCollect, vedioCommentList, vedioComent } from './api'
+  import { vedioDetail, vedioLike, vedioCollect, vedioCommentList, vedioComent } from './api'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -53,6 +53,7 @@
     },
     data () {
       return {
+        tabValue: '',
         title: this.$route.query.title,
         v_id: this.$route.params.id,
         like: false,
@@ -88,6 +89,7 @@
     },
     mounted () {
       // todo 没有数据
+      vedioDetail({ v_id: this.v_id, u_id: this.userInfo.id })
       vedioCommentList({ v_id: this.v_id, })
     },
     methods: {

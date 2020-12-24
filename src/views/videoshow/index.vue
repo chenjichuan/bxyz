@@ -25,19 +25,7 @@
 </template>
 
 <script>
-  // import Video from '@/components/video'
-  // import Icons from '@/components/icon'
   import { vedioList } from './api'
-  // title: '民法典解读附案例',
-  //   playerOptions: {
-  //   width: 400,
-  //     sources: [{
-  //     type: "video/mp4",
-  //     src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-  //   }],
-  //     poster: require('./poster.png')
-  // }
-  // }
   export default {
     components: {
       // Video,

@@ -12,7 +12,7 @@
         </div>
       </li>
     </ul>
-    <Page class="page" :current="pages.page" />
+    <!--<Page class="page" :current="pages.page" />-->
   </div>
 </template>
 
@@ -27,7 +27,7 @@
         list: [],
         pages: {
           page: 1,
-          pageNum: 10
+          pageNum: 100
         },
       }
     },
