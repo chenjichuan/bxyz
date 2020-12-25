@@ -1,22 +1,24 @@
 <template>
   <div class="content">
     <div class="video">
-      <Video :options="option.playerOptions" />
+      <Video v-if="Object.keys(playerOptions).length" :options="playerOptions" />
       <div class="flex">
         <span>{{ title }}</span>
         <div class="icons">
-          <Icon size="30" :color="like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
-          <Icon size="30" :color="add ? '#82A694' : ''" type="md-star" @click="addHandler" />
-          <Icon size="30" type="md-text"  @click="tabValue = '3'" />
+          <Icon size="30" :color="detail.is_like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
+          <Icon size="30" :color="detail.is_collect ? '#82A694' : ''" type="md-star" @click="addHandler" />
+          <Icon size="30" type="md-text" @click="tabValue = '3'" />
         </div>
       </div>
-      <Tabs  :value="tabValue" class="tabs">
+      <Tabs :value="tabValue" class="tabs">
         <TabPane label="视频内容" name="1">
-          <div class="inner"></div>
+          <div class="inner">
+            {{ detail.synopsis }}
+          </div>
         </TabPane>
         <TabPane label="视频简介" name="2">
           <div class="inner">
-            <h3>视频简介</h3>
+            <h3> {{ detail.synopsis }}</h3>
           </div>
         </TabPane>
         <TabPane label="视频评论" name="3">
@@ -46,7 +48,6 @@
   import Video from '@/components/video'
   import { vedioDetail, vedioLike, vedioCollect, vedioCommentList, vedioComent } from './api'
   import { mapGetters } from 'vuex'
-
   export default {
     components: {
       Video,
@@ -58,16 +59,8 @@
         v_id: this.$route.params.id,
         like: false,
         add: false,
-        option: {
-          playerOptions: {
-            width: 1120,
-            sources: [{
-              type: "video/mp4",
-              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-            }],
-            poster: require('./poster.png')
-          }
-        },
+        detail: {},
+        playerOptions: {},
         comment: '',
         comments: [{
           id: 1,
@@ -88,20 +81,37 @@
       ...mapGetters(['userInfo'])
     },
     mounted () {
-      // todo 没有数据
-      vedioDetail({ v_id: this.v_id, u_id: this.userInfo.id })
-      vedioCommentList({ v_id: this.v_id, })
+      vedioDetail({
+        u_id: this.userInfo.id,
+        v_id: this.v_id,
+      }).then(res => {
+        this.detail = res.data
+        this.playerOptions = {
+          width: 1120,
+          sources: [{
+            type: "video/mp4",
+            src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+          }],
+          poster: this.detail.cover
+        }
+      })
+      vedioCommentList({
+        u_id: this.userInfo.id,
+        v_id: this.v_id,
+      }).then(res => {
+        console.log(res)
+      })
     },
     methods: {
       likeHandler () {
-        this.like = true
+        this.detail.is_like = 1
         vedioLike({
           u_id: this.userInfo.id,
           v_id: this.v_id,
         })
       },
       addHandler () {
-        this.add = true
+        this.detail.is_collect = 1
         vedioCollect({
           u_id: this.userInfo.id,
           v_id: this.v_id,

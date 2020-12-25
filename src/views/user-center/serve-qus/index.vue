@@ -36,6 +36,7 @@
 <script>
   import TableShow from '@/components/table-show'
   import head from './head'
+  import { quiz } from './api'
   export default {
     components: {
       TableShow,
@@ -59,6 +60,13 @@
         },
       }
     },
+    mounted () {
+      quiz({
+        u_id: 16,
+        p_id: 4,
+        order_id: ''
+      })
+    },
     methods: {
       changePage () {},
       buttonAction (id, obj) {
@@ -67,7 +75,7 @@
             name: 'user-center/serve/qus-detail',
             params: { id: obj.clueId }
           })
-        } 
+        }
         if (id === '2') {
           this.modal = true
         }

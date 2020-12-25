@@ -15,26 +15,26 @@ export default [{
       ]
     },
     {
-      key: '2',
+      key: 'is_phone',
       style: { width: '450px' },
       label: '是否需要电话沟通',
       value: '',
       type: 'select',
       placeholder: '请选择',
       children: [
-        { value: 0, label: '是', },
-        { value: 1, label: '否', },
+        { value: 1, label: '是', },
+        { value: 2, label: '否', },
       ]
     },
     {
-      key: '3',
+      key: 'phone',
       label: '联系电话',
       style: { width: '450px' },
       value: '',
       placeholder: '请输入联系电话'
     },
     {
-      key: '34',
+      key: 'content',
       label: '服务需求',
       value: '',
       inputType: 'textarea',

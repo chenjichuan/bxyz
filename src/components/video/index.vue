@@ -51,6 +51,11 @@
     created () {
       Object.assign(this.playerOptions, this.options)
     },
+    watch: {
+      options (v) {
+        Object.assign(this.playerOptions, v)
+      }
+    },
     methods: {
       // listen event
       onPlayerPlay(player) {
