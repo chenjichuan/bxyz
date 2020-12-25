@@ -4,17 +4,17 @@
     <section class="lists">
       <div class="item" v-for="(item, index) in list" :key="index" >
         <p><span>开票信息：</span><span>{{ item.kpxx }}</span></p>
-        <p><span>发票类型：</span><span>{{ item.kpxx }}</span></p>
-        <p><span>抬头类型：</span><span>{{ item.kpxx }}</span></p>
-        <p><span>发票抬头：</span><span>{{ item.kpxx }}</span></p>
+        <p><span>发票类型：</span><span>{{ item.type }}</span></p>
+        <p><span>抬头类型：</span><span>{{ item.taitou_type }}</span></p>
+        <p><span>发票抬头：</span><span>{{ item.taitou_type }}</span></p>
         <p><span>发票内容：</span><span>{{ item.kpxx }}</span></p>
         <p><span>订单信息：</span></p>
         <div class="right-content">
-          <h3>{{ item.title }}</h3>
+          <h3>{{ item.taitou }}</h3>
           <p>
             <span>{{ item.orderId }}</span>
-            <span>{{ item.time }}</span>
-            <span>{{ item.num }}</span>
+            <span>{{ item.created_at }}</span>
+            <span>{{ item.unit_num }}</span>
             <span>¥{{ item.price }}</span>
           </p>
         </div>
@@ -29,21 +29,7 @@
   export default {
     data () {
       return {
-        list: [{
-          kpxx: 'adasdasdsaXXXX',
-          title: '金卡顾问服务',
-          orderId: 'GB1590045695-51',
-          time: '2020-06-08 15:36:08',
-          num: 1,
-          price: '9880.00'
-        }, {
-          kpxx: 'adasdasdsaXXXX',
-          title: '金卡顾问服务',
-          orderId: 'GB15900245695-51',
-          time: '2020-06-08 15:36:08',
-          num: 1,
-          price: '9880.00'
-        }]
+        list: []
       }
     },
     computed: {
@@ -52,6 +38,9 @@
     mounted () {
       InvoiceList({
         u_id: this.userInfo.id
+      }).then(res => {
+        console.log(res.data)
+        this.list = res.data
       })
     }
   }

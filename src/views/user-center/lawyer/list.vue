@@ -17,6 +17,18 @@
         @on-button-click="buttonAction"
       />
     </div>
+    <Modal v-model="modal" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="ios-information-circle"></Icon>
+        <span>提示</span>
+      </p>
+      <div style="text-align:center">
+        <p>是否确认撤销申请？</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" long @click="del">撤销</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -24,7 +36,7 @@
   import TableShow from '@/components/table-show'
   import head from './head'
   import { mapGetters } from 'vuex'
-  import { lawQuestionList } from './api'
+  import { lawQuestionList, userCancelQuiz} from './api'
   export default {
     components: {
       TableShow,
@@ -34,6 +46,7 @@
         head,
         tab: '1',
         modal: false,
+        active: {},
         loading: false,
         tableData: [{
           clueId: '48237849',
@@ -67,6 +80,7 @@
         })
       },
       buttonAction (id, obj) {
+        this.active = obj
         if (id === '1') {
           this.$router.push({
             name: 'user-center/lawyer-detail',
@@ -77,8 +91,12 @@
           this.modal = true
         }
       },
-      sure () {
-        console.log(22)
+      del () {
+        this.modal = false
+        userCancelQuiz({
+          u_id: this.userInfo.id,
+          q_id: this.active.clueId
+        })
       }
     }
   }
