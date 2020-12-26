@@ -4,3 +4,5 @@ export const getCaptcha = (data, message) => $HTTP.post('getCaptcha', data, mess
 export const sendCode = (data, message) => $HTTP.post('sendCode', data, message)
 // 购物车
 export const cartList = (data, message) => $HTTP.post('cartList', data, message)
+
+export const serach = (data, message) => $HTTP.post('serach', data, message)

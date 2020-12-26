@@ -9,7 +9,7 @@
         @click.native="goBuket">
         <Icons type="cart" style="cursor:pointer;position:absolute;" />
       </Badge>
-      <div class="user" v-if="userInfo.id">
+      <div v-if="userInfo.id" class="user">
         <Avatar
           class="user-icon" size="40"
           style="cursor:pointer;"
@@ -17,11 +17,11 @@
           @click.native="$router.push({ name: 'user-center' })"
         />
         <span class="user-name">{{ userInfo.username }}</span>
-        <Icons type="quit" w="20" h="20"  style="cursor: pointer;" @click.native="logOut"/>
+        <Icons type="quit" w="20" h="20" style="cursor: pointer;" @click.native="logOut" />
       </div>
       <div v-else class="user">
         <a v-if="$route.name !== 'auth/login'" href="javascript:;" @click="$router.push({name: 'auth/login'})">登录</a>
-        <span v-if="$route.name !== 'auth/register' && $route.name !== 'auth/login'" class="line"/>
+        <span v-if="$route.name !== 'auth/register' && $route.name !== 'auth/login'" class="line" />
         <a v-if="$route.name !== 'auth/register'" href="javascript:;" @click="$router.push({name: 'auth/register'})">注册</a>
       </div>
     </div>
@@ -32,8 +32,14 @@
   import Icons from '@/components/icon'
   import Search from '../search'
   import test from '@/assets/images/icons/timg2.jpeg'
-  import { cartList as getCartList } from '@/common/api'
+  import { cartList as getCartList, serach } from '@/common/api'
   import { mapMutations, mapGetters } from 'vuex'
+    const goSearch = {
+      1: 'business-show/law',
+      2: 'business-show/advisory',
+      3: 'business-show/safe',
+      4: 'business-show/talk',
+    }
   export default {
     components: { Search, Icons },
     data () {
@@ -44,11 +50,6 @@
     computed: {
       ...mapGetters(['userInfo', 'cartList'])
     },
-    created () {
-      // 先从本地提取userinfo
-      this.setUserInfo(this.$ls.get('userInfo') || {})
-      this.getCarlist()
-    },
     watch: {
       '$route' () {
         let userInfo = this.$ls.get('userInfo') || {}
@@ -57,10 +58,23 @@
         }
       }
     },
+    created () {
+      // 先从本地提取userinfo
+      this.setUserInfo(this.$ls.get('userInfo') || {})
+      this.getCarlist()
+    },
     methods: {
       ...mapMutations(['setUserInfo', 'clearUserInfo', 'setCartList']),
-      onSearch (value) {
-        console.log(value)
+      onSearch (keyword) {
+        serach({ keyword }).then(res => {
+          console.log(res)
+          const [tar = {}] = res.data
+          if (tar.id) {
+            this.$router.push({
+              name: goSearch[4]
+            })
+          }
+        })
       },
       getCarlist() {
         if ((this.$ls.get('userInfo') || {}).token) {
