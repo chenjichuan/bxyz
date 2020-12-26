@@ -1,46 +1,50 @@
 <template>
   <div class="content">
     <div class="video">
-      <Video v-if="Object.keys(playerOptions).length" :options="playerOptions" />
-      <div class="flex">
-        <span>{{ title }}</span>
-        <div class="icons">
-          <Icon size="30" :color="detail.is_like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
-          <Icon size="30" :color="detail.is_collect ? '#82A694' : ''" type="md-star" @click="addHandler" />
-          <Icon size="30" type="md-text" @click="tabValue = '3'" />
+      <div class="warpp">
+        <Video v-if="Object.keys(playerOptions).length" ref="video" :options="playerOptions" />
+        <div class="flex">
+          <span>{{ title }}</span>
+          <div class="icons">
+            <Icon size="30" :color="detail.is_like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
+            <Icon size="30" :color="detail.is_collect ? '#82A694' : ''" type="md-star" @click="addHandler" />
+            <Icon size="30" type="md-text" @click="tabValue = '3'" />
+          </div>
         </div>
       </div>
-      <Tabs :value="tabValue" class="tabs">
-        <TabPane label="视频内容" name="1">
-          <div class="inner">
-            {{ detail.synopsis }}
-          </div>
-        </TabPane>
-        <TabPane label="视频简介" name="2">
-          <div class="inner">
-            <h3> {{ detail.synopsis }}</h3>
-          </div>
-        </TabPane>
-        <TabPane label="视频评论" name="3">
-          <div class="inner">
-            <h3 style="margin-bottom: 50px;">全部评论</h3>
-            <ul>
-              <li v-for="item in comments" :key="item.id" style="margin-bottom: 52px;">
-                <div style="display:flex;align-items: center">
-                  <Icon size="30" type="md-contact" />
-                  <span style="margin-left: 20px;">{{ item.username }}</span>
-                </div>
-                <p style="margin: 20px 0;font-size: 14px;color: #333;">{{ item.text }}</p>
-                <p style="font-size: 14px;color: #969696;">发表于 {{ item.time }}</p>
-              </li>
-            </ul>
-            <Input v-model="comment" class="inputer" type="textarea" maxlength="500" :rows="8"
-                   placeholder="说几句吧……..." />
-            <Button class="submit" type="primary" @click="submit">发表评论</Button>
-          </div>
-        </TabPane>
-      </Tabs>
+      <Tree :data="tree" class="tree" @on-select-change="treeClick" />
+
     </div>
+    <Tabs :value="tabValue" class="tabs">
+      <TabPane label="视频内容" name="1">
+        <div class="inner">
+          {{ detail.synopsis }}
+        </div>
+      </TabPane>
+      <TabPane label="视频简介" name="2">
+        <div class="inner">
+          <h3> {{ detail.synopsis }}</h3>
+        </div>
+      </TabPane>
+      <TabPane label="视频评论" name="3">
+        <div class="inner">
+          <h3 style="margin-bottom: 50px;">全部评论</h3>
+          <ul>
+            <li v-for="item in comments" :key="item.id" style="margin-bottom: 52px;">
+              <div style="display:flex;align-items: center">
+                <Icon size="30" type="md-contact" />
+                <span style="margin-left: 20px;">{{ item.username }}</span>
+              </div>
+              <p style="margin: 20px 0;font-size: 14px;color: #333;">{{ item.text }}</p>
+              <p style="font-size: 14px;color: #969696;">发表于 {{ item.time }}</p>
+            </li>
+          </ul>
+          <Input v-model="comment" class="inputer" type="textarea" maxlength="500" :rows="8"
+                 placeholder="说几句吧……..." />
+          <Button class="submit" type="primary" @click="submit">发表评论</Button>
+        </div>
+      </TabPane>
+    </Tabs>
   </div>
 </template>
 
@@ -57,8 +61,6 @@
         tabValue: '',
         title: this.$route.query.title,
         v_id: this.$route.params.id,
-        like: false,
-        add: false,
         detail: {},
         playerOptions: {},
         comment: '',
@@ -74,7 +76,31 @@
           username: '一天到晚游泳的鱼',
           text: '一般吧',
           time: '2020-06-08 14:02:46'
-        }]
+        }],
+        tree: [
+          {
+            title: '选集观看',
+            expand: true,
+            children: [
+              {
+                title: '第一章 初步了解法律',
+                expand: true,
+                children: [
+                  {title: '第1课 初步了解法律1', currrentSec: '10'},
+                  {title: '第2课 初步了解法律2', currrentSec: '20'}
+                ]
+              },
+              {
+                title: '第二章 初步认识法律',
+                expand: true,
+                children: [
+                  {title: '第1课 初步认识法律1', currrentSec: '30'},
+                  {title: '第2课 初步认识法律1', currrentSec: '45'}
+                ]
+              }
+            ]
+          }
+        ]
       }
     },
     computed: {
@@ -82,8 +108,10 @@
     },
     mounted () {
       vedioDetail({
-        u_id: this.userInfo.id,
-        v_id: this.v_id,
+//        u_id: this.userInfo.id,
+//        v_id: this.v_id,
+        u_id: 1,
+        v_id: 16,
       }).then(res => {
         this.detail = res.data
         this.playerOptions = {
@@ -103,6 +131,12 @@
       })
     },
     methods: {
+      treeClick ([v]) {
+        console.log(v)
+        if (v.currrentSec) {
+          this.$refs['video'].player.currentTime(v.currrentSec)
+        }
+      },
       likeHandler () {
         this.detail.is_like = 1
         vedioLike({
@@ -138,10 +172,12 @@
 <style scoped lang="less">
   .content {
     padding: 0 150px;
+   .tree {
+     margin-left: 98px;
+   }
 
     .video {
-      width: 1120px;
-
+      display: flex;
       .flex {
         justify-content: space-between;
         display: flex;
