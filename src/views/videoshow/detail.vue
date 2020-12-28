@@ -87,7 +87,6 @@
       ...mapGetters(['userInfo'])
     },
     mounted () {
-      // todo 没有数据
       vedioCommentList({ v_id: this.v_id, })
     },
     methods: {
