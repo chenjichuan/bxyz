@@ -3,16 +3,17 @@
     <p class="title">律师团队成员（排名不分先后）</p>
     <Row class="members" type="flex" justify="space-between" :gutter="108">
       <Col v-for="(item, index) in list" :key="index">
-        <template v-if="item.name">
-          <img :src="item.poster" alt="">
+        <template v-if="item.username">
+          <img :src="item.image" alt="">
           <div class="detail">
-            <div class="name">{{ item.name }}</div>
-            <p>职业年龄：{{ item.age }}</p>
-            <p>专业方向：{{ item.pofess }}</p>
+            <div class="name">{{ item.username }}</div>
+            <p>职业年龄：{{ item.working_years }}</p>
+            <p>专业方向：{{ item.specialty }}</p>
           </div>
         </template>
       </Col>
     </Row>
+    <Page class="page" :current="pages.page" :total="total" />
   </div>
 </template>
 
@@ -21,65 +22,11 @@
   export default {
     data () {
       return {
-        list: [
-          {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          },
-          {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          },
-          {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          },
-          {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          }, {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          }, {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          }, {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          }, {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          }, {
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          },{
-            name: '张三',
-            age: 10,
-            pofess: '刑事，民事',
-            poster: ''
-          },
-        ],
+        list: [],
+        total: 0,
         pages: {
           page: 1,
-          pageNum: 20
+          pageNum: 10
         },
       }
     },
@@ -94,8 +41,11 @@
       }
     },
     mounted () {
-      // todo 没有数据
-      lawyerList(this.pages)
+      lawyerList(this.pages).then(res => {
+        console.log(res)
+        this.list = JSON.parse(res.data)
+        this.total = res.count
+      })
     }
   }
 </script>
@@ -149,5 +99,9 @@
       }
     }
   }
-
+  .page {
+    margin: 10px;
+    text-align: right;
+    margin-bottom: 50px;
+  }
 </style>

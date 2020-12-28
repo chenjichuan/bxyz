@@ -37,6 +37,9 @@ _axios.interceptors.response.use(
         }
       }
     }
+    if (typeof response.data.code === 'undefined') {
+      response.data.code = 200
+    }
     return response;
   },
   function (error) {
@@ -68,9 +71,6 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
     if (code === 40046) {
       const ls = Vue.prototype.$ls
       ls.set('userInfo', {})
-      setTimeout(() => {
-        location.href = location.origin + '/#/auth/login'
-      }, 1000)
       reject()
     }
     if (errors) {

@@ -17,7 +17,7 @@
           <p>友情链接</p>
           <ul>
             <li v-for="(item, index) in links" :key="index">
-              <Button :to="item.to" target="_blank" type="text">{{ item.name }}</Button>
+              <Button :to="item.link" target="_blank" type="text">{{ item.name }}</Button>
             </li>
           </ul>
         </div>
@@ -44,20 +44,15 @@
   import TobTabs from './components/tabs'
   import Actions from './components/actions'
   import Bread from './components/bread'
+  import { content } from './api'
+
   import { mapMutations } from 'vuex'
   export default {
     components: {TobTabs, Logo, Actions, Bread},
     data() {
       return {
         logoImg,
-        links: [
-          {to: '//www.baidu.com', name: '百行宜众'},
-          {to: '//www.baidu.com', name: '中国残联'},
-          {to: '//www.baidu.com', name: '中国司法部'},
-          {to: '//www.baidu.com', name: '中国律师网'},
-          {to: '//www.baidu.com', name: '北京司法局'},
-          {to: '//www.baidu.com', name: '北京市残联'},
-        ],
+        links: [],
         cotyRgiht: [
           {to: '//www.baidu.com', name: '关于我们'},
           {type: 'line'},
@@ -71,6 +66,11 @@
     },
     created () {
       this.initBreadcrumb(this.$route)
+    },
+    mounted () {
+      content().then(res => {
+        this.links = res.data.blogroll
+      })
     },
     methods: {
       ...mapMutations(['setBreadcrumb', 'initBreadcrumb'])

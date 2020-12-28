@@ -29,8 +29,7 @@
           </Checkbox>
         </div>
 
-        <Button type="primary">保存</Button>
-        <Button type="primary">提交</Button>
+        <Button type="primary" @click="submit">提交</Button>
       </div>
     </Former>
   </div>
@@ -40,6 +39,7 @@
   import Former from '@/components/former'
   import Icons from '@/components/icon'
   import formLabel from "./formLabel";
+  import { subQuiz } from "./api"
   export default {
    components: { Icons, Former },
     data() {
@@ -50,8 +50,13 @@
       }
     },
     methods: {
-      formChange () {
-      },
+      formChange () {},
+      submit () {
+        console.log(this.formData)
+        subQuiz().then(res => {
+          console.log(res)
+        })
+      }
     }
   }
 </script>
