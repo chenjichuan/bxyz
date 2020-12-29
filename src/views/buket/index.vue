@@ -25,7 +25,7 @@
       </Checkbox>
       <CheckboxGroup v-model="checked" class="my-favor" @on-change="checkAllGroupChange">
         <Checkbox v-for="(item, index) in cartList" :key="item.id" :label="item.id" :disabled="choosePay" style="display:flex;align-items: center">
-          <div class="table item" v-if="item.id">
+          <div v-if="item.id" class="table item">
             <Row type="flex" justify="space-between">
               <Col span="1" />
               <Col span="2" class="poster"><img :src="item.image" alt=""></Col>
@@ -51,30 +51,35 @@
         </Checkbox>
       </CheckboxGroup>
     </div>
-    <div  class="bottom">
+    <div class="bottom">
       <p>共 {{ checked.length }} 件商品，商品总金额 <span> ¥{{ totalPrice }}</span></p>
-      <Button v-if="!choosePay" type="primary" :disabled="!checked.length" @click="choosePay = true">提交订单</Button>
+      <Button v-if="!choosePay" type="primary" :disabled="!checked.length" @click="getOrderId">提交订单</Button>
     </div>
     <div v-if="choosePay" class="pay">
       <p>请选择支付方式</p>
       <div class="wx" :class="{active: active === 'wx'}" @click="active = 'wx'"><div /><img src="./wx.png" alt=""></div>
-      <div class="ali"  :class="{active: active === 'ali'}" @click="active = 'ali'"><div /><img src="./zfb.png" alt=""></div>
+      <div class="ali" :class="{active: active === 'ali'}" @click="active = 'ali'"><div /><img src="./zfb.png" alt=""></div>
       <div>
-        <Button type="primary" :disabled="!active">立即支付</Button>
+        <Button type="primary" :disabled="!active" @click="pay">立即支付</Button>
       </div>
     </div>
+    <Modal v-model="payDhow" scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
+      <div class="codeQr"><canvas id="canvas" /></div>
+      <h3 style="text-align: center">支付过程中请勿出刷新当前页面，等待支付结果</h3>
+    </Modal>
   </div>
 </template>
 
 <script>
-  import { delCart, updCartNum } from './api'
-  import { mapGetters } from "vuex";
-
+  import { delCart, updCartNum, createOrder, checkOrderStatus, wxPay, cartList as getCartList } from './api'
+  import { mapMutations, mapGetters } from "vuex";
+  import QRCode from 'qrcode'
   export default {
     data () {
       return {
         checked: [],
         indeterminate: false,
+        payDhow: false,
         checkAll: false,
         choosePay: false,
         active: '',
@@ -91,7 +96,13 @@
         return totalPrice
       }
     },
+    mounted () {
+      getCartList({ u_id: this.userInfo.id }).then(res => {
+        this.setCartList(res || {})
+      })
+    },
     methods: {
+      ...mapMutations(['setCartList']),
       handleCheckAll () {
         if (this.indeterminate) {
           this.checkAll = false;
@@ -144,6 +155,47 @@
             this.checkAllGroupChange(this.checked)
           })
         })
+      },
+      getOrderId () {
+        createOrder({
+          u_id: this.userInfo.id,
+          cart_id: this.checked.toString()
+        }).then(res => {
+          if (res.orderId) {
+            this.choosePay = true
+            this.orderId = res.orderId
+          }
+        })
+      },
+      pay () {
+        wxPay({
+          u_id: this.userInfo.id,
+          order_id: this.orderId
+        }).then(res => {
+          console.log(res)
+          var canvas = document.getElementById('canvas')
+          QRCode.toCanvas(canvas, res.code_url, function (error) {
+            if (error) console.error(error)
+          })
+          this.payDhow = true
+          this.payRes()
+        })
+      },
+      payRes () {
+        let timer = setInterval(() => {
+          checkOrderStatus({
+            u_id: this.userInfo.id,
+            order_id: this.orderId
+          }).then(res => {
+            console.log(res)
+            if (res.status === 2) {
+              clearInterval(timer)
+              this.payDhow = false
+              this.$Message.success('支付成功')
+              location.reload()
+            }
+          })
+        }, 2000)
       }
     }
   }
@@ -280,5 +332,8 @@
         float: right;
       }
     }
+  }
+  .codeQr {
+    text-align: center;
   }
 </style>

@@ -1,3 +1,6 @@
 export const cartList = (data, message) => $HTTP.post('cartList', data, message)
 export const updCartNum = (data, message) => $HTTP.post('updCartNum', data, message)
 export const delCart = (data, message) => $HTTP.post('delCart', data, message)
+export const wxPay = (data, message) => $HTTP.post('wxPay', data, message)
+export const createOrder = (data, message) => $HTTP.post('createOrder', data, message)
+export const checkOrderStatus = (data, message) => $HTTP.post('checkOrderStatus', data, message)

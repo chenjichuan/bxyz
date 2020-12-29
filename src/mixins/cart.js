@@ -33,16 +33,28 @@ export default {
         this.setCartList(res || {})
       })
     },
-    addCarList () { // 添加购物车
+    addCarList (states) { // 添加购物车
       if (this.good.length === 0) return
       let pAll = []
       this.good.forEach(item => {
         pAll.push(addCart({ u_id: this.userInfo.id, p_id: item }))
       })
       Promise.all(pAll).then(() => {
-        this.refreshCart()
+        if (states) {
+          this.$router.push({
+            name: 'buket'
+          })
+        } else {
+          this.refreshCart()
+        }
       }, () => {
-        this.refreshCart()
+        if (states) {
+          this.$router.push({
+            name: 'buket'
+          })
+        } else {
+          this.refreshCart()
+        }
       })
     }
   }
