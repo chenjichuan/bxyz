@@ -34,12 +34,12 @@
   import test from '@/assets/images/icons/timg2.jpeg'
   import { cartList as getCartList, serach } from '@/common/api'
   import { mapMutations, mapGetters } from 'vuex'
-    const goSearch = {
-      1: 'business-show/law',
-      2: 'business-show/advisory',
-      3: 'business-show/safe',
-      4: 'business-show/talk',
-    }
+//    const goSearch = {
+//      1: 'business-show/law',
+//      2: 'business-show/advisory',
+//      3: 'business-show/safe',
+//      4: 'business-show/talk',
+//    }
   export default {
     components: { Search, Icons },
     data () {
@@ -71,7 +71,10 @@
           const [tar = {}] = res.data
           if (tar.id) {
             this.$router.push({
-              name: goSearch[4]
+              name: 'search',
+              params: {
+                list: res.data
+              }
             })
           }
         })

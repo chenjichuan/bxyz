@@ -41,7 +41,10 @@
       <div class="videos">
         <Row class="video-wrp">
           <i-col v-for="(item, index) in videos" :key="index" span="6">
-            <Video :options="item.playerOptions" />
+            <div style="position:relative;" @click="goDetail(1, item.title)">
+              <Icons w="62" h="62" type="play" />
+              <img :src="item.poster" alt="">
+            </div>
             <h3 class="video-title">{{ item.title }}</h3>
           </i-col>
         </Row>
@@ -76,9 +79,9 @@
 
 <script>
   import Icons from '@/components/icon'
-  import Video from '@/components/video'
+//  import Video from '@/components/video'
   export default {
-    components: { Video, Icons },
+    components: { Icons },
     data () {
       return {
         banner: 1,
@@ -96,49 +99,30 @@
         ],
         videos: [{
           title: '民法典解读附案例',
-          playerOptions: {
-            width: 400,
-            sources: [{
-              type: "video/mp4",
-              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-            }],
-            poster: require('@/assets/images/video-poster/minf.png')
-          }
+          poster: require('@/assets/images/video-poster/minf.png')
         }, {
           title: '劳动法',
-          playerOptions: {
-            width: 400,
-            sources: [{
-              type: "video/mp4",
-              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-            }],
-            poster: require('@/assets/images/video-poster/ldf.png')
-          }
+          poster: require('@/assets/images/video-poster/ldf.png')
         }, {
           title: '公司法',
-          playerOptions: {
-            width: 400,
-            sources: [{
-              type: "video/mp4",
-              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-            }],
-            poster: require('@/assets/images/video-poster/gsf.png')
-          }
+          poster: require('@/assets/images/video-poster/gsf.png')
         }, {
           title: '劳动纠纷案例分析',
-          playerOptions: {
-            width: 400,
-            sources: [{
-              type: "video/mp4",
-              src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-            }],
-            poster: require('@/assets/images/video-poster/ldjf.png')
-          }
+          poster: require('@/assets/images/video-poster/ldjf.png')
         }
         ],
       }
     },
-    methods: {}
+    methods: {
+      goDetail (id = 1, title = '') {
+        const { href } = this.$router.resolve({
+          name: 'videoshow/detail',
+          query: { title },
+          params: { id }
+        });
+        window.open(href, '_blank');
+      }
+    }
   }
 </script>
 
@@ -254,10 +238,25 @@
       padding: 0 100px;
 
       .video-wrp {
+        position: relative;
+        i {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          cursor: pointer;
+          margin: auto;
+        }
         > div + div {
           padding-left: 38px;
         }
-
+        img {
+          width: 400px;
+          height: 240px;
+          display: flex;
+          cursor: pointer;
+        }
         h3.video-title {
           font-size: 20px;
           font-weight: 400;

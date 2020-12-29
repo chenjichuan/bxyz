@@ -328,6 +328,16 @@ const routes = [
         },
         component: resolve => import('@/views/buket').then(resolve)
       },
+      /***********搜索**********************/
+      {
+        path: '/search',
+        name: 'search',
+        meta: {
+          title: '搜索结果',
+          breadShow: true
+        },
+        component: resolve => import('@/views/search').then(resolve)
+      },
     ]
   }]
 
