@@ -89,11 +89,13 @@
       getCode () {
         getCaptcha().then(res => {
           this.codeImg = res.url.img
+          this.imgKey = res.url.key
         })
       },
       login () {
         login({
-          ...this.formCustom
+          ...this.formCustom,
+          key: this.imgKey
         }).then(res => {
           const userInfo = {
             ...res.data,
