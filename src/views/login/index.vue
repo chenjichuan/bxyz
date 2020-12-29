@@ -23,7 +23,7 @@
         </FormItem>
         <FormItem label="验证码" prop="captcha">
           <div style="display: flex;">
-            <Input type="password" v-model="formCustom.captcha" style="width: 220px;margin-right: 20px;" />
+            <Input v-model="formCustom.captcha" style="width: 220px;margin-right: 20px;" />
             <div style="position:relative;width: 120px;height: 47px;">
               <img :src="codeImg" />
               <Icon
