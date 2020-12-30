@@ -27,23 +27,29 @@
           </Row>
         </div>
         <div class="right">
-          <p v-if="+item.status === 3">失效</p>
           <template v-if="+item.status === 1">
             <div style="display:flex;align-items: center">
               <Button class="pay-btn" type="primary" @click="payWx(item.order_id)">立即支付</Button>
-              <Button type="text" style="margin-left: 62px;" @click="cancelOrder(item.order_id)">取消订单</Button>
+              <Poptip
+                transfer
+                confirm
+                title="是否确认取消订单？"
+                @on-ok="cancelOrder(item.order_id)">
+                <Button type="text" style="margin-left: 62px;">取消订单</Button>
+              </Poptip>
             </div>
           </template>
           <template v-if="+item.status === 2">
             <div style="display:flex;align-items: center">
               <div style="display: flex;flex-direction: column;justify-content: center;">
-                <p>已支付</p>
-                <p>申请售后</p>
-                <p>我要评价</p>
+                <p class="status2">已支付</p>
+                <Button class="status2" type="text" @click="$router.push({ name: 'user-center/about-sh/return' })">申请售后</Button>
+                <Button class="status2" type="text">我要评价</Button>
               </div>
               <Button style="margin-left: 62px;" class="pay-btn" type="primary">我要服务</Button>
             </div>
           </template>
+          <p v-if="+item.status === 3">失效</p>
         </div>
       </div>
     </div>
@@ -61,7 +67,7 @@
     data() {
       return {
         payDhow: false,
-        tab: '1',
+        tab: '0',
         orderList: [],
         pages: {
           page: 1,
@@ -108,6 +114,10 @@
           order_id
         }).then(res => {
           console.log(res)
+          if (!res.code_url) {
+            this.$Message.info(res.err_code_des)
+            return
+          }
           var canvas = document.getElementById('canvas')
           QRCode.toCanvas(canvas, res.code_url, function (error) {
             if (error) console.error(error)
@@ -202,9 +212,17 @@
         width: 449px;
         font-size: 20px;
         color: #333333;
+        display: flex;
         padding-left: 70px;
-        p {
+        p.status2  {
           margin: 3px 0;
+          cursor: default;
+        }
+        .status2 {
+          font-size: 20px;
+          color: #333333;
+          cursor: pointer;
+          text-align: center;
         }
       }
     }
