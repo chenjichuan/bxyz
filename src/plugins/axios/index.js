@@ -5,7 +5,6 @@ import Vue from 'vue';
 import axios from "axios";
 let config = {
   baseURL: '//zhucan.209.qiyundongli.cn/api/',
-  // baseURL: '//a.chen.cc/api/',
   headers: {
     'Content-Type': 'multipart/form-data'
   }

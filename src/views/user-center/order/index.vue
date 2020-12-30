@@ -6,23 +6,40 @@
       <TabPane label="已支付" name="3" />
       <TabPane label="已失效" name="4" />
     </Tabs>
-    <div class="orders">
+    <Modal v-model="payDhow" transfer scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
+      <div class="codeQr" style="text-align: center"><canvas id="canvas" /></div>
+      <h3 style="text-align: center">支付过程中请勿出刷新当前页面，等待支付结果</h3>
+    </Modal>
+    <div v-for="item in orderList" :key="item.id" class="orders">
       <Row type="flex">
-        <Col span="6" class="order-id">订单号：GB1590045784-36</Col>
-        <Col span="6" class="time">2020-06-08  15:36:08</Col>
+        <Col span="6" class="order-id">订单号：{{ item.order_id }}</Col>
+        <Col span="6" class="time">{{ item.created_at }}</Col>
       </Row>
       <div class="list">
         <div class="left">
           <Row
-            v-for="item in list" :key="item.id"
+            v-for="i in item.order_detail" :key="i.p_id"
             type="flex" justify="space-between">
-            <Col class="poster"><img src="" alt="" /></Col>
-            <Col class="title">{{ item.title }}</Col>
-            <Col class="number center">{{ item.num }}</Col>
-            <Col class="price center">￥{{ item.price }}</Col>
+            <Col class="poster"><img :src="i.p_image" alt="" /></Col>
+            <Col class="title">{{ i.p_name }}</Col>
+            <Col class="number center">{{ i.buy_num }}</Col>
+            <Col class="price center">￥{{ i.self_price }}</Col>
           </Row>
         </div>
-        <div class="right"></div>
+        <div class="right">
+          <p v-if="+item.status === 3">失效</p>
+          <template v-if="+item.status === 1">
+            <div style="display:flex;align-items: center">
+              <Button class="pay-btn" type="primary" @click="payWx(item.order_id)">立即支付</Button>
+              <Button type="text" style="margin-left: 62px;">取消订单</Button>
+            </div>
+          </template>
+          <template v-if="+item.status === 2">
+            <p>已支付</p>
+            <p>申请售后</p>
+            <p>我要评价</p>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -31,21 +48,17 @@
 <script>
   import { orderList } from './api'
   import { mapGetters } from 'vuex'
+  import QRCode from 'qrcode'
+  import { checkOrderStatus, wxPay } from "../../buket/api";
   export default {
+    components: {
+    },
     data() {
       return {
+        payDhow: false,
         tab: '1',
-        list: [{
-          id: 1,
-          title: '惠法务法律咨询-劳动争议',
-          num: 1,
-          price: 100,
-        },{
-          id: 2,
-          title: '惠法务法律咨询-劳动争议',
-          num: 1,
-          price: 100,
-        }],
+        list: [1,2,3,4],
+        orderList: [],
         pages: {
           page: 1,
           pageNum: 10000
@@ -65,15 +78,47 @@
           type: key || this.tab,
           ...this.pages
         }).then(res => {
-          console.log(res)
-          if (typeof res.data === 'string') {
-            this.$Message.info(res.data)
+          if (typeof res.data === 'object') {
+            this.orderList = []
+            res.data.forEach(item => [
+              this.orderList.push(item)
+            ])
           } else {
-            this.list = res.data
+            this.list = []
+            this.$Message.info(res.data)
           }
         })
+      },
+      payWx (order_id) {
+        wxPay({
+          u_id: this.userInfo.id,
+          order_id
+        }).then(res => {
+          console.log(res)
+          var canvas = document.getElementById('canvas')
+          QRCode.toCanvas(canvas, res.code_url, function (error) {
+            if (error) console.error(error)
+          })
+          this.payDhow = true
+          this.payRes(order_id)
+        })
+      },
+      payRes (order_id) {
+        let timer = setInterval(() => {
+          checkOrderStatus({
+            u_id: this.userInfo.id,
+            order_id
+          }).then(res => {
+            if (res.status === 2) {
+              clearInterval(timer)
+              this.payDhow = false
+              this.$Message.success('支付成功')
+              location.reload()
+            }
+          })
+        }, 2000)
       }
-    }
+    },
   }
 </script>
 
@@ -114,8 +159,8 @@
           height: 90px;
           background-color: #CCCCCC;
         }
-        >div {
-          margin-bottom: 60px;
+        >div+div {
+          margin-top: 60px;
         }
         .poster {
           width: 95px;
@@ -135,8 +180,22 @@
           color: #333333;
         }
       }
+      .pay-btn {
+        width: 147px;
+        height: 40px;
+        border-radius: 25px;
+      }
       .right {
         width: 449px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 20px;
+        color: #333333;
+        padding-left: 70px;
+        p {
+          margin: 3px 0;
+        }
       }
     }
     .center {

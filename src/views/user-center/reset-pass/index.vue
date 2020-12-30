@@ -18,7 +18,7 @@
   import Former from '@/components/former'
   import formLabel from "./formLabel";
   import { changePwd } from './api'
-  import { mapMutations } from "vuex";
+  import { mapGetters, mapMutations } from "vuex";
   export default {
    components: { Former },
     data() {
@@ -28,12 +28,18 @@
         formLabel,
       }
     },
+    computed: {
+      ...mapGetters(['userInfo']),
+    },
     methods: {
       ...mapMutations(['clearUserInfo']),
       formChange () {
       },
       submit () {
-        changePwd(this.formData).then(res => {
+        changePwd({
+          ...this.formData,
+          u_id: this.userInfo.id
+        }).then(res => {
           console.log(res)
           this.clearUserInfo(() => {
             if (this.$route.name !== 'auth/login') {
