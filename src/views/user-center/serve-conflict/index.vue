@@ -46,6 +46,8 @@
         conflict({
           u_id: this.userInfo.id,
           ...this.formItem
+        }).then(res => {
+          this.$Message.success(res.message)
         })
       }
     }
