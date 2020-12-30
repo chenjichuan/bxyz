@@ -35,9 +35,14 @@
             </div>
           </template>
           <template v-if="+item.status === 2">
-            <p>已支付</p>
-            <p>申请售后</p>
-            <p>我要评价</p>
+            <div style="display:flex;align-items: center">
+              <div style="display: flex;flex-direction: column;justify-content: center;">
+                <p>已支付</p>
+                <p>申请售后</p>
+                <p>我要评价</p>
+              </div>
+              <Button style="margin-left: 62px;" class="pay-btn" type="primary">我要服务</Button>
+            </div>
           </template>
         </div>
       </div>
@@ -195,9 +200,6 @@
       }
       .right {
         width: 449px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
         font-size: 20px;
         color: #333333;
         padding-left: 70px;
