@@ -24,10 +24,16 @@
 
 <script>
   //  import Icons from '@/components/icon'
+  import { mapGetters } from 'vuex'
+  import { getRefund } from './api'
   export default {
 //    components: { Icons },
     data () {
       return {
+        pages: {
+          page: 1,
+          page_num: 10000
+        },
         list: [{
           state: '成功',
           price: '9800',
@@ -47,6 +53,15 @@
         }]
       }
     },
+    computed: {
+      ...mapGetters(['userInfo']),
+    },
+    mounted () {
+      getRefund({
+        u_id: this.userInfo.id,
+        ...this.pages
+      })
+    }
   }
 </script>
 

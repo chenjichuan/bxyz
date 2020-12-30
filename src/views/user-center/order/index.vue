@@ -1,10 +1,10 @@
 <template>
   <div class="">
     <Tabs v-model="tab" :animated="false" @on-click="getData">
-      <TabPane label="全部订单" name="0" />
-      <TabPane label="待支付" name="1" />
-      <TabPane label="已支付" name="2" />
-      <TabPane label="已失效" name="3" />
+      <TabPane label="全部订单" name="1" />
+      <TabPane label="待支付" name="2" />
+      <TabPane label="已支付" name="3" />
+      <TabPane label="已失效" name="4" />
     </Tabs>
     <Modal v-model="payDhow" transfer scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
       <div class="codeQr" style="text-align: center"><canvas id="canvas" /></div>
@@ -67,7 +67,7 @@
     data() {
       return {
         payDhow: false,
-        tab: '0',
+        tab: '1',
         orderList: [],
         pages: {
           page: 1,

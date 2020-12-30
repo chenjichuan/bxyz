@@ -3,24 +3,26 @@
     <template v-if="!next">
       <p class="top-title">请选择您要退款的订单</p>
       <section class="lists">
-        <RadioGroup v-model="form.order_id" class="boxs">
-          <Radio v-for="item in list" :key="item.orderId" :label="item.orderId" class="item">
-            <div class="right-content">
-              <h3>{{ item.title }}</h3>
-              <p>
-                <span>{{ item.orderId }}</span>
-                <span>{{ item.time }}</span>
-                <span>{{ item.num }}</span>
-                <span>¥{{ item.price }}</span>
-              </p>
-            </div>
-          </Radio>
+        <RadioGroup v-model="form.p_id" class="boxs" @on-change="onChange">
+          <div v-for="(item, index) in list" :key="index">
+            <Radio v-for="i in item.order_detail" :key="i.id" :label="i.p_id" class="item">
+              <div class="right-content">
+                <h3>{{ i.p_name }}</h3>
+                <p>
+                  <span>订单号{{ item.order_id }}</span>
+                  <span>{{ item.created_at }}</span>
+                  <span>1</span>
+                  <span>¥{{ i.buy_num }}</span>
+                </p>
+              </div>
+            </Radio>
+          </div>
         </RadioGroup>
         <div class="action">
           <p>
             <span>申请退款金额</span><span class="total">¥{{ total }}</span>
           </p>
-          <Button type="primary" size="large" class="submit" :disabled="!form.order_id" @click="next = true">下一步</Button>
+          <Button type="primary" size="large" class="submit" :disabled="!form.p_id" @click="next = true">下一步</Button>
         </div>
       </section>
     </template>
@@ -30,8 +32,8 @@
           <div class="good">
             <img src="../../../assets/images/bg/good.png" alt="">
             <div>
-              <div class="title">{{ current.title }}</div>
-              <p class="price">¥ {{ current.price }} x {{ current.num }}</p>
+              <div class="title">{{ current.p_name }}</div>
+              <p class="price">¥ {{ current.buy_num }} x 1</p>
             </div>
           </div>
         </FormItem>
@@ -44,72 +46,74 @@
           </Select>
         </FormItem>
         <FormItem label="退款金额">
-          <p class="price">¥ {{ +current.price * +current.num }}</p>
+          <p class="price">¥ {{ +current.buy_num }}</p>
         </FormItem>
       </Form>
       <div style="margin-top: 79px;">
         <Button class="prev" @click="next = false">上一步</Button>
-        <Button type="primary" size="large" class="submit" :disabled="!form.order_id" @click="submit">提交</Button>
+        <Button type="primary" size="large" class="submit" :disabled="!form.p_id" @click="submit">提交</Button>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-  import { applyForRefund } from './api'
+  import { applyForRefund, orderList } from './api'
   import { mapGetters } from "vuex";
   export default {
     data () {
       return {
         next: false,
         form: {},
-        list: [
-          {
-            title: '金卡顾问服务',
-            orderId: 'GB1590045695-51',
-            time: '2020-06-08 15:36:08',
-            num: 2,
-            price: '9880.00'
-          },
-          {
-            title: '惠法务法律咨询-合同纠纷',
-            orderId: 'GB1590045695-53',
-            time: '2020-06-08 15:36:08',
-            num: 1,
-            price: '398.00'
-          },
-          {
-            title: '惠法务线下服务-线下培训',
-            orderId: 'GB1590045695-57',
-            time: '2020-06-08 15:36:08',
-            num: 1,
-            price: '9880.00'
-          }
-        ]
+        pages: {
+          page: 1,
+          pageNum: 10000
+        },
+        list: [],
+        total: 0,
+        current: {}
       }
     },
     computed: {
       ...mapGetters(['userInfo']),
-      total () {
-        let [res] = this.list.filter(l => l.orderId === this.form.order_id)
-        if (!res) return 0
-        return +res.price * (+res.num)
-      },
-      current () {
-        let [res] = this.list.filter(l => l.orderId === this.form.order_id)
-        return res || {}
-      }
+    },
+    created () {
+      this.getData()
     },
     methods: {
+      onChange (pId) {
+        this.list.forEach(item => {
+          item.order_detail.forEach(i => {
+            if (i.p_id === pId) {
+              this.total = i.buy_num
+              this.current = i
+              this.orderId = item.order_id
+            }
+          })
+        })
+      },
+      getData () {
+        orderList({
+          u_id: this.userInfo.id,
+          type: 3,
+          ...this.pages
+        }).then(res => {
+          if (typeof res.data === 'object') {
+            this.list = res.data
+          } else {
+            this.list = []
+            this.$Message.info(res.data)
+          }
+        })
+      },
       submit () {
         const params = {
           u_id: this.userInfo.id,
-          order_id: '',
+          order_id: this.orderId,
           ...this.form
         }
-        applyForRefund(params).then(res => {
-          console.log(res)
-          // todo
+        applyForRefund(params).then(() => {
+          location.reload()
         })
       }
     }

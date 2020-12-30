@@ -2,18 +2,20 @@
   <div style="margin-left: 20px;">
     <p class="top-title">请选择您要开票的订单</p>
     <section class="lists">
-      <CheckboxGroup v-model="order" class="boxs">
-        <Checkbox class="item" v-for="item in list" :label="item.orderId" :key="item.orderId">
-          <div class="right-content">
-            <h3>{{ item.title }}</h3>
-            <p>
-              <span>{{ item.orderId }}</span>
-              <span>{{ item.time }}</span>
-              <span>{{ item.num }}</span>
-              <span>¥{{ item.price }}</span>
-            </p>
-          </div>
-        </Checkbox>
+      <CheckboxGroup v-model="order" class="boxs" @on-change="onChange">
+        <div v-for="(item, index) in list" :key="index">
+          <Checkbox v-for="i in item.order_detail" :key="i.id" :label="i.p_id" class="item">
+            <div class="right-content">
+              <h3>{{ i.p_name }}</h3>
+              <p>
+                <span>订单号{{ item.order_id }}</span>
+                <span>{{ item.created_at }}</span>
+                <span>1</span>
+                <span>¥{{ i.buy_num }}</span>
+              </p>
+            </div>
+          </Checkbox>
+        </div>
       </CheckboxGroup>
       <div class="action">
         <p>
@@ -25,61 +27,61 @@
         </Button>
       </div>
     </section>
-    <Info ref="infos" :order-id="order" />
+    <Info ref="infos" :order-id="orderId" />
   </div>
 </template>
 
 <script>
   import Info from './dialog/info'
   import { mapGetters } from 'vuex'
-  import { applyInvoiceList } from './api'
+  import { orderList } from './api'
   export default {
     components: { Info },
     data () {
       return {
         order: [],
-        list: [
-          {
-            title: '金卡顾问服务',
-            orderId: 'GB1590045695-51',
-            time: '2020-06-08 15:36:08',
-            num: 1,
-            price: '9880.00'
-          },
-          {
-            title: '惠法务法律咨询-合同纠纷',
-            orderId: 'GB1590045695-53',
-            time: '2020-06-08 15:36:08',
-            num: 1,
-            price: '398.00'
-          },
-          {
-            title: '惠法务线下服务-线下培训',
-            orderId: 'GB1590045695-57',
-            time: '2020-06-08 15:36:08',
-            num: 1,
-            price: '9880.00'
-          }
-        ]
+        orderId: '',
+        total: 0,
+        list: []
       }
     },
     computed: {
       ...mapGetters(['userInfo']),
-      total () {
-        let total = 0
-        this.order.forEach(item => {
-          let [res] = this.list.filter(l => l.orderId === item)
-          total += +res.price
-        })
-        return total
-      }
     },
     mounted () {
-      applyInvoiceList({
-        u_id: this.userInfo.id
+//      applyInvoiceList({
+//        u_id: this.userInfo.id
+//      }).then(res => {
+//        console.log(res)
+//      })
+      orderList({
+        u_id: this.userInfo.id,
+        type: 3,
+        ...this.pages
       }).then(res => {
-        console.log(res)
+        if (typeof res.data === 'object') {
+          this.list = res.data
+        } else {
+          this.list = []
+          this.$Message.info(res.data)
+        }
       })
+    },
+    methods: {
+      onChange (arr) {
+        console.log(arr)
+        arr.forEach(id => {
+          this.list.forEach(item => {
+            item.order_detail.forEach(i => {
+              console.log(i)
+              if (i.p_id === id) {
+                this.total += i.buy_num
+                this.orderId = item.order_id
+              }
+            })
+          })
+        })
+      },
     }
   }
 </script>

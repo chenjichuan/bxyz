@@ -14,7 +14,7 @@
           </CheckboxGroup>
         </div>
         <div class="price">价格 <span>¥ {{ total }}</span></div>
-        <Button class="add" @click="addCarList">加入购物车</Button>
+        <Button class="add" @click="addCarList()">加入购物车</Button>
         <Button class="buy" @click="addCarList('order')">立即下单</Button>
         <Tabs value="1" class="tabs">
           <TabPane label="产品详情" name="1">
