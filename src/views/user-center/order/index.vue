@@ -31,7 +31,7 @@
           <template v-if="+item.status === 1">
             <div style="display:flex;align-items: center">
               <Button class="pay-btn" type="primary" @click="payWx(item.order_id)">立即支付</Button>
-              <Button type="text" style="margin-left: 62px;">取消订单</Button>
+              <Button type="text" style="margin-left: 62px;" @click="cancelOrder(item.order_id)">取消订单</Button>
             </div>
           </template>
           <template v-if="+item.status === 2">
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import { orderList } from './api'
+  import { orderList, cancelOrder } from './api'
   import { mapGetters } from 'vuex'
   import QRCode from 'qrcode'
   import { checkOrderStatus, wxPay } from "../../buket/api";
@@ -86,6 +86,15 @@
             this.orderList = []
             this.$Message.info(res.data)
           }
+        })
+      },
+      cancelOrder (order_id) {
+        cancelOrder({
+          u_id: this.userInfo.id,
+          order_id
+        }).then(() => {
+          this.$Message.success('取消成功')
+          this.getData()
         })
       },
       payWx (order_id) {
