@@ -57,7 +57,6 @@
       return {
         payDhow: false,
         tab: '1',
-        list: [1,2,3,4],
         orderList: [],
         pages: {
           page: 1,
@@ -84,7 +83,7 @@
               this.orderList.push(item)
             ])
           } else {
-            this.list = []
+            this.orderList = []
             this.$Message.info(res.data)
           }
         })
