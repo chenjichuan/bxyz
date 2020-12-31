@@ -34,6 +34,7 @@ export default {
       })
     },
     addCarList (states) { // 添加购物车
+      console.log(states)
       if (this.good.length === 0) return
       let pAll = []
       this.good.forEach(item => {

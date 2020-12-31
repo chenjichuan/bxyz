@@ -31,6 +31,10 @@
       orderId: {
         type: [String, Number, Array],
         default: ''
+      },
+      pId: {
+        type: [String, Number, Array],
+        default: ''
       }
     },
     data () {
