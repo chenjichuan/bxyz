@@ -2,6 +2,13 @@ import { addCart, getcartList,  productDetail } from "./api";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
+  data () {
+    return {
+      good: [],
+      list: [],
+      detail: {}
+    }
+  },
   computed: {
     ...mapGetters(['userInfo']),
     title () {
@@ -22,8 +29,9 @@ export default {
     productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)
-      const { list } = res.data
+      const { list, detail } = res.data
       this.list = list
+      this.detail = detail
     })
   },
   methods: {

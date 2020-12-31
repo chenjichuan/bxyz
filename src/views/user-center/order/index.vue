@@ -44,7 +44,9 @@
               <div style="display: flex;flex-direction: column;justify-content: center;">
                 <p class="status2">已支付</p>
                 <Button class="status2" type="text" @click="$router.push({ name: 'user-center/about-sh/return' })">申请售后</Button>
-                <Button class="status2" type="text">我要评价</Button>
+                <Button
+                  class="status2" type="text"
+                  @click="$router.push({ name: 'user-center/serve/ask', query: {order_id: item.order_id} })">我要评价</Button>
               </div>
               <Button style="margin-left: 62px;" class="pay-btn" type="primary">我要服务</Button>
             </div>

@@ -78,28 +78,28 @@
           time: '2020-06-08 14:02:46'
         }],
         tree: [
-          {
-            title: '选集观看',
-            expand: true,
-            children: [
-              {
-                title: '第一章 初步了解法律',
-                expand: true,
-                children: [
-                  {title: '第1课 初步了解法律1', currrentSec: '10'},
-                  {title: '第2课 初步了解法律2', currrentSec: '20'}
-                ]
-              },
-              {
-                title: '第二章 初步认识法律',
-                expand: true,
-                children: [
-                  {title: '第1课 初步认识法律1', currrentSec: '30'},
-                  {title: '第2课 初步认识法律1', currrentSec: '45'}
-                ]
-              }
-            ]
-          }
+          // {
+          //   title: '选集观看',
+          //   expand: true,
+          //   children: [
+          //     {
+          //       title: '第一章 初步了解法律',
+          //       expand: true,
+          //       children: [
+          //         {title: '第1课 初步了解法律1', currrentSec: '10'},
+          //         {title: '第2课 初步了解法律2', currrentSec: '20'}
+          //       ]
+          //     },
+          //     {
+          //       title: '第二章 初步认识法律',
+          //       expand: true,
+          //       children: [
+          //         {title: '第1课 初步认识法律1', currrentSec: '30'},
+          //         {title: '第2课 初步认识法律1', currrentSec: '45'}
+          //       ]
+          //     }
+          //   ]
+          // }
         ]
       }
     },
@@ -108,10 +108,8 @@
     },
     mounted () {
       vedioDetail({
-//        u_id: this.userInfo.id,
-//        v_id: this.v_id,
-        u_id: 1,
-        v_id: 16,
+       u_id: this.userInfo.id,
+       v_id: this.v_id,
       }).then(res => {
         this.detail = res.data
         this.playerOptions = {

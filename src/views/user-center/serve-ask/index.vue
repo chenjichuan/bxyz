@@ -40,6 +40,7 @@
   import Icons from '@/components/icon'
   import formLabel from "./formLabel";
   import { subQuiz } from "./api"
+  import { mapGetters } from "vuex";
   export default {
    components: { Icons, Former },
     data() {
@@ -49,11 +50,18 @@
         formLabel,
       }
     },
+    computed: {
+      ...mapGetters(['userInfo'])
+    },
     methods: {
       formChange () {},
       submit () {
         console.log(this.formData)
-        subQuiz().then(res => {
+        subQuiz({
+          ...this.formData,
+          u_id: this.userInfo.id,
+          order_id: this.$route.query.order_id
+        }).then(res => {
           console.log(res)
         })
       }
