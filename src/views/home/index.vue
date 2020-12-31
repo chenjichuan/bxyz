@@ -23,8 +23,8 @@
         <i-col
           v-for="(item, index) in businessPresentations" :key="index"
           :class="{active: item.active}"
-          span="6">
-          <Icons w="100" h="100" :type="item.icon" />
+          span="6" @mouseenter.native="item.active = true" @mouseleave.native="item.active = false">
+          <Icons w="100" h="100" :type="item.icon + (item.active ? '-hover': '')" />
           <div class="text">
             <h3>{{ item.text[1] }}</h3>
             <p>{{ item.text[2] }}</p>
@@ -79,7 +79,6 @@
 
 <script>
   import Icons from '@/components/icon'
-//  import Video from '@/components/video'
   export default {
     components: { Icons },
     data () {
@@ -92,8 +91,8 @@
           { text: { 1: 'E-mail:', 2: 'www.be-bj.org' }, icon: 'email' },
         ],
         businessPresentations: [
-          { text: { 1: '惠法务', 2: '单位定制 专业严谨', }, icon: 'law', to: 'business-show/law', active: false },
-          { text: { 1: '慧咨询', 2: '个人咨询 定向服务', }, icon: 'counsel', to: 'business-show/advisory', active: true },
+          { text: { 1: '惠法务', 2: '单位定制 专业严谨', }, icon: 'counsel', to: 'business-show/law', active: false },
+          { text: { 1: '慧咨询', 2: '个人咨询 定向服务', }, icon: 'law', to: 'business-show/advisory', active: false },
           { text: { 1: '汇安心', 2: '特殊家庭 用心关爱', }, icon: 'relieved', to: 'business-show/safe', active: false },
           { text: { 1: '荟诉', 2: '预先约定 全年保障', }, icon: 'safeguard', to: 'business-show/talk', active: false },
         ],

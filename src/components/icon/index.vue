@@ -4,9 +4,13 @@
     <img v-if="type === 'tel'" src="../../assets/images/icons/tel.png" style="padding: 4px">
     <img v-if="type === 'quit'" src="../../assets/images/icons/quit.png">
     <img v-if="type === 'law'" src="../../assets/images/icons/law-normal.png">
+    <img v-if="type === 'law-hover'" src="../../assets/images/icons/law-hover.png">
     <img v-if="type === 'relieved'" src="../../assets/images/icons/relieved-normal.png">
+    <img v-if="type === 'relieved-hover'" src="../../assets/images/icons/relieved-hover.png">
     <img v-if="type === 'safeguard'" src="../../assets/images/icons/safeguard-normal.png">
-    <img v-if="type === 'counsel'" src="../../assets/images/icons/counsel-hover.png">
+    <img v-if="type === 'safeguard-hover'" src="../../assets/images/icons/safeguard-hover.png">
+    <img v-if="type === 'counsel'" src="../../assets/images/icons/counsel-normal.png">
+    <img v-if="type === 'counsel-hover'" src="../../assets/images/icons/counsel-hover.png">
     <img v-if="type === 'play'" src="../../assets/images/icons/play-icon.png">
     <img v-if="type === 'location'" src="../../assets/images/icons/location.png">
     <img v-if="type === 'email'" src="../../assets/images/icons/email.png">
