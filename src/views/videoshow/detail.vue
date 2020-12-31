@@ -112,14 +112,24 @@
        v_id: this.v_id,
       }).then(res => {
         this.detail = res.data
-        this.playerOptions = {
-          width: 1120,
-          sources: [{
-            type: "video/mp4",
-            src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
-          }],
-          poster: this.detail.cover
-        }
+        this.setVideo({
+          title: res.data.title,
+          cover: this.detail.cover,
+          src: '',
+        })
+        const children = res.data.titles.map(item => {
+          return {
+            title: item.title,
+            expand: true,
+            children: item.titles.map(i => {
+              return {
+                title: item.title,
+                videoPath: i.vedio_path
+              }
+            })
+          }
+        })
+        this.tree = [{ title: '选集观看', expand: true, children }]
       })
       vedioCommentList({
         u_id: this.userInfo.id,
@@ -129,11 +139,23 @@
       })
     },
     methods: {
+      setVideo ({ cover, src = '', title = '' }) {
+        this.playerOptions = {
+          width: 1120,
+          sources: [{
+            type: "video/mp4",
+            src
+          }],
+          poster: cover
+        }
+        this.title = title
+      },
       treeClick ([v]) {
         console.log(v)
-        if (v.currrentSec) {
-          this.$refs['video'].player.currentTime(v.currrentSec)
-        }
+        this.setVideo({
+          src: v.videoPath,
+          title: v.title
+        })
       },
       likeHandler () {
         this.detail.is_like = 1
