@@ -34,7 +34,10 @@
     <img v-if="type === 'step3'" src="../../assets/images/icons/step3.png">
     <img v-if="type === 'pass'" src="../../assets/images/icons/pass.png">
     <img v-if="type === 'zan'" src="../../assets/images/icons/zan.png">
+    <img v-if="type === 'zan-active'" src="../../assets/images/icons/zan-acitve.png">
+    <img v-if="type === 'pinglun'" src="../../assets/images/icons/common.png">
     <img v-if="type === 'star'" src="../../assets/images/icons/star.png">
+    <img v-if="type === 'star-active'" src="../../assets/images/icons/star-active.png">
     <img v-if="type === 'upload'" src="../../assets/images/icons/upload.png">
     <img v-if="url" :src="url">
   </i>

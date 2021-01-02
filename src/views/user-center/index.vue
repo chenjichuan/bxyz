@@ -112,7 +112,6 @@
   .mod-user-center {
     .ivu-input {
       height: 40px;
-      text-indent: 24px;
     }
     .ivu-menu-item-group-title{
       font-size: 20px;

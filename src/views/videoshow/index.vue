@@ -4,8 +4,12 @@
       <Col v-for="(item, index) in list" :key="index">
         <template v-if="item.title">
           <img class="poster" :src="item.cover" alt="">
+          <p class="video-title">{{ item.title }}</p>
           <div style="display: flex;justify-content: space-between;align-items: center">
-            <p class="video-title">{{ item.title }}</p>
+            <div>
+              <Icons :type="item.zan ? 'zan-active' : 'zan' " w="30" h="30" style="margin-right: 34px; cursor: pointer" @click.native="$set(item, 'zan', true)" />
+              <Icons type="pinglun" w="30" h="30" style="cursor: pointer;"  @click.native="goDetail(item.id, item.title, true)"/>
+            </div>
             <Button class="watch" @click="goDetail(item.id, item.title)">观看</Button>
           </div>
         </template>
@@ -25,16 +29,18 @@
 </template>
 
 <script>
+  import Icons from '@/components/icon'
   import { vedioList } from './api'
   export default {
     components: {
       // Video,
-      // Icons
+       Icons
     },
     data () {
       return {
         count: 0,
         list: [],
+        zan: false,
       }
     },
     watch: {
@@ -60,10 +66,10 @@
       })
     },
     methods: {
-      goDetail (id, title) {
+      goDetail (id, title, isTabPl) {
         const { href } = this.$router.resolve({
           name: 'videoshow/detail',
-          query: { title },
+          query: { title, isTabPl },
           params: { id }
         });
         window.open(href, '_blank');

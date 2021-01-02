@@ -10,8 +10,10 @@ export default [{
       type: 'select',
       placeholder: '选择服务类别',
       children: [
-        { value: 0, label: '是', },
-        { value: 1, label: '否', },
+        { value: 1, label: '合同', },
+        { value: 2, label: '服务', },
+        { value: 3, label: '线下', },
+        { value: 4, label: 'vip', },
       ]
     },
     {
@@ -29,6 +31,7 @@ export default [{
     {
       key: 'phone',
       label: '联系电话',
+      maxlength: 11,
       style: { width: '450px' },
       value: '',
       placeholder: '请输入联系电话'

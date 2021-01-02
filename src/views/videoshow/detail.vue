@@ -6,9 +6,9 @@
         <div class="flex">
           <span>{{ title }}</span>
           <div class="icons">
-            <Icon size="30" :color="detail.is_like ? '#82A694' : ''" type="md-thumbs-up" @click="likeHandler" />
-            <Icon size="30" :color="detail.is_collect ? '#82A694' : ''" type="md-star" @click="addHandler" />
-            <Icon size="30" type="md-text" @click="tabValue = '3'" />
+            <Icons w="30" h="30" :type="detail.is_like ? 'zan-active' : 'zan' " style="cursor: pointer;" @click.native="likeHandler" />
+            <Icons w="30" h="30" :type="detail.is_collect ? 'star-active' : 'star' " style="cursor: pointer;" @click.native="addHandler" />
+            <Icons w="30" h="30" type="pinglun" style="cursor: pointer;"  @click.native="tabValue = '3'" />
           </div>
         </div>
       </div>
@@ -49,16 +49,18 @@
 </template>
 
 <script>
+  import Icons from '@/components/icon'
   import Video from '@/components/video'
   import { vedioDetail, vedioLike, vedioCollect, vedioCommentList, vedioComent } from './api'
   import { mapGetters } from 'vuex'
   export default {
     components: {
       Video,
+      Icons
     },
     data () {
       return {
-        tabValue: '',
+        tabValue: this.$route.query.isTabPl ? '3' : '',
         title: this.$route.query.title,
         v_id: this.$route.params.id,
         detail: {},
@@ -108,22 +110,29 @@
     },
     mounted () {
       vedioDetail({
-       u_id: this.userInfo.id,
+        uid: this.userInfo.id,
        v_id: this.v_id,
       }).then(res => {
         this.detail = res.data
-        this.setVideo({
-          title: res.data.title,
-          cover: this.detail.cover,
-          src: '',
-        })
-        const children = res.data.titles.map(item => {
+
+        const children = res.data.titles.map((item) => {
           return {
             title: item.title,
             expand: true,
-            children: item.titles.map(i => {
+            children: item.titles.map((i, index) => {
+              let selected = false
+              if (index === 0) {
+                console.log(this.detail.cover)
+                selected = true
+                this.setVideo({
+                  title: i.title,
+                  src: i.vedio_path,
+                  cover: this.detail.cover
+                })
+              }
               return {
                 title: item.title,
+                selected,
                 videoPath: i.vedio_path
               }
             })
@@ -139,7 +148,7 @@
       })
     },
     methods: {
-      setVideo ({ cover, src = '', title = '' }) {
+      setVideo ({ cover, src = '' }) {
         this.playerOptions = {
           width: 1120,
           sources: [{
@@ -148,7 +157,6 @@
           }],
           poster: cover
         }
-        this.title = title
       },
       treeClick ([v]) {
         console.log(v)
@@ -158,14 +166,14 @@
         })
       },
       likeHandler () {
-        this.detail.is_like = 1
+        this.$set( this.detail, 'is_like', !this.detail.is_like)
         vedioLike({
           u_id: this.userInfo.id,
           v_id: this.v_id,
         })
       },
       addHandler () {
-        this.detail.is_collect = 1
+        this.$set( this.detail, 'is_collect', !this.detail.is_collect)
         vedioCollect({
           u_id: this.userInfo.id,
           v_id: this.v_id,

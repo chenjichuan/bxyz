@@ -29,9 +29,11 @@ export default {
     productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)
-      const { list, detail } = res.data
-      this.list = list
-      this.detail = detail
+      // const { list, detail } = res.data
+      // this.list = list
+      // this.detail = detail
+      const { detail } = res.data
+      this.list.push(detail)
     })
   },
   methods: {
@@ -55,6 +57,7 @@ export default {
           })
         } else {
           this.refreshCart()
+          this.$Message.success('加入购物车成功')
         }
       }, () => {
         if (states) {
