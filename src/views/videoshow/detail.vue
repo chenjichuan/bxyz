@@ -15,7 +15,7 @@
       <Tree :data="tree" class="tree" @on-select-change="treeClick" />
 
     </div>
-    <Tabs :value="tabValue" class="tabs">
+    <Tabs v-model="tabValue" class="tabs">
       <TabPane label="视频内容" name="1">
         <div class="inner">
           {{ detail.synopsis }}

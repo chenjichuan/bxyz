@@ -3,7 +3,7 @@ export default [{
   title: '',
   items: [
     {
-      key: '1',
+      key: 'sp_id',
       label: '选择服务类别',
       value: '',
       style: { width: '450px' },
@@ -20,6 +20,18 @@ export default [{
       key: 'is_phone',
       style: { width: '450px' },
       label: '是否需要电话沟通',
+      value: '',
+      type: 'select',
+      placeholder: '请选择',
+      children: [
+        { value: 1, label: '是', },
+        { value: 2, label: '否', },
+      ]
+    },
+    {
+      key: 'is_changelaw',
+      style: { width: '450px' },
+      label: '是否需要更换律师',
       value: '',
       type: 'select',
       placeholder: '请选择',

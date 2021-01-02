@@ -180,6 +180,15 @@ const routes = [
             component: resolve => import('@/views/user-center/serve-ask').then(resolve)
           },
           {
+            path: '/user-center/serve/commo',
+            name: 'user-center/serve/commo',
+            meta: {
+              title: '我要评价',
+              breadShow: true
+            },
+            component: resolve => import('@/views/user-center/serve-commo').then(resolve)
+          },
+          {
             path: '/user-center/serve/qus',
             name: 'user-center/serve/qus',
             meta: {

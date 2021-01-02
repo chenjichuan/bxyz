@@ -52,7 +52,7 @@
           { text: '我的订单', name: 'user-center/order', icon: 'order' },
           { text: '我的服务', name: 'user-center/serve', icon: 'fw',
             sub: [
-              { text: '我要提问', name: 'user-center/serve/ask', },
+//              { text: '我要提问', name: 'user-center/serve/ask', },
               { text: '我的问题', name: 'user-center/serve/qus', },
               { text: '利益冲突', name: 'user-center/serve/conflict', }
             ]
