@@ -16,26 +16,27 @@
   </body>
 </html>
 <script>
-// var the_body = document.body
- var app = document.querySelector('#app')
- function scale () {
-   var r = ''
-   if (document.body.offsetWidth < 1920) {
-     r = document.body.offsetWidth / 1920
-   } else {
-     r = 1
-   }
-   if (r <= 0.75) {
-     r = 0.75
-   }
-   app.style.webkitTransform = "scale(" + r + ")"
-   app.style.webkitTransformOriginY = "0%"
-   app.style.webkitTransformOriginX = "0%"
- }
- window.onload = function () {
-   scale()
- }
- window.onresize = function () {
-   scale()
- }
+if ('<%= process.env.NODE_ENV %>' === 'development') {
+  var app = document.querySelector('#app')
+  function scale () {
+    var r = ''
+    if (document.body.offsetWidth < 1920) {
+      r = document.body.offsetWidth / 1920
+    } else {
+      r = 1
+    }
+    if (r <= 0.75) {
+      r = 0.75
+    }
+    app.style.webkitTransform = "scale(" + r + ")"
+    app.style.webkitTransformOriginY = "0%"
+    app.style.webkitTransformOriginX = "0%"
+  }
+  window.onload = function () {
+    scale()
+  }
+  window.onresize = function () {
+    scale()
+  }
+}
 </script>

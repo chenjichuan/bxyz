@@ -1,2 +1,1 @@
-export const subQuiz = (data, message) => $HTTP.post('subQuiz', data, message)
-export const quiz = (data, message) => $HTTP.post('quiz', data, message)
+export const orderComment = (data, message) => $HTTP.post('orderComment', data, message)
