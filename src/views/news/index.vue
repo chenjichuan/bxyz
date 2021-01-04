@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item, index) in list" :key="index"
           style="cursor:pointer;"
-          @click="$router.push({ name: 'news-detail', params: { id: item.id } })">
+          @click="$router.push({ name: 'news-detail', params: { id: item.id }, query: { img: item.image } })">
         <img :src="item.image" alt="">
         <div>
           <h2>{{ item.title }}</h2>

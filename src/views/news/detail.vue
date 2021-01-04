@@ -10,7 +10,7 @@
     <div class="inner">
       <pre v-html="detail.detail" />
     </div>
-    <img src="./poster.png" alt="">
+    <img :src="$route.query.img" alt="">
   </div>
 </template>
 
