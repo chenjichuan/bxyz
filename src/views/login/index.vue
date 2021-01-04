@@ -49,7 +49,6 @@
 
 <script>
   import { mapMutations } from "vuex"
-  import { loadJs } from "../../common/js/utils"
   import { getCaptcha, cartList as getCartList } from '../../common/api'
   import { login } from './api'
   function checkPhone (rule, value, callback) {
@@ -79,9 +78,6 @@
       }
     },
     mounted () {
-      loadJs('https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js', () => {
-        console.log(window.WxLogin)
-      })
       this.getCode()
     },
     methods: {

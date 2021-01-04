@@ -3,12 +3,12 @@ export default [{
   title: '',
   items: [
     {
-      key: 'username',
+      key: 'real_name',
       label: '真实姓名',
       value: '',
     },
     {
-      key: 'idCard',
+      key: 'id_number',
       label: '身份证号',
       value: '',
     }]

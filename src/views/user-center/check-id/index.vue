@@ -12,6 +12,7 @@
       :submit-button="true"
       :form-label="formLabel"
       style="width: 504px;margin-right: 165px;"
+      @on-submit="submit"
       @on-change="formChange">
       <template #foot>
         <Checkbox v-model="agree" class="agree">
@@ -25,6 +26,8 @@
 <script>
   import Former from '@/components/former'
   import formLabel from "./formLabel";
+  import { smrz } from './api'
+  import { mapGetters } from "vuex";
   export default {
    components: { Former },
     data() {
@@ -34,9 +37,24 @@
         formLabel,
       }
     },
+    computed: {
+      ...mapGetters(['userInfo']),
+    },
     methods: {
       formChange () {
       },
+      submit () {
+        if (!this.agree) {
+          return
+        }
+        smrz({
+          u_id: this.userInfo.id,
+          ...this.formData
+        }).then(res => {
+          console.log(res)
+          this.$Message.success('绑定成功')
+        })
+      }
     }
   }
 </script>

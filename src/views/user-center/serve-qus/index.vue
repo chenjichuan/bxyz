@@ -37,6 +37,7 @@
   import TableShow from '@/components/table-show'
   import head from './head'
   import { quiz } from './api'
+  import { mapGetters } from "vuex";
   export default {
     components: {
       TableShow,
@@ -60,11 +61,12 @@
         },
       }
     },
+    computed: {
+      ...mapGetters(['userInfo']),
+    },
     mounted () {
       quiz({
-        u_id: 16,
-        p_id: 4,
-        order_id: ''
+        u_id: this.userInfo.id,
       })
     },
     methods: {

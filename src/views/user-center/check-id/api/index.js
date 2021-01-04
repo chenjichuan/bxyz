@@ -1,1 +1,1 @@
-export const updUserInfo = (data, message) => $HTTP.post('', data, message)
+export const smrz = (data, message) => $HTTP.post('smrz', data, message)

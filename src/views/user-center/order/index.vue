@@ -46,7 +46,7 @@
                 <Button class="status2" type="text" @click="$router.push({ name: 'user-center/about-sh/return' })">申请售后</Button>
                 <Button
                   class="status2" type="text"
-                  @click="$router.push({ name: 'user-center/serve/commo', query: {order_id: item.order_id} })">我要评价</Button>
+                  @click="$router.push({ name: 'user-center/serve/commo', query: {order_id: item.id} })">我要评价</Button>
               </div>
               <Button
                 style="margin-left: 62px;" class="pay-btn" type="primary"
