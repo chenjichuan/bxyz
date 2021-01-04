@@ -112,8 +112,8 @@
           order_id: this.orderId,
           ...this.form
         }
-        applyForRefund(params).then(() => {
-          location.reload()
+        applyForRefund(params).then((res) => {
+          this.$Message.success(res.message)
         })
       }
     }

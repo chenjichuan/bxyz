@@ -56,8 +56,7 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
     }
     if (response.data.code === 200) {
       resolve(response.data)
-    }
-    else {
+    } else {
       $Message.error(response.data.message);
       reject(response.data)
     }
@@ -68,8 +67,6 @@ const doAjax = ({ type, url, data, resolve, reject }) => {
     data.message ? message = data.message : ''
     console.log(data)
     if (code === 40046) {
-      // const ls = Vue.prototype.$ls
-      // ls.set('userInfo', {})
       reject()
     }
     if (errors) {

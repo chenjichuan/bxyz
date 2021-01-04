@@ -19,8 +19,7 @@ export default [
       { key: '2',
         name: '撤销申请',
         showFn: (row) => {
-          console.log(row)
-          return true
+          return row.status === 1
         }
       },
     ]

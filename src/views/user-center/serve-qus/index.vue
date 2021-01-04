@@ -36,7 +36,7 @@
 <script>
   import TableShow from '@/components/table-show'
   import head from './head'
-  import { questionList } from './api'
+  import { questionList, userCancelQuiz } from './api'
   import { mapGetters } from "vuex";
   export default {
     components: {
@@ -48,6 +48,7 @@
         modal: false,
         loading: false,
         tableData: [],
+        currentObj: {},
         page: {
           page: 1,
           page_num: 1000,
@@ -58,29 +59,43 @@
       ...mapGetters(['userInfo']),
     },
     mounted () {
-      questionList({
-        ...this.page,
-        u_id: this.userInfo.id,
-      }).then(res => {
-        console.log(res)
-        this.tableData = res.data
-      })
+     this.getData()
     },
     methods: {
+      getData () {
+        questionList({
+          ...this.page,
+          u_id: this.userInfo.id,
+        }).then(res => {
+          this.tableData = res.data
+        })
+      },
       changePage () {},
       buttonAction (id, obj) {
         if (id === '1') {
           this.$router.push({
             name: 'user-center/serve/qus-detail',
-            params: { id: obj.clueId }
+            params: {
+              ...obj
+            },
+            query: {
+              content: obj.content,
+              q_id: obj.q_id,
+            }
           })
         }
         if (id === '2') {
           this.modal = true
+          this.currentObj = obj
         }
       },
       sure () {
-        console.log(22)
+        userCancelQuiz({
+          u_id: this.userInfo.id,
+          q_id: this.currentObj.q_id
+        }).then(() => {
+          this.getData()
+        })
       }
     }
   }
