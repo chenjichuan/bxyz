@@ -42,6 +42,7 @@
   import formLabel from './formLabel'
   import { updUserInfo } from "./api";
   import { mapGetters } from "vuex";
+  import { getUserInfo } from "../../../common/api";
 
   export default {
     components: { Former },
@@ -92,6 +93,21 @@
           desc: error
         })
       },
+      getUser () {
+        getUserInfo({
+          u_id: this.userInfo.id,
+          token: this.userInfo.token,
+        }).then(info => {
+          const userInfo = {
+            ...this.userInfo,
+            ...info.data,
+            token: this.userInfo.token,
+          }
+          // 更新本地userInfo
+          this.$ls.set('userInfo', userInfo)
+          this.setUserInfo(userInfo)
+        })
+      },
       submit () {
         let urlList = this.uploadList[0] || {}
         const params = {
@@ -100,13 +116,8 @@
           image: urlList.url
         }
         delete params.phone
-        updUserInfo(params).then(res => {
-          console.log(res)
-          // this.clearUserInfo(() => {
-          //   if (this.$route.name !== 'auth/login') {
-          //     location.replace( '/#/auth/login')
-          //   }
-          // })
+        updUserInfo(params).then(() => {
+         this.getUser()
         })
       },
     }
