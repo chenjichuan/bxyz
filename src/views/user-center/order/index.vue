@@ -50,7 +50,7 @@
               </div>
               <Button
                 style="margin-left: 62px;" class="pay-btn" type="primary"
-                @click="$router.push({ name: 'user-center/serve/ask', query: {order_id: item.order_id} })">我要服务</Button>
+                @click="goServe(item)">我要服务</Button>
             </div>
           </template>
           <p v-if="+item.status === 3">失效</p>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-  import { orderList, cancelOrder } from './api'
+  import { orderList, cancelOrder, quiz } from './api'
   import { mapGetters } from 'vuex'
   import QRCode from 'qrcode'
   import { checkOrderStatus, wxPay } from "../../buket/api";
@@ -110,6 +110,18 @@
         }).then(() => {
           this.$Message.success('取消成功')
           this.getData()
+        })
+      },
+      goServe (item) {
+        console.log(item)
+        quiz({
+          p_id: item.order_detail[0].p_id,
+          u_id: this.userInfo.id,
+          order_id: item.order_id
+        }).then(res => {
+          console.log(res)
+          const { order_id, p_id } = res.data
+          this.$router.push({ name: 'user-center/serve/ask', query: { order_id, p_id } })
         })
       },
       payWx (order_id) {

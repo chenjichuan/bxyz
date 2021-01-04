@@ -72,7 +72,7 @@
         console.log(this.formData)
         subQuiz({
           ...this.formData,
-          p_id: 0,
+          p_id: this.$route.query.p_id,
           u_id: this.userInfo.id,
           order_id: this.$route.query.order_id,
           resource: this.uploadList.map(item => item.url)

@@ -15,7 +15,7 @@
         :table-loading="loading"
         :table-data="tableData"
         :total="page.total"
-        :current="page.currentPage"
+        :current="page.page"
         @on-pageChange="changePage"
         @on-button-click="buttonAction"
       />
@@ -36,7 +36,7 @@
 <script>
   import TableShow from '@/components/table-show'
   import head from './head'
-  import { quiz } from './api'
+  import { questionList } from './api'
   import { mapGetters } from "vuex";
   export default {
     components: {
@@ -47,17 +47,10 @@
         head,
         modal: false,
         loading: false,
-        tableData: [{
-          clueId: '48237849',
-          title: '惠法务法律咨询-其它咨询',
-          licenseDate: '残疾人就业保障金办理流程是什么？',
-          cityName: '2020-06-08',
-          roadHaul: '2020-06-08',
-          sourceTypeName: '待审核',
-        }],
+        tableData: [],
         page: {
-          currentPage: 1,
-          total: 0,
+          page: 1,
+          page_num: 1000,
         },
       }
     },
@@ -65,8 +58,12 @@
       ...mapGetters(['userInfo']),
     },
     mounted () {
-      quiz({
+      questionList({
+        ...this.page,
         u_id: this.userInfo.id,
+      }).then(res => {
+        console.log(res)
+        this.tableData = res.data
       })
     },
     methods: {
