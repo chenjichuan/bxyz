@@ -30,16 +30,12 @@ export default {
       // todo
       console.log(res)
       const { list } = res.data
-      // this.list = list
-      // this.detail = detail
-      // const { detail } = res.data
       this.list = list
     })
   },
   methods: {
     ...mapMutations(['setCartList']),
     goodChange (item) {
-      // console.log(item)
       this.detail = item
     },
     refreshCart() { // 刷新购物车
