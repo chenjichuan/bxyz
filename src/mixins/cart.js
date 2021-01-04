@@ -29,15 +29,19 @@ export default {
     productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)
-      // const { list, detail } = res.data
+      const { list } = res.data
       // this.list = list
       // this.detail = detail
-      const { detail } = res.data
-      this.list.push(detail)
+      // const { detail } = res.data
+      this.list = list
     })
   },
   methods: {
     ...mapMutations(['setCartList']),
+    goodChange (item) {
+      // console.log(item)
+      this.detail = item
+    },
     refreshCart() { // 刷新购物车
       getcartList({ u_id: this.userInfo.id }).then(res => {
         this.setCartList(res || {})

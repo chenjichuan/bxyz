@@ -9,7 +9,8 @@
             <Checkbox
               v-for="item in list" :key="item.id"
               class="item"
-              :label="item.id" border> {{ item.name }}
+              :label="item.id" border
+              @mouseup.native="goodChange(item)"> {{ item.name }}
             </Checkbox>
           </CheckboxGroup>
         </div>
@@ -19,35 +20,10 @@
         <Tabs value="1" class="tabs">
           <TabPane label="产品详情" name="1">
             <div style="display:flex;margin-top: 36px;">
-              <!--              <Icon-->
-              <!--                type="md-arrow-forward" color="#fff" size="20"-->
-              <!--                style="width: 30px;height: 30px;background: #82A694;border-radius: 100%;padding: 5px;" />-->
               <div class="right-text">
-                <!--                <p>{{ title }}服务流程</p>-->
                 <div v-html="detail.detail" />
-                <!--                <ul>-->
-                <!--                  <li>在“我的订单”里点击“我要服务”。</li>-->
-                <!--                  <li>根据提示对所需要咨询的法律问题进行描述，同时提交咨询涉及到的相关资料。</li>-->
-                <!--                  <li>律师会在三个工作日内为您做出解答，请您到会员中心“我的问题”中查看回复。</li>-->
-                <!--                </ul>-->
               </div>
             </div>
-<!--            <div class="steps">-->
-<!--              <div>-->
-<!--                <Icons type="step1" h="100" w="100" />-->
-<!--                <p>下单付款</p>-->
-<!--              </div>-->
-<!--              <div class="line" />-->
-<!--              <div>-->
-<!--                <Icons type="step2" h="100" w="100" />-->
-<!--                <p>提交问题</p>-->
-<!--              </div>-->
-<!--              <div class="line" />-->
-<!--              <div>-->
-<!--                <Icons type="step3" h="100" w="100" />-->
-<!--                <p>受到回复</p>-->
-<!--              </div>-->
-<!--            </div>-->
           </TabPane>
           <TabPane label="用户评价" name="2">
             <Evaluate />
@@ -106,6 +82,7 @@
       }
 
       .right {
+        flex: 1;
         .title {
           font-size: 24px;
           color: #333333;

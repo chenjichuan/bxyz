@@ -14,7 +14,7 @@
             <p v-html="item.synopsis"/>
             <span>{{ item.money }}元起</span>
             <Button
-              @click="$router.push({ name: 'business-show/law/detail', query: {title: item.name, id: item.id } })">了解详情
+              @click="$router.push({ name: 'business-show/detail', query: {title: item.name, id: item.id } })">了解详情
             </Button>
           </div>
         </template>

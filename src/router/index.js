@@ -30,14 +30,6 @@ const routes = [
           breadShow: true,
         },
       },
-      {
-        path: '/business-show/law/detail',
-        name: 'business-show/law/detail',
-        component: resolve => import('@/views/businessshow-law/detail').then(resolve),
-        meta: {
-          breadShow: true,
-        },
-      },
       /***********惠咨询**********************/
       {
         path: '/business-show/advisory',
@@ -46,14 +38,6 @@ const routes = [
         component: resolve => import('@/views/businessshow-advisory').then(resolve),
         meta: {
           title: '业务展示-惠咨询',
-          breadShow: true,
-        },
-      },
-      {
-        path: '/business-show/advisory/detail',
-        name: 'business-show/advisory/detail',
-        component: resolve => import('@/views/businessshow-advisory/detail').then(resolve),
-        meta: {
           breadShow: true,
         },
       },
@@ -68,14 +52,6 @@ const routes = [
           breadShow: true,
         }
       },
-      {
-        path: '/business-show/safe/detail',
-        name: 'business-show/safe/detail',
-        component: resolve => import('@/views/businessshow-safe/detail').then(resolve),
-        meta: {
-          breadShow: true,
-        },
-      },
       /***********荟诉**********************/
       {
         path: '/business-show/talk',
@@ -87,10 +63,11 @@ const routes = [
           breadShow: true,
         }
       },
+      /***********业务详情*********************/
       {
-        path: '/business-show/talk/detail',
-        name: 'business-show/talk/detail',
-        component: resolve => import('@/views/businessshow-talk/detail').then(resolve),
+        path: '/business-show/detail',
+        name: 'business-show/detail',
+        component: resolve => import('@/views/businessshow-detail').then(resolve),
         meta: {
           breadShow: true,
         },
