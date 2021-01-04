@@ -30,7 +30,7 @@
             <p>上传头像</p>
           </div>
           <Icon v-if="uploadList.length === 0" type="md-camera" size="20" style="margin-top: 40px;" />
-          <img v-else :src="this.uploadList[0].url" style="width: 100%;height: 100%;">
+          <img v-else :src="'https://bxyz.oss-cn-beijing.aliyuncs.com/' + this.uploadList[0].url" style="width: 100%;height: 100%;">
         </Upload>
       </div>
     </div>
@@ -48,7 +48,7 @@
     data () {
       const userInfo = this.$ls.get('userInfo') || {}
       return {
-        formLabel: formLabel(userInfo.type),
+        formLabel: formLabel(userInfo),
         formData: {},
         uploadList: [],
         defaultList: [],

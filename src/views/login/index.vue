@@ -49,7 +49,7 @@
 
 <script>
   import { mapMutations } from "vuex"
-  import { getCaptcha, cartList as getCartList } from '../../common/api'
+  import { getCaptcha, cartList as getCartList, getUserInfo } from '../../common/api'
   import { login } from './api'
   function checkPhone (rule, value, callback) {
     if (/^1[3456789]\d{9}$/.test(value)) {
@@ -93,23 +93,28 @@
           ...this.formCustom,
           key: this.imgKey
         }).then(res => {
-          const userInfo = {
-            ...res.data,
-            phone: this.formCustom.phone,
-          }
-          // 更新本地userInfo
-          this.$ls.set('userInfo', userInfo)
-          this.setUserInfo(userInfo)
+          getUserInfo({
+            u_id: res.data.id,
+            token: res.data.token,
+          }).then(info => {
+            const userInfo = {
+              ...info.data,
+              phone: this.formCustom.phone,
+              token: res.data.token,
+            }
+            // 更新本地userInfo
+            this.$ls.set('userInfo', userInfo)
+            this.setUserInfo(userInfo)
+            getCartList({ u_id: res.data.id }).then(res => {
+              this.setCartList(res || {})
+              setTimeout(() => {
+                location.href = '/#/home'
+              }, 1000)
+            })
+          })
           this.$Notice.success({
             title: res.message
           });
-          getCartList({ u_id: res.data.id }).then(res => {
-            this.setCartList(res || {})
-            setTimeout(() => {
-              location.href = '/#/home'
-            }, 1000)
-          })
-
         })
       },
       handleSubmit () {

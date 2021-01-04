@@ -1,9 +1,10 @@
-export default function (type) {
+export default function (userInfo) {
+  let { type, phone, email, company_linkman, law_office } = userInfo
   const labels = [
     {
       key: 'phone',
       label: '手机号码',
-      value: '',
+      value: phone,
       maxlength: 11,
       disabled: true,
     },
@@ -11,20 +12,20 @@ export default function (type) {
       key: 'email',
       label: '电子邮箱',
       inputType: 'email',
-      value: ''
+      value: email
     }]
   if (+type === 2) { // 单位
     labels.push({
       key: 'company_linkman',
       label: '联系人',
-      value: '',
+      value: company_linkman,
     })
   }
   if (+type === 3) { // 律师
     labels.push({
       key: 'law_office',
       label: '所在律所',
-      value: '',
+      value: law_office,
     })
   }
   return [{
