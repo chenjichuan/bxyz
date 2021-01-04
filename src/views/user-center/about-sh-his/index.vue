@@ -32,7 +32,7 @@
       return {
         pages: {
           page: 1,
-          page_num: 10000
+          page_num: 1000
         },
         list: [{
           state: '成功',

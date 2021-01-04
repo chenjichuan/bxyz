@@ -30,7 +30,7 @@
       <Form ref="formInline" :model="form" label-position="left" :label-width="95">
         <FormItem label="退款商品">
           <div class="good">
-            <img src="../../../assets/images/bg/good.png" alt="">
+            <img src="current.p_image" alt="">
             <div>
               <div class="title">{{ current.p_name }}</div>
               <p class="price">¥ {{ current.buy_num }} x 1</p>
@@ -67,7 +67,7 @@
         form: {},
         pages: {
           page: 1,
-          pageNum: 10000
+          pageNum: 1000
         },
         list: [],
         total: 0,
