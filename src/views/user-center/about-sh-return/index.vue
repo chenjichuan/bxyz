@@ -75,7 +75,7 @@
         form: {},
         pages: {
           page: 1,
-          pageNum: 10000
+          pageNum: 1000
         },
         list: [],
         total: 0,
