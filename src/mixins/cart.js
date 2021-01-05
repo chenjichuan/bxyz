@@ -1,4 +1,4 @@
-import { addCart, getcartList,  productDetail } from "./api";
+import { addCart, getcartList, productDetail } from "./api";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -39,7 +39,13 @@ export default {
     goodChange (item) {
       this.detail = item
     },
-    refreshCart() { // 刷新购物车
+    textChange (ids) {
+      const last = ids[ids.length -1]
+      if (!last) {
+        this.detail = {}
+      }
+    },
+    refreshCart () { // 刷新购物车
       getcartList({ u_id: this.userInfo.id }).then(res => {
         this.setCartList(res || {})
       })

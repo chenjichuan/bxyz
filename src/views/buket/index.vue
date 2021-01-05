@@ -63,9 +63,9 @@
         <Button type="primary" :disabled="!active" @click="pay">立即支付</Button>
       </div>
     </div>
-    <Modal v-model="payDhow" scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
-      <div class="codeQr"><canvas id="canvas" /></div>
-      <h3 style="text-align: center">支付过程中请勿出刷新当前页面，等待支付结果</h3>
+    <Modal v-model="payDhow" width="720" scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
+      <div class="codeQr"><canvas id="canvas" height="210" width="200" /></div>
+      <img src="./pay.png" style="display: block;width: 100%;">
     </Modal>
   </div>
 </template>
@@ -97,6 +97,7 @@
       }
     },
     mounted () {
+      // this.payDhow = true
       getCartList({ u_id: this.userInfo.id }).then(res => {
         this.setCartList(res || {})
       })
@@ -174,9 +175,7 @@
         }).then(res => {
           console.log(res)
           var canvas = document.getElementById('canvas')
-          QRCode.toCanvas(canvas, res.code_url, function (error) {
-            if (error) console.error(error)
-          })
+          QRCode.toCanvas(canvas, res.code_url, { width: 210, errorCorrectionLevel: 'H' })
           this.payDhow = true
           this.payRes()
         })
@@ -335,5 +334,13 @@
   }
   .codeQr {
     text-align: center;
+    position: absolute;
+    /*background: #333333;*/
+    width: 200px;
+    height: 210px;
+    left: 28%;
+    top: 200px;
+    #canvas {
+    }
   }
 </style>

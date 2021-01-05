@@ -5,7 +5,7 @@
       <div class="right">
         <div class="title">{{ title }}</div>
         <div class="lists">
-          <CheckboxGroup v-model="good">
+          <CheckboxGroup v-model="good" @on-change="textChange">
             <Checkbox
               v-for="item in list" :key="item.id"
               class="item"
@@ -132,10 +132,11 @@
         margin-bottom: 30px;
 
         span {
-          font-size: 30px;
           line-height: 40px;
           color: #000000;
           margin-left: 14px;
+          font-size: 30px;
+          font-weight: 500;
         }
       }
 
