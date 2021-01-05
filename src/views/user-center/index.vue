@@ -43,6 +43,7 @@
 
 <script>
   import Icons from '@/components/icon'
+  import { mapGetters } from "vuex";
 
   export default {
     components: { Icons },
@@ -84,6 +85,7 @@
       }
     },
     computed: {
+      ...mapGetters(['userInfo']),
       openNames () {
         let name = this.$route.name
         this.menu.forEach(item => {
@@ -96,6 +98,11 @@
           }
         })
         return [name]
+      }
+    },
+    mounted () {
+      if (this.userInfo.type !== 3) {
+        this.menu = this.menu.filter(item => item.name !== 'user-center/lawyer-list')
       }
     },
     methods: {
