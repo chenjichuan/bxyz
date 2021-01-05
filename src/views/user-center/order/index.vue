@@ -6,9 +6,9 @@
       <TabPane label="已支付" name="3" />
       <TabPane label="已失效" name="4" />
     </Tabs>
-    <Modal v-model="payDhow" transfer scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
-      <div class="codeQr" style="text-align: center"><canvas id="canvas" /></div>
-      <h3 style="text-align: center">支付过程中请勿出刷新当前页面，等待支付结果</h3>
+    <Modal v-model="payDhow" width="720" scrollable title="请支付" :closable="false" footer-hide :mask-closable="false">
+      <div class="codeQr"><canvas id="canvas" height="210" width="200" /></div>
+      <img src="./pay.png" style="display: block;width: 100%;">
     </Modal>
     <div v-for="item in orderList" :key="item.id" class="orders">
       <Row type="flex">
@@ -135,9 +135,7 @@
             return
           }
           var canvas = document.getElementById('canvas')
-          QRCode.toCanvas(canvas, res.code_url, function (error) {
-            if (error) console.error(error)
-          })
+          QRCode.toCanvas(canvas, res.code_url, { width: 210, errorCorrectionLevel: 'H' })
           this.payDhow = true
           this.payRes(order_id)
         })
@@ -247,5 +245,13 @@
       flex-direction:column;
       justify-content:center;
     }
+  }
+  .codeQr {
+    text-align: center;
+    position: absolute;
+    width: 200px;
+    height: 210px;
+    left: 28%;
+    top: 200px;
   }
 </style>
