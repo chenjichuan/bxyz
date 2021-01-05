@@ -40,6 +40,25 @@
     computed: {
       ...mapGetters(['userInfo']),
     },
+    mounted () {
+      console.log(formLabel)
+      this.formLabel[0].items.forEach(item => {
+        console.log(item)
+        if (item.key === 'id_number') {
+          this.$set(item, 'value', this.userInfo.id_number)
+          if (this.userInfo.id_number) {
+            this.$set(item, 'disabled', true)
+          }
+        }
+        if (item.key === 'real_name') {
+          console.log(this.userInfo.real_name)
+          this.$set(item, 'value', this.userInfo.real_name)
+          if (this.userInfo.real_name) {
+            this.$set(item, 'disabled', true)
+          }
+        }
+      })
+    },
     methods: {
       formChange () {
       },

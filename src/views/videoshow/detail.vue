@@ -30,7 +30,7 @@
         <div class="inner">
           <h3 style="margin-bottom: 50px;">全部评论</h3>
           <ul>
-            <li v-for="item in comments" :key="item.u_id" style="margin-bottom: 52px;">
+            <li v-for="(item, index) in comments" :key="index" style="margin-bottom: 52px;">
               <div style="display:flex;align-items: center">
                 <Avatar size="30" :src="item.image" />
                 <span style="margin-left: 20px;">{{ item.username }}</span>
