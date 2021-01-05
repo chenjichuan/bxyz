@@ -206,6 +206,7 @@
       height: 120px;
       display: block;
       margin-right: 40px;
+
     }
     .title {
       font-size: 16px;
