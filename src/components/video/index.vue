@@ -35,7 +35,10 @@
     data() {
       return {
         playerOptions: {
-//          preload: 'none',
+          sources: [{
+            type: "video/mp4",
+            src: ''
+          }],
           muted: false,
           language: 'cn',
           playbackRates: [0.7, 1.0, 1.5, 2.0],

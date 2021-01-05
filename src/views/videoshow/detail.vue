@@ -30,15 +30,16 @@
         <div class="inner">
           <h3 style="margin-bottom: 50px;">全部评论</h3>
           <ul>
-            <li v-for="item in comments" :key="item.id" style="margin-bottom: 52px;">
+            <li v-for="item in comments" :key="item.u_id" style="margin-bottom: 52px;">
               <div style="display:flex;align-items: center">
-                <Icon size="30" type="md-contact" />
+                <Avatar size="30" :src="item.image" />
                 <span style="margin-left: 20px;">{{ item.username }}</span>
               </div>
               <p style="margin: 20px 0;font-size: 14px;color: #333;">{{ item.text }}</p>
-              <p style="font-size: 14px;color: #969696;">发表于 {{ item.time }}</p>
+              <p style="font-size: 14px;color: #969696;">发表于 {{ item.created_at }}</p>
             </li>
           </ul>
+<!--          <Page :total="100" show-total />-->
           <Input v-model="comment" class="inputer" type="textarea" maxlength="500" :rows="8"
                  placeholder="说几句吧……..." />
           <Button class="submit" type="primary" @click="submit">发表评论</Button>
@@ -66,43 +67,8 @@
         detail: {},
         playerOptions: {},
         comment: '',
-        comments: [{
-          id: 1,
-          icon: '',
-          username: 'Jerry',
-          text: '课程内容比较多，我利用平时空闲时间，一天半小时，大概两周的时间把全老部课程都听完了，总体感觉是老师讲解的方法还是不错的，由浅入深，易于理解。',
-          time: '2020-06-08 14:02:46'
-        }, {
-          id: 2,
-          icon: '',
-          username: '一天到晚游泳的鱼',
-          text: '一般吧',
-          time: '2020-06-08 14:02:46'
-        }],
-        tree: [
-          // {
-          //   title: '选集观看',
-          //   expand: true,
-          //   children: [
-          //     {
-          //       title: '第一章 初步了解法律',
-          //       expand: true,
-          //       children: [
-          //         {title: '第1课 初步了解法律1', currrentSec: '10'},
-          //         {title: '第2课 初步了解法律2', currrentSec: '20'}
-          //       ]
-          //     },
-          //     {
-          //       title: '第二章 初步认识法律',
-          //       expand: true,
-          //       children: [
-          //         {title: '第1课 初步认识法律1', currrentSec: '30'},
-          //         {title: '第2课 初步认识法律1', currrentSec: '45'}
-          //       ]
-          //     }
-          //   ]
-          // }
-        ]
+        comments: [],
+        tree: []
       }
     },
     computed: {
@@ -114,25 +80,17 @@
        v_id: this.v_id,
       }).then(res => {
         this.detail = res.data
-
+          this.setVideo({
+            title: res.data.title,
+            cover: res.data.cover
+          })
         const children = res.data.titles.map((item) => {
           return {
             title: item.title,
             expand: true,
-            children: item.titles.map((i, index) => {
-              let selected = false
-              if (index === 0) {
-                console.log(this.detail.cover)
-                selected = true
-                this.setVideo({
-                  title: i.title,
-                  src: i.vedio_path,
-                  cover: this.detail.cover
-                })
-              }
+            children: item.titles.map((i) => {
               return {
                 title: item.title,
-                selected,
                 videoPath: i.vedio_path
               }
             })
@@ -140,12 +98,7 @@
         })
         this.tree = [{ title: '选集观看', expand: true, children }]
       })
-      vedioCommentList({
-        u_id: this.userInfo.id,
-        v_id: this.v_id,
-      }).then(res => {
-        console.log(res)
-      })
+     this.getCommon()
     },
     methods: {
       setVideo ({ cover, src = '' }) {
@@ -158,12 +111,22 @@
           poster: cover
         }
       },
+      getCommon () {
+        vedioCommentList({
+          u_id: this.userInfo.id,
+          v_id: this.v_id,
+        }).then(res => {
+          this.comments = res.data
+        })
+      },
       treeClick ([v]) {
         console.log(v)
-        this.setVideo({
-          src: v.videoPath,
-          title: v.title
-        })
+        if (v.videoPath) {
+          this.setVideo({
+            src: v.videoPath,
+            title: v.title
+          })
+        }
       },
       likeHandler () {
         this.$set( this.detail, 'is_like', !this.detail.is_like)
@@ -184,6 +147,9 @@
           u_id: this.userInfo.id,
           v_id: this.v_id,
           comment: this.comment
+        }).then(() => {
+          this.getCommon()
+          this.comment = ''
         })
       }
     }
