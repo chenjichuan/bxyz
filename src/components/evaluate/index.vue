@@ -65,9 +65,9 @@
 <style scoped lang="less">
   .title {
     border: 1px solid #DCDCDC;
-    font-size: 16px;
     color: #333333;
     padding: 18px 40px;
+    font-size: 18px;
   }
   .detail {
     padding: 37px 0 37px 44px;

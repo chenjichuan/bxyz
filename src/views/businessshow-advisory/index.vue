@@ -7,7 +7,7 @@
       <div v-for="(item, index) in list" :key="index" class="item">
         <template v-if="item.name">
           <div class="top">
-            <Icons :type="item.icon" w="60" h="60"/>
+            <Icons :url="item.icon" w="60" h="60"/>
             <span>{{ item.name }}</span>
           </div>
           <div class="bottom">
@@ -82,13 +82,12 @@
       margin-top: 120px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      margin-bottom: 100px;
+      justify-content: center;
       .item {
-        /*border-radius: 8px;*/
-        /*overflow: hidden;*/
         width: 300px;
-        /*padding: 0 48px;*/
         margin-bottom: 100px;
+        margin: 0 54px;
         .top {
           border-radius: 8px 8px 0px 0px;
           height: 140px;

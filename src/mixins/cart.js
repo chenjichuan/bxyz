@@ -24,13 +24,14 @@ export default {
     }
   },
   mounted () {
-    // product()
     // 获取商品列表
     productDetail({ id: this.$route.query.id }).then(res => {
       // todo
       console.log(res)
       const { list } = res.data
       this.list = list
+      this.good.push(list[0].id)
+      this.detail = list[0]
     })
   },
   methods: {

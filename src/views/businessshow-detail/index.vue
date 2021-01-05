@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="content detail-good">
     <div class="goods">
       <img :src="detail.image" alt="">
       <div class="right">
@@ -14,23 +14,24 @@
             </Checkbox>
           </CheckboxGroup>
         </div>
-        <div class="price">价格 <span>¥ {{ total }}</span></div>
+        <div class="price">价格 <span style="margin-right: 27px;">¥ {{ total }}</span>
+          <span style="font-size: 18px;color: #8B8B8B;text-decoration: line-through;">¥ {{ detail.market_price }}</span></div>
         <Button class="add" @click="addCarList()">加入购物车</Button>
         <Button class="buy" @click="addCarList('order')">立即下单</Button>
-        <Tabs value="1" class="tabs">
-          <TabPane label="产品详情" name="1">
-            <div style="display:flex;margin-top: 36px;">
-              <div class="right-text">
-                <div v-html="detail.detail" />
-              </div>
-            </div>
-          </TabPane>
-          <TabPane label="用户评价" name="2">
-            <Evaluate />
-          </TabPane>
-        </Tabs>
       </div>
     </div>
+    <Tabs value="1" class="tabs">
+      <TabPane label="产品详情" name="1">
+        <div style="display:flex;margin-top: 36px;">
+          <div class="right-text">
+            <div v-html="detail.detail" />
+          </div>
+        </div>
+      </TabPane>
+      <TabPane label="用户评价" name="2">
+        <Evaluate />
+      </TabPane>
+    </Tabs>
   </div>
 </template>
 
@@ -50,12 +51,14 @@
       display: none;
     }
     .ivu-checkbox-wrapper-checked {
-      background-color: #82A694;
-      color: #fff!important;
+      /*background-color: #82A694;*/
+      /*color: #fff!important;*/
+      font-size: 18px;
+      color: #82A694!important;
     }
   }
 
-  .goods {
+  .detail-good {
     .ivu-tabs-bar {
       background: #E7F4EE;
     }
@@ -69,7 +72,27 @@
 <style scoped lang="less">
   .content {
     padding: 59px 200px 430px 200px;
+    .tabs {
+      margin-top: 82px;
+    }
 
+    .right-text {
+      margin-left: 21px;
+
+      > p {
+        font-size: 24px;
+        line-height: 32px;
+        color: #82A694;
+        margin-bottom: 25px;
+      }
+
+      ul {
+        li {
+          color: #333333;
+          line-height: 38px;
+        }
+      }
+    }
     .goods {
       display: flex;
 
@@ -134,27 +157,6 @@
         margin-left: 30px;
       }
 
-      .tabs {
-        margin-top: 82px;
-      }
-
-      .right-text {
-        margin-left: 21px;
-
-        > p {
-          font-size: 24px;
-          line-height: 32px;
-          color: #82A694;
-          margin-bottom: 25px;
-        }
-
-        ul {
-          li {
-            color: #333333;
-            line-height: 38px;
-          }
-        }
-      }
 
       .steps {
         display: flex;
