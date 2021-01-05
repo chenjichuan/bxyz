@@ -5,6 +5,7 @@
       <p>认证信息与账号唯一绑定，我们会对实名信息进行严格保密</p>
     </div>
     <Former
+      v-if="formLabel.length"
       ref="mainform"
       class="form-info"
       label-position="left"
@@ -34,7 +35,7 @@
       return {
         agree: false,
         formData: {},
-        formLabel,
+        formLabel: [],
       }
     },
     computed: {
@@ -42,7 +43,7 @@
     },
     mounted () {
       console.log(formLabel)
-      this.formLabel[0].items.forEach(item => {
+      formLabel[0].items.forEach(item => {
         console.log(item)
         if (item.key === 'id_number') {
           this.$set(item, 'value', this.userInfo.id_number)
@@ -58,6 +59,8 @@
           }
         }
       })
+      console.log(formLabel)
+      this.formLabel = formLabel
     },
     methods: {
       formChange () {
