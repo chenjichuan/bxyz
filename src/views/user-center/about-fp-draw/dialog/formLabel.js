@@ -70,6 +70,10 @@ export default [{
       placeholder: '请输入发货地址'
     },
     {
+      key: 'line',
+      type: 'ness'
+    },
+    {
       key: 'phone',
       label: '电话',
       value: '',

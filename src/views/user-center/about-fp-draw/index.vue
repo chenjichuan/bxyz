@@ -1,33 +1,35 @@
 <template>
   <div style="margin-left: 20px;">
-    <p class="top-title">请选择您要开票的订单</p>
-    <section class="lists">
-      <CheckboxGroup v-model="order" class="boxs" @on-change="onChange">
-        <div v-for="(item, index) in list" :key="index">
-          <Checkbox v-for="i in item.order_detail" :key="i.id" :label="i.p_id" class="item">
-            <div class="right-content">
-              <h3>{{ i.p_name }}</h3>
-              <p>
-                <span>订单号{{ item.order_id }}</span>
-                <span>{{ item.created_at }}</span>
-                <span>1</span>
-                <span>¥{{ i.buy_num }}</span>
-              </p>
-            </div>
-          </Checkbox>
+    <template v-if="!write">
+      <p class="top-title">请选择您要开票的订单</p>
+      <section class="lists">
+        <CheckboxGroup v-model="order" class="boxs" @on-change="onChange">
+          <div v-for="(item, index) in list" :key="index">
+            <Checkbox v-for="i in item.order_detail" :key="i.id" :label="i.p_id" class="item">
+              <div class="right-content">
+                <h3>{{ i.p_name }}</h3>
+                <p>
+                  <span>订单号{{ item.order_id }}</span>
+                  <span>{{ item.created_at }}</span>
+                  <span>1</span>
+                  <span>¥{{ i.buy_num }}</span>
+                </p>
+              </div>
+            </Checkbox>
+          </div>
+        </CheckboxGroup>
+        <div class="action">
+          <p>
+            <span>共{{ order.length }}个订单，开票总金额</span><span class="total">¥{{ total }}</span>
+          </p>
+          <Button
+            type="primary" size="large" class="submit" :disabled="!order.length"
+            @click="write = true">下一步
+          </Button>
         </div>
-      </CheckboxGroup>
-      <div class="action">
-        <p>
-          <span>共{{ order.length }}个订单，开票总金额</span><span class="total">¥{{ total }}</span>
-        </p>
-        <Button
-          type="primary" size="large" class="submit" :disabled="!order.length"
-          @click="$refs['infos'].modal = true">下一步
-        </Button>
-      </div>
-    </section>
-    <Info ref="infos" :order-id="orderId" />
+      </section>
+    </template>
+    <Info v-else ref="infos" :order-id="orderId" />
   </div>
 </template>
 
@@ -39,6 +41,7 @@
     components: { Info },
     data () {
       return {
+        write: false,
         order: [],
         orderId: '',
         total: 0,
@@ -49,11 +52,6 @@
       ...mapGetters(['userInfo']),
     },
     mounted () {
-//      applyInvoiceList({
-//        u_id: this.userInfo.id
-//      }).then(res => {
-//        console.log(res)
-//      })
       orderList({
         u_id: this.userInfo.id,
         type: 3,

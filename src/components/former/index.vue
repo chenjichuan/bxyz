@@ -12,6 +12,7 @@
       <template v-for="(formItem, indexform) in item.items">
         <FormItem
           v-if="!formItem.hide"
+          :class="'mod-' + formItem.key"
           :key="indexform"
           :label-width="formItem.labelWidth"
           :prop="formItem.key"
@@ -112,7 +113,11 @@
               class="ml5"
               type="time" placeholder="Select time" />
           </template>
-
+          <template v-else-if="formItem.type=== 'ness'">
+            <div>
+              <slot name="ness" />
+            </div>
+          </template>
           <template v-else>
             <Input
               v-model="form[formItem.key]"
