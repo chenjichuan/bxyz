@@ -2,7 +2,6 @@
   <div id="tabelShow" ref="tabelShow">
     <Table
       id="main-table"
-      stripe
       border
       :highlight-row="highlightRow"
       :width="tableWidth"

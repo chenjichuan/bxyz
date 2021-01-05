@@ -16,6 +16,7 @@
         :table-data="tableData"
         :total="page.total"
         :current="page.page"
+        @key-filter="keyFilter"
         @on-pageChange="changePage"
         @on-button-click="buttonAction"
       />
@@ -62,6 +63,19 @@
      this.getData()
     },
     methods: {
+      keyFilter ([obj, key], callback) {
+        console.log(obj, key)
+        let text = obj[key]
+        if (key === 'status') {
+          // switch (+obj[key]) {
+          //   case 1: text = '' break;
+          //   case 2: break;
+          //   case 3: break;
+          // }
+          text = 'status=' + text + '代表什么？'
+        }
+        callback && callback(text)
+      },
       getData () {
         questionList({
           ...this.page,
