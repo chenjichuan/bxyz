@@ -103,6 +103,10 @@
 
 <style lang="less">
   .top-modal {
+    .ivu-btn-primary {
+      background-color: #189Dff;
+      border: none;
+    }
     .ivu-modal-content {
       padding-left: 30px;
       padding-right: 30px;
@@ -153,5 +157,4 @@
     }
 
   }
-
 </style>

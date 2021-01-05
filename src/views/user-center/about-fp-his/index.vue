@@ -80,6 +80,7 @@
           font-size: 16px;
           color: #333333;
           font-weight: normal;
+          font-weight: 500;
         }
         p {
           font-size: 14px;

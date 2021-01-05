@@ -1,7 +1,10 @@
 <template>
   <div style="margin-left: 20px;">
     <template v-if="!next">
-      <p class="top-title">请选择您要退款的订单</p>
+      <p class="top-title">
+        <span>请选择您要退款的订单</span>
+        <span>七天无理由退款须知</span>
+      </p>
       <section class="lists">
         <RadioGroup v-model="form.p_id" class="boxs" @on-change="onChange">
           <div v-for="(item, index) in list" :key="index">
@@ -12,7 +15,7 @@
                   <span>订单号{{ item.order_id }}</span>
                   <span>{{ item.created_at }}</span>
                   <span>1</span>
-                  <span>¥{{ i.buy_num }}</span>
+                  <span>¥{{ i.self_price }}</span>
                 </p>
               </div>
             </Radio>
@@ -27,13 +30,18 @@
       </section>
     </template>
     <section v-else class="choose-reason">
+      <Steps :current="1" class="steps">
+        <Step title="申请退款"></Step>
+        <Step title="处理申请"></Step>
+        <Step title="处理完成"></Step>
+      </Steps>
       <Form ref="formInline" :model="form" label-position="left" :label-width="95">
         <FormItem label="退款商品">
           <div class="good">
-            <img src="../../../assets/images/bg/good.png" alt="">
+            <img :src="current.p_image" alt="">
             <div>
               <div class="title">{{ current.p_name }}</div>
-              <p class="price">¥ {{ current.buy_num }} x 1</p>
+              <p class="price">¥ {{ current.self_price }} x 1</p>
             </div>
           </div>
         </FormItem>
@@ -46,7 +54,7 @@
           </Select>
         </FormItem>
         <FormItem label="退款金额">
-          <p class="price">¥ {{ +current.buy_num }}</p>
+          <p class="price">¥ {{ +current.self_price }}</p>
         </FormItem>
       </Form>
       <div style="margin-top: 79px;">
@@ -85,7 +93,7 @@
         this.list.forEach(item => {
           item.order_detail.forEach(i => {
             if (i.p_id === pId) {
-              this.total = i.buy_num
+              this.total = i.self_price
               this.current = i
               this.orderId = item.order_id
             }
@@ -123,9 +131,12 @@
 
 <style scoped lang="less">
   .top-title {
+    width: 846px;
     font-size: 14px;
     line-height: 19px;
     color: #646464;
+    display: flex;
+    justify-content: space-between;
   }
   .lists {
     margin-top: 52px;
@@ -207,5 +218,9 @@
     font-size: 18px;
     color: #FF0000;
     line-height: 34px;
+  }
+  .steps {
+    width: 820px;
+    margin-bottom: 80px;
   }
 </style>
