@@ -11,7 +11,7 @@
         @on-change="formChange"
         @on-submit="submit"
       />
-      <div v-show="+userInfo.type !== 2" id="upload" >
+      <div v-show="+userInfo.type === 1" id="upload" >
         <Upload
           ref="upload"
           name="image"

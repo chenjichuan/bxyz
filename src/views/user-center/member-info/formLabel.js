@@ -17,7 +17,6 @@ export default function (userInfo) {
     })
   }
   if (+type === 2) { // 单位
-    labels.pop()
     labels.push({
       key: 'company_linkman',
       label: '联系人',
